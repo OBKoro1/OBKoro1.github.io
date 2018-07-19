@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="js双向绑定," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="写在前面：所谓的双向绑定，无非是从界面的操作能实时反映到数据，数据的变更也能实时展现到界面。angular封装了双向绑定的方法，使双向绑定变得十分简单。但是在有些场景下（比如下面那个场景），不能使用angular来实现双向绑定，需要我们使用js来实现双向绑定。 需求场景：写了一个点击事件，当点击的时候在后台赋值了，但是在页面视图上面没有显示出来，想到要使用双向绑定来实现这个功能。因为代码之前是用j">
+<meta name="keywords" content="js双向绑定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用原生 JS 实现双向绑定及应用实例">
+<meta property="og:url" content="http://yoursite.com/2017/10/11/用原生-JS-实现双向绑定及应用实例/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="写在前面：所谓的双向绑定，无非是从界面的操作能实时反映到数据，数据的变更也能实时展现到界面。angular封装了双向绑定的方法，使双向绑定变得十分简单。但是在有些场景下（比如下面那个场景），不能使用angular来实现双向绑定，需要我们使用js来实现双向绑定。 需求场景：写了一个点击事件，当点击的时候在后台赋值了，但是在页面视图上面没有显示出来，想到要使用双向绑定来实现这个功能。因为代码之前是用j">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/32d23e28a9dfdc1696a2.gif">
+<meta property="og:updated_time" content="2017-10-11T14:52:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用原生 JS 实现双向绑定及应用实例">
+<meta name="twitter:description" content="写在前面：所谓的双向绑定，无非是从界面的操作能实时反映到数据，数据的变更也能实时展现到界面。angular封装了双向绑定的方法，使双向绑定变得十分简单。但是在有些场景下（比如下面那个场景），不能使用angular来实现双向绑定，需要我们使用js来实现双向绑定。 需求场景：写了一个点击事件，当点击的时候在后台赋值了，但是在页面视图上面没有显示出来，想到要使用双向绑定来实现这个功能。因为代码之前是用j">
+<meta name="twitter:image" content="https://dn-mhke0kuv.qbox.me/32d23e28a9dfdc1696a2.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/11/用原生-JS-实现双向绑定及应用实例/"/>
+
+
+
+
+
+  <title>用原生 JS 实现双向绑定及应用实例 | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类列表">
+          <a href="/Summary/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/11/用原生-JS-实现双向绑定及应用实例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用原生 JS 实现双向绑定及应用实例</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T22:51:38+08:00">
+                2017-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/10/11/用原生-JS-实现双向绑定及应用实例/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/10/11/用原生-JS-实现双向绑定及应用实例/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2017/10/11/用原生-JS-实现双向绑定及应用实例/" class="leancloud_visitors" data-flag-title="用原生 JS 实现双向绑定及应用实例">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面："><a href="#写在前面：" class="headerlink" title="写在前面："></a>写在前面：</h2><p>所谓的双向绑定，无非是从<strong>界面的操作能实时反映到数据，数据的变更也能实时展现到界面</strong>。angular封装了双向绑定的方法，使双向绑定变得十分简单。但是在有些场景下（比如下面那个场景），不能使用angular来实现双向绑定，需要我们使用js来实现双向绑定。</p>
+<h2 id="需求场景："><a href="#需求场景：" class="headerlink" title="需求场景："></a>需求场景：</h2><p>写了一个点击事件，当点击的时候在后台赋值了，但是在页面视图上面没有显示出来，想到要使用双向绑定来实现这个功能。因为代码之前是用js和jq写的，引入angular的话，会导致之前的代码不能用。在网上参考了一篇文章之后做出来了这个功能</p>
+<p>ps零碎知识点：楼主踩过坑了，<strong>引用angular写的话，不能再使用JQ写代码</strong>，楼主上次代码都删的差不多了，还不能使用，最后才发现是angular和JQ冲突了，所以最好不要混着使用。</p>
+<h2 id="实现效果："><a href="#实现效果：" class="headerlink" title="实现效果："></a>实现效果：</h2><p><img src="https://dn-mhke0kuv.qbox.me/32d23e28a9dfdc1696a2.gif" alt=""></p>
+<h3 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h3><p>点击按钮的时候，<strong>在后台赋值，然后直接在页面中显示出来，在方框里面输入值，也可以实时反映到数据</strong>。</p>
+<p>ps：<strong>文末有demo链接</strong>，可以直接复制到本地试一试</p>
+<h3 id="应用："><a href="#应用：" class="headerlink" title="应用："></a>应用：</h3><p>比如实现一个在后台赋值，然后界面出现一个随机的选项，谁是卧底、狼人杀这类型的。</p>
+<hr>
+<h3 id="实现原生js过程中的三个步骤："><a href="#实现原生js过程中的三个步骤：" class="headerlink" title="实现原生js过程中的三个步骤："></a>实现原生js过程中的三个步骤：</h3><p>1.需要一个U<strong>I元素和属性相互绑定</strong>的方法（核心）</p>
+<p>2.监视属性和UI元素的变化</p>
+<p>3.需要让所有绑定的对象和元素都能感知到变化</p>
+<h3 id="实现思路："><a href="#实现思路：" class="headerlink" title="实现思路："></a>实现思路：</h3><p>我们使用数据特性来为HTML代码进行绑定，所有被绑定在一起的JavaScript对象和DOM元素都会订阅一个PubSub对象。只要JavaScript对象或者一个HTML输入元素监听到数据的变化时，就会触发绑定到PubSub对象上的事件，从而其他绑定的对象和元素都会做出相应的变化。</p>
+<h2 id="代码实现部分："><a href="#代码实现部分：" class="headerlink" title="代码实现部分："></a>代码实现部分：</h2><h3 id="html代码部分："><a href="#html代码部分：" class="headerlink" title="html代码部分："></a>html代码部分：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1&gt;原生js双向绑定及其应用&lt;/h1&gt;</span><br><span class="line">&lt;div class=&quot;js-2-1section2 col-sm-10 col-xs-10&quot;&gt;</span><br><span class="line">    &lt;div&gt;&lt;input type=&quot;text&quot; data-bind-1=&quot;peopleName&quot;  id=&quot;text1&quot;/&gt;</span><br><span class="line">        &lt;!--data-bind-1=&quot;peopleName&quot; 原生js双向绑定的格式--&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div&gt;&lt;input  type=&quot;text&quot; data-bind-2=&quot;killName&quot; id=&quot;text2&quot; /&gt;</span><br><span class="line">        &lt;button class=&quot;btn btn-primary&quot; onclick=&quot;randomGroup()&quot;&gt;随机词组&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;p data-bind-1=&quot;peopleName&quot;&gt;&lt;/p&gt;</span><br><span class="line">    &lt;p data-bind-2=&quot;killName&quot;&gt;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>上面代码中data-bind-1=”peopleName” 比较重要，其他一些乱七八糟，用来实现效果的，可以不用管。</p>
+<h3 id="分析一下————data-bind-1-”peopleName”："><a href="#分析一下————data-bind-1-”peopleName”：" class="headerlink" title="分析一下————data-bind-1=”peopleName”："></a>分析一下————data-bind-1=”peopleName”：</h3><p>格式：data-bind-可以更改，只能是数字=”可以更改，相当于变量名”</p>
+<p>ps：第一个地方只能更改数字，因为创建的是对象。这里的数字可以不按照顺序，我试了999都可以。</p>
+<h3 id="js代码双向绑定部分"><a href="#js代码双向绑定部分" class="headerlink" title="js代码双向绑定部分"></a>js代码双向绑定部分</h3><p>js代码是封装好了的一个方法，可以按照前面几行的方式调用，代码里面有注释。</p>
+<h4 id="实际上以下这段代码已经实现了双向绑定，下面还有一个应用实例，感兴趣的可以看看。文末有demo链接，可以直接复制到本地试一试。"><a href="#实际上以下这段代码已经实现了双向绑定，下面还有一个应用实例，感兴趣的可以看看。文末有demo链接，可以直接复制到本地试一试。" class="headerlink" title="实际上以下这段代码已经实现了双向绑定，下面还有一个应用实例，感兴趣的可以看看。文末有demo链接，可以直接复制到本地试一试。"></a>实际上以下这段代码已经实现了双向绑定，下面还有一个应用实例，感兴趣的可以看看。文末有demo链接，可以直接复制到本地试一试。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">var DBind1 = new DBind( 1 );</span><br><span class="line">   var DBind2 = new DBind( 2 );//前面是变量，括号里面的是html那里填的数字</span><br><span class="line">   DBind1.set( &quot;peopleName&quot;, &apos;第一个&apos; );</span><br><span class="line">   DBind2.set( &quot;killName&quot;, &apos;第二个&apos; );//第一个是刚才html格式那里的变量名，第二个方框是赋值</span><br><span class="line"></span><br><span class="line">   function DataBinder( object_id ) &#123;</span><br><span class="line">       // 创建一个简单的pubSub对象</span><br><span class="line">       var pubSub = &#123;</span><br><span class="line">                   callbacks: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">                   on: function( msg, callback ) &#123;</span><br><span class="line">                       this.callbacks[ msg ] = this.callbacks[ msg ] || [];</span><br><span class="line">                       this.callbacks[ msg ].push( callback );</span><br><span class="line">                   &#125;,</span><br><span class="line">                   publish: function( msg ) &#123;</span><br><span class="line">                       this.callbacks[ msg ] = this.callbacks[ msg ] || [];</span><br><span class="line">                       for ( var i = 0, len = this.callbacks[ msg ].length; i &lt; len; i++ ) &#123;</span><br><span class="line">                           this.callbacks[ msg ][ i ].apply( this, arguments );</span><br><span class="line">                       &#125;</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;,</span><br><span class="line">               data_attr = &quot;data-bind-&quot; + object_id,</span><br><span class="line">               message = object_id + &quot;:input&quot;,</span><br><span class="line">               timeIn;</span><br><span class="line"></span><br><span class="line">       changeHandler = function( evt ) &#123;</span><br><span class="line">           var target = evt.target || evt.srcElement, //  IE8兼容</span><br><span class="line">                   prop_name = target.getAttribute( data_attr );</span><br><span class="line"></span><br><span class="line">           if ( prop_name &amp;&amp; prop_name !== &quot;&quot; ) &#123;</span><br><span class="line">               clearTimeout(timeIn);</span><br><span class="line">               timeIn = setTimeout(function()&#123;</span><br><span class="line">                   pubSub.publish( message, prop_name, target.value );</span><br><span class="line">               &#125;,50);</span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line">       &#125;;</span><br><span class="line"></span><br><span class="line">       // 监听事件变化，并代理到pubSub</span><br><span class="line">       if ( document.addEventListener ) &#123;</span><br><span class="line">           document.addEventListener( &quot;input&quot;, changeHandler, false );</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           // IE8使用attachEvent而不是addEventListenter</span><br><span class="line">           document.attachEvent( &quot;oninput&quot;, changeHandler );</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       // pubSub将变化传播到所有绑定元素</span><br><span class="line">       pubSub.on( message, function( evt, prop_name, new_val ) &#123;</span><br><span class="line">           var elements = document.querySelectorAll(&quot;[&quot; + data_attr + &quot;=&quot; + prop_name + &quot;]&quot;),</span><br><span class="line">                   tag_name;</span><br><span class="line"></span><br><span class="line">           for ( var i = 0, len = elements.length; i &lt; len; i++ ) &#123;</span><br><span class="line">               tag_name = elements[ i ].tagName.toLowerCase();</span><br><span class="line"></span><br><span class="line">               if ( tag_name === &quot;input&quot; || tag_name === &quot;textarea&quot; || tag_name === &quot;select&quot; ) &#123;</span><br><span class="line">                   elements[ i ].value = new_val;</span><br><span class="line">               &#125; else &#123;</span><br><span class="line">                   elements[ i ].innerHTML = new_val;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line"></span><br><span class="line">       return pubSub;</span><br><span class="line">   &#125;</span><br><span class="line">   function DBind( uid ) &#123;</span><br><span class="line">       var binder = new DataBinder( uid ),</span><br><span class="line"></span><br><span class="line">               user = &#123;</span><br><span class="line">                   // 属性设置器使用数据绑定器pubSub来发布</span><br><span class="line">                   attributes: &#123;&#125;,</span><br><span class="line">                   set: function( attr_name, val ) &#123;</span><br><span class="line">                       this.attributes[ attr_name ] = val;</span><br><span class="line">                       // Use the `publish` method</span><br><span class="line">                       binder.publish( uid + &quot;:input&quot;, attr_name, val, this );</span><br><span class="line">                   &#125;,</span><br><span class="line">                   get: function( attr_name ) &#123;</span><br><span class="line">                       return this.attributes[ attr_name ];</span><br><span class="line">                   &#125;,</span><br><span class="line"></span><br><span class="line">                   _binder: binder</span><br><span class="line">               &#125;;</span><br><span class="line"></span><br><span class="line">       // Subscribe to the PubSub</span><br><span class="line">       binder.on( uid + &quot;:input&quot;, function( evt, attr_name, new_val, initiator ) &#123;</span><br><span class="line">           if ( initiator !== user ) &#123;</span><br><span class="line">               user.set( attr_name, new_val );</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line"></span><br><span class="line">       return user;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="原生js双向绑定应用实例："><a href="#原生js双向绑定应用实例：" class="headerlink" title="原生js双向绑定应用实例："></a>原生js双向绑定应用实例：</h3><h4 id="做了一个实现像谁是卧底中，随机抽取词汇，类似的功能。"><a href="#做了一个实现像谁是卧底中，随机抽取词汇，类似的功能。" class="headerlink" title="做了一个实现像谁是卧底中，随机抽取词汇，类似的功能。"></a>做了一个实现像谁是卧底中，随机抽取词汇，类似的功能。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">function randomGroup() &#123;</span><br><span class="line">    var oGroup=[];//存放所有词汇的词组、</span><br><span class="line">    for(var i=0;i&lt;20;i++)&#123;</span><br><span class="line">        oGroup[i]=&#123;&#125;;//设置数组中的每个元素都是一个对象</span><br><span class="line">    &#125;</span><br><span class="line">    //一个一个定义他们状态的字符串，然后在下面赋值</span><br><span class="line">    oGroup[0].people=&quot;降龙十八掌&quot;;</span><br><span class="line">    oGroup[0].killer=&quot;九阴白骨爪&quot;;</span><br><span class="line">    oGroup[1].people=&quot;快乐大本营&quot;;</span><br><span class="line">    oGroup[1].killer=&quot;天天向上&quot;;</span><br><span class="line">    oGroup[2].people=&quot;零花钱&quot;;</span><br><span class="line">    oGroup[2].killer=&quot;生活费&quot;;</span><br><span class="line">    oGroup[3].people=&quot;爷爷&quot;;</span><br><span class="line">    oGroup[3].killer=&quot;姥爷&quot;;</span><br><span class="line">    oGroup[4].people=&quot;同学&quot;;</span><br><span class="line">    oGroup[4].killer=&quot;同桌&quot;;</span><br><span class="line">    oGroup[5].people=&quot;小沈阳&quot;;</span><br><span class="line">    oGroup[5].killer=&quot;宋小宝&quot;;</span><br><span class="line">    oGroup[6].people=&quot;成吉思汗&quot;;</span><br><span class="line">    oGroup[6].killer=&quot;努尔哈赤&quot;;</span><br><span class="line">    oGroup[7].people=&quot;谢娜张杰&quot;;</span><br><span class="line">    oGroup[7].killer=&quot;邓超孙俪&quot;;</span><br><span class="line">    oGroup[8].people=&quot;新年&quot;;</span><br><span class="line">    oGroup[8].killer=&quot;跨年&quot;;</span><br><span class="line">    oGroup[9].people=&quot;保安&quot;;</span><br><span class="line">    oGroup[9].killer=&quot;保镖&quot;;</span><br><span class="line">    oGroup[10].people=&quot;眉毛&quot;;</span><br><span class="line">    oGroup[10].killer=&quot;胡须&quot;;</span><br><span class="line">    oGroup[11].people=&quot;端午节&quot;;</span><br><span class="line">    oGroup[11].killer=&quot;中秋节&quot;;</span><br><span class="line">    oGroup[12].people=&quot;摩托车&quot;;</span><br><span class="line">    oGroup[12].killer=&quot;电动车&quot;;</span><br><span class="line">    oGroup[13].people=&quot;高跟鞋&quot;;</span><br><span class="line">    oGroup[13].killer=&quot;增高鞋&quot;;</span><br><span class="line">    oGroup[14].people=&quot;汉堡包&quot;;</span><br><span class="line">    oGroup[14].killer=&quot;肉夹馍&quot;;</span><br><span class="line">    oGroup[15].people=&quot;牛奶&quot;;</span><br><span class="line">    oGroup[15].killer=&quot;豆浆&quot;;</span><br><span class="line">    oGroup[16].people=&quot;唇膏&quot;;</span><br><span class="line">    oGroup[16].killer=&quot;口红&quot;;</span><br><span class="line">    oGroup[17].people=&quot;公交&quot;;</span><br><span class="line">    oGroup[17].killer=&quot;地铁&quot;;</span><br><span class="line">    oGroup[18].people=&quot;结婚&quot;;</span><br><span class="line">    oGroup[18].killer=&quot;订婚&quot;;</span><br><span class="line">    oGroup[19].people=&quot;面包&quot;;</span><br><span class="line">    oGroup[19].killer=&quot;蛋糕&quot;;</span><br><span class="line">    //词汇出自——————谁是卧底的词汇大全</span><br><span class="line">    var oGroupNum=Math.floor(Math.random()*20);//抽取一个随机数，随机数范围跟上面数组的长度是一致的</span><br><span class="line">    oPeople=oGroup[oGroupNum].people;</span><br><span class="line">    okiller=oGroup[oGroupNum].killer;//随机数的对应下标的状态字符串赋值给这个变量。</span><br><span class="line">    console.log(oPeople,okiller);</span><br><span class="line">    DBind1.set( &quot;peopleName&quot;, oPeople );//将上面的状态字符串赋值给input框，。这一步将在界面中直接显示出来</span><br><span class="line">    DBind2.set( &quot;killName&quot;, okiller );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="demo地址"><a href="#demo地址" class="headerlink" title="demo地址"></a><a href="https://obkoro1.github.io/article-demo/2017/jsTwoWayBinding/jsTwoWay.html" target="_blank" rel="noopener">demo地址</a></h3><p>以上就是用原生js实现双向绑定及其应用的所有内容了，本文主要是分享给之前不知道的小伙伴们看的，或者需要此类资料的小伙伴们。</p>
+<p><strong>最后</strong>：如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！因为我经常看不懂别人写的分享，所以个人写文比较偏小白，写的不好之处，欢迎指点。然后就是希望看完的朋友点个<strong>喜欢</strong>，也可以<strong>关注</strong>一下我。<br><strong>ps</strong>：目前<strong>待业</strong>，坐标北京，本人适应互联网快节奏，高强度，持续学习，持续成长，认真，严谨，学习积极性强。<strong>中小公司大佬求带走</strong>，邮箱：<a href="mailto:1677593011@qq.com" target="_blank" rel="noopener">1677593011@qq.com</a>。<br><strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a> </strong></p>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://www.oschina.net/translate/easy-two-way-data-binding-in-javascript" target="_blank" rel="noopener">JavaScript 实现简单的双向数据绑定 </a></p>
+<p><a href="http://www.cnblogs.com/shytong/p/5080900.html" target="_blank" rel="noopener">Javascript实现简单的双向绑定 </a></p>
+<p><a href="http://blog.csdn.net/huang100qi/article/details/50395904" target="_blank" rel="noopener">用原生js实现数据双向绑定</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js双向绑定/" rel="tag"><i class="fa fa-tag"></i> js双向绑定</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/11/【闭包概念】关于闭包概念不同解读——你可以自己理解。/" rel="next" title="【闭包概念】关于闭包概念不同解读——你可以自己理解。">
+                <i class="fa fa-chevron-left"></i> 【闭包概念】关于闭包概念不同解读——你可以自己理解。
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/11/随机数详解-生成一个随机数，生成指定范围的随机数及随机数组去重/" rel="prev" title="[随机数详解]生成一个随机数，生成指定范围的随机数及随机数组去重">
+                [随机数详解]生成一个随机数，生成指定范围的随机数及随机数组去重 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面："><span class="nav-number">1.</span> <span class="nav-text">写在前面：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需求场景："><span class="nav-number">2.</span> <span class="nav-text">需求场景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现效果："><span class="nav-number">3.</span> <span class="nav-text">实现效果：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现效果"><span class="nav-number">3.1.</span> <span class="nav-text">实现效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用："><span class="nav-number">3.2.</span> <span class="nav-text">应用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现原生js过程中的三个步骤："><span class="nav-number">3.3.</span> <span class="nav-text">实现原生js过程中的三个步骤：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现思路："><span class="nav-number">3.4.</span> <span class="nav-text">实现思路：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现部分："><span class="nav-number">4.</span> <span class="nav-text">代码实现部分：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html代码部分："><span class="nav-number">4.1.</span> <span class="nav-text">html代码部分：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析一下————data-bind-1-”peopleName”："><span class="nav-number">4.2.</span> <span class="nav-text">分析一下————data-bind-1=”peopleName”：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js代码双向绑定部分"><span class="nav-number">4.3.</span> <span class="nav-text">js代码双向绑定部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实际上以下这段代码已经实现了双向绑定，下面还有一个应用实例，感兴趣的可以看看。文末有demo链接，可以直接复制到本地试一试。"><span class="nav-number">4.3.1.</span> <span class="nav-text">实际上以下这段代码已经实现了双向绑定，下面还有一个应用实例，感兴趣的可以看看。文末有demo链接，可以直接复制到本地试一试。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原生js双向绑定应用实例："><span class="nav-number">4.4.</span> <span class="nav-text">原生js双向绑定应用实例：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#做了一个实现像谁是卧底中，随机抽取词汇，类似的功能。"><span class="nav-number">4.4.1.</span> <span class="nav-text">做了一个实现像谁是卧底中，随机抽取词汇，类似的功能。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#demo地址"><span class="nav-number">4.5.</span> <span class="nav-text">demo地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接："><span class="nav-number">4.6.</span> <span class="nav-text">参考链接：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytevxRRN';
+      var conf = '75faf3cb54138bb69e86ad05ff147b5d';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

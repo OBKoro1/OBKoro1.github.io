@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="js变量作用域," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="写在前面：是想写一个闭包的，因为写的比较细，基于篇幅，所以闭包前面关于变量的部分就单独发出来，到时候放个链接引进来，js闭包虽然是一个被讲烂的东西，但其实很多人刚接触这个概念也不太懂，所以希望写一篇接地气，能够让一个从前不知道这个内容的小伙伴能够清楚的理解闭包这个东西。so，本文是基于闭包的变量部分。 首先需要理解变量的作用域（变量的有效范围）：变量的作用域有两种：全局变量和局部变量。 全局变量很">
+<meta name="keywords" content="js变量作用域">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js变量的作用域详解、生存周期，以及一些小细节。">
+<meta property="og:url" content="http://yoursite.com/2017/10/11/js变量的作用域详解、生存周期，以及一些小细节。/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="写在前面：是想写一个闭包的，因为写的比较细，基于篇幅，所以闭包前面关于变量的部分就单独发出来，到时候放个链接引进来，js闭包虽然是一个被讲烂的东西，但其实很多人刚接触这个概念也不太懂，所以希望写一篇接地气，能够让一个从前不知道这个内容的小伙伴能够清楚的理解闭包这个东西。so，本文是基于闭包的变量部分。 首先需要理解变量的作用域（变量的有效范围）：变量的作用域有两种：全局变量和局部变量。 全局变量很">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/323770f94a8ee79c4231">
+<meta property="og:updated_time" content="2017-10-11T14:48:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js变量的作用域详解、生存周期，以及一些小细节。">
+<meta name="twitter:description" content="写在前面：是想写一个闭包的，因为写的比较细，基于篇幅，所以闭包前面关于变量的部分就单独发出来，到时候放个链接引进来，js闭包虽然是一个被讲烂的东西，但其实很多人刚接触这个概念也不太懂，所以希望写一篇接地气，能够让一个从前不知道这个内容的小伙伴能够清楚的理解闭包这个东西。so，本文是基于闭包的变量部分。 首先需要理解变量的作用域（变量的有效范围）：变量的作用域有两种：全局变量和局部变量。 全局变量很">
+<meta name="twitter:image" content="https://dn-mhke0kuv.qbox.me/323770f94a8ee79c4231">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/11/js变量的作用域详解、生存周期，以及一些小细节。/"/>
+
+
+
+
+
+  <title>js变量的作用域详解、生存周期，以及一些小细节。 | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类列表">
+          <a href="/Summary/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/11/js变量的作用域详解、生存周期，以及一些小细节。/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js变量的作用域详解、生存周期，以及一些小细节。</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T22:47:09+08:00">
+                2017-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/10/11/js变量的作用域详解、生存周期，以及一些小细节。/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/10/11/js变量的作用域详解、生存周期，以及一些小细节。/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2017/10/11/js变量的作用域详解、生存周期，以及一些小细节。/" class="leancloud_visitors" data-flag-title="js变量的作用域详解、生存周期，以及一些小细节。">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面："><a href="#写在前面：" class="headerlink" title="写在前面："></a>写在前面：</h2><p>是想写一个闭包的，因为写的比较细，基于篇幅，所以闭包前面关于变量的部分就单独发出来，到时候放个链接引进来，js闭包虽然是一个被讲烂的东西，但其实很多人刚接触这个概念也不太懂，所以希望写一篇接地气，能够让一个从前不知道这个内容的小伙伴能够清楚的理解闭包这个东西。so，本文是基于闭包的变量部分。</p>
+<h3 id="首先需要理解变量的作用域（变量的有效范围）："><a href="#首先需要理解变量的作用域（变量的有效范围）：" class="headerlink" title="首先需要理解变量的作用域（变量的有效范围）："></a>首先需要理解变量的作用域（变量的有效范围）：</h3><p>变量的作用域有两种：全局变量和局部变量。</p>
+<p>全局变量很好理解：就是我们平时没有再函数内部声明的那些变量，在全局中任何地方（函数，对象等）都可以被引用。</p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var n=999;</span><br><span class="line">　　function f1()&#123;</span><br><span class="line">　　　　alert(n);</span><br><span class="line">　　&#125;</span><br><span class="line">　　f1(); // 输出999,说明全局变量n在函数内部被读取</span><br></pre></td></tr></table></figure>
+<p> 局部变量：在函数内部声明的变量。函数内部的变量，外部无法读取。<br> 栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">　function f1()&#123;</span><br><span class="line">　　　　var n=999;</span><br><span class="line">　　&#125;</span><br><span class="line">　　alert(n); // 没有定义，说明函数内部的变量，外部无法读取。</span><br></pre></td></tr></table></figure>
+<p>在函数内部声明变量没有使用var，实际上是声明了一个全局变量，前提是需要先调用函数（闭包函数中，也是全局变量。）！</p>
+<p>栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var func1=function()&#123;</span><br><span class="line">     a1=1;</span><br><span class="line">    console.log(a1); //输出:1</span><br><span class="line">    function func2() &#123;//func2()是一个闭包</span><br><span class="line">        a2=2;</span><br><span class="line">        console.log(a2);</span><br><span class="line">    &#125;</span><br><span class="line">    func2()；//闭包函数中的变量在调用函数之后，变量也是全局变量</span><br><span class="line">    console.log(a2);//输出2</span><br><span class="line">&#125;;</span><br><span class="line">func1();//调用函数，才会使变量生效</span><br><span class="line">console.log(a1);//输出1</span><br><span class="line"> console.log(a2);//输出2，说明闭包中没有用var声明的变量也是全局变量。</span><br></pre></td></tr></table></figure>
+<p>上面栗子中在函数里面声明变量没有用var，在调用函数之后，a1，a2都能有效输出，看完栗子之后，相信你们对变量的作用域也有一些了解了，我们总结一下：</p>
+<hr>
+<h3 id="变量作用域，js高级程序设计（红宝书）中的解释："><a href="#变量作用域，js高级程序设计（红宝书）中的解释：" class="headerlink" title="变量作用域，js高级程序设计（红宝书）中的解释："></a>变量作用域，js高级程序设计（红宝书）中的解释：</h3><p>内部环境可以通过作用域链访问所有的外部环境，但外部环境不能访问内部环境中的任何变量和函数。这些环境是线性、有次序的。每个环境都可以向上搜索作用域链，以查询变量和函数名；</p>
+<p>意思就是：比如函数的局部环境可以访问到外界所有的变量的函数，而且环境的搜索是先从自己本身的环境开始，一级一级往上搜索，这样<strong>由多个执行上下文的变量对象构成的链表就叫做作用域链。</strong></p>
+<h3 id="关于查找变量，红宝书中有一句话是这样的："><a href="#关于查找变量，红宝书中有一句话是这样的：" class="headerlink" title="关于查找变量，红宝书中有一句话是这样的："></a>关于查找变量，红宝书中有一句话是这样的：</h3><p>标识符解析是沿着作用域链一级一级地搜索标识符的过程。搜索过程始终从作用域链的前端开始，然后逐级的向后查找，直至找到标识符位置（如果找不到标识符，通常会导致错误的发生、）</p>
+<p>ps：标识符指的是变量的名字，作用域链的前端指的是当前执行代码所在环境的变量对象。</p>
+<h3 id="作用域链的用途："><a href="#作用域链的用途：" class="headerlink" title="作用域链的用途："></a>作用域链的用途：</h3><p>保证对<strong>执行环境有权访问</strong>的所有<strong>变量和函数的有序访问</strong>。</p>
+<h3 id="红宝书中的作用域链栗子："><a href="#红宝书中的作用域链栗子：" class="headerlink" title="红宝书中的作用域链栗子："></a>红宝书中的作用域链栗子：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var color = &apos;blue&apos;;</span><br><span class="line"></span><br><span class="line">function text1()&#123;</span><br><span class="line">    var anotherColor = &apos;red&apos;;</span><br><span class="line"></span><br><span class="line">    function text2()&#123;</span><br><span class="line">        var tempCplor = anotherColor;</span><br><span class="line">        anotherColor = color;</span><br><span class="line">        //这里可以访问到color、anotherColor和tempColor</span><br><span class="line">    &#125;</span><br><span class="line">    //这里可以访问color和anotherColor,但不能访问到tempColor</span><br><span class="line">    text2();</span><br><span class="line">&#125;</span><br><span class="line">//这里只能访问到color</span><br><span class="line">text1();</span><br></pre></td></tr></table></figure>
+<h3 id="解析（画重点，这里关于作用域讲的比较详细，看完这个作用域就了解差不多）："><a href="#解析（画重点，这里关于作用域讲的比较详细，看完这个作用域就了解差不多）：" class="headerlink" title="解析（画重点，这里关于作用域讲的比较详细，看完这个作用域就了解差不多）："></a>解析（画重点，这里关于作用域讲的比较详细，看完这个作用域就了解差不多）：</h3><p>以上代码一共涉及三个执行环境：全局环境，text1()的局部环境和text2()的局部环境。</p>
+<p>1.全局环境中有一个变量color和一个函数text1()。</p>
+<p>2.text1()的局部环境中有一个anotherColor变量和一个text2()的函数，但它可以访问到全局环境中的变量color。</p>
+<p>3.text2()的局部环境有一个变量tempColor，该变量只能在text2()自身的环境中被访问到。这是一个闭包，无论是全局环境还是text1()的局部环境都无权访问tempColor。但是在text2()的内部环境中，可以访问到全局环境和text1()中的所有变量，因为这两个环境是text2()的父执行环境。</p>
+<p>这个作用域链为：</p>
+<p><img src="https://dn-mhke0kuv.qbox.me/323770f94a8ee79c4231" alt="只是把函数的名字改了，图方便"></p>
+<p>ps：<strong>函数参数也被当做变量</strong>来对待，因此其访问规则与执行函数中的其他变量相同。</p>
+<p>以上出自红宝书，自己修改了一丢丢，红宝书还是神器啊，常看常新，每次都会有新发现。</p>
+<hr>
+<h3 id="关于变量的生存周期："><a href="#关于变量的生存周期：" class="headerlink" title="关于变量的生存周期："></a>关于变量的生存周期：</h3><p>1.全局变量的生存周期是永久的，除非我们主动销毁。</p>
+<p>ps：变量永久生存，且可以随时调用，但是使用的时候要适度，正是因为<strong>它的生命周期长，所以将占据更多的内存</strong>，如果声明的变量都是全局变量，当<strong>项目比较大</strong>的时候，就可能出现<strong>性能问题</strong>,养成一个好的习惯还是有必要的。</p>
+<p>2.而对于在函数内用 var 关键字声明的局部变量来说,当退出函数时,这些局部变量即失去了它们的价值,它们都会<strong>随着函数的调用的结束而销毁。</strong></p>
+<p>ps：调用函数结束，局部变量确实会销毁。但并不是完全销毁，而是一直函数的内部环境中存活着，当函数再度被调用时，变量就“复活”了，所以局部变量还是非常方便的，不会影响二次使用。</p>
+<p><strong>值得注意的是：</strong>在局部环境中，出现<strong>全局变量与局部变量重名</strong>的时候，<strong>起作用的是局部变量</strong>，全局变量被屏蔽掉。这是因为上文说过作用域链的原因，先由局部开始搜索变量，当局部找到该变量的时候，就不会再我继续往父级找变量了。</p>
+<hr>
+<h2 id="后话："><a href="#后话：" class="headerlink" title="后话："></a>后话：</h2><p>就这些吧，觉得内容不够多，平常多一点的。本来想写个面试题的，后来几经修改，觉得写的不好，就删掉了。这几天五一，争取把闭包这个东西写出来，写的不好之处，欢迎指导。</p>
+<p><strong>最后</strong>：码字不易，<strong>感谢</strong>支持！因为我经常看不懂别人写的分享，所以个人写文比较偏小白，写的不好之处，欢迎指点。然后就是希望看完的朋友点个<strong>喜欢</strong>，也可以<strong>关注</strong>一下我。<br><strong>ps</strong>：目前<strong>待业</strong>，坐标北京，本人适应互联网快节奏，高强度，持续学习，持续成长，认真，严谨，学习积极性强。<strong>中小公司大佬求带走</strong>，邮箱：<a href="mailto:1677593011@qq.com" target="_blank" rel="noopener">1677593011@qq.com</a>。<br><a href="http://www.jianshu.com/u/8d1dd8c80f06" target="_blank" rel="noopener"></a><strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a>  ，</strong><a href="http://www.jianshu.com/u/8d1dd8c80f06" target="_blank" rel="noopener"><strong>简书主页链接</strong></a>，<strong><a href="http://blog.csdn.net/OBKoro1?skin=dark1" target="_blank" rel="noopener">csdn博客主页链接</a> </strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js变量作用域/" rel="tag"><i class="fa fa-tag"></i> js变量作用域</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/11/http状态码是什么，有什么用，在哪里查看，分别代表什么意思？/" rel="next" title="http状态码是什么，有什么用，在哪里查看，分别代表什么意思？">
+                <i class="fa fa-chevron-left"></i> http状态码是什么，有什么用，在哪里查看，分别代表什么意思？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/11/布局概念-关于CSS-BFC深入理解/" rel="prev" title="[布局概念] 关于CSS-BFC深入理解">
+                [布局概念] 关于CSS-BFC深入理解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面："><span class="nav-number">1.</span> <span class="nav-text">写在前面：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先需要理解变量的作用域（变量的有效范围）："><span class="nav-number">1.1.</span> <span class="nav-text">首先需要理解变量的作用域（变量的有效范围）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量作用域，js高级程序设计（红宝书）中的解释："><span class="nav-number">1.2.</span> <span class="nav-text">变量作用域，js高级程序设计（红宝书）中的解释：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于查找变量，红宝书中有一句话是这样的："><span class="nav-number">1.3.</span> <span class="nav-text">关于查找变量，红宝书中有一句话是这样的：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域链的用途："><span class="nav-number">1.4.</span> <span class="nav-text">作用域链的用途：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#红宝书中的作用域链栗子："><span class="nav-number">1.5.</span> <span class="nav-text">红宝书中的作用域链栗子：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析（画重点，这里关于作用域讲的比较详细，看完这个作用域就了解差不多）："><span class="nav-number">1.6.</span> <span class="nav-text">解析（画重点，这里关于作用域讲的比较详细，看完这个作用域就了解差不多）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于变量的生存周期："><span class="nav-number">1.7.</span> <span class="nav-text">关于变量的生存周期：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后话："><span class="nav-number">2.</span> <span class="nav-text">后话：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytevxRRN';
+      var conf = '75faf3cb54138bb69e86ad05ff147b5d';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

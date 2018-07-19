@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Vue,js,CSS,键盘事件," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="前言input是我们接受来自用户的数据常用标签，在前端开发中，相信每个人都会用到这个标签，所以在开发过程中也时候也会遇到一些问题，本文的内容是我在跟input相爱相杀过程中产生的，在此记录分享一下。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。">
+<meta name="keywords" content="Vue,js,CSS,键盘事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于input的一些问题解决方法分享">
+<meta property="og:url" content="http://yoursite.com/2018/05/12/关于input的一些问题解决方法分享/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="前言input是我们接受来自用户的数据常用标签，在前端开发中，相信每个人都会用到这个标签，所以在开发过程中也时候也会遇到一些问题，本文的内容是我在跟input相爱相杀过程中产生的，在此记录分享一下。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fr8z5luzpsj308m08sgmv.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fr8jf4on3cj30ga0suwfi.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fr8nibgks0j30bo0ertc3.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fr8ntg3it2j30h106o3yu.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1frbajugivgj30bj0e1q5g.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fr8oubn0d3j309k09k3yg.jpg">
+<meta property="og:updated_time" content="2018-05-14T15:36:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于input的一些问题解决方法分享">
+<meta name="twitter:description" content="前言input是我们接受来自用户的数据常用标签，在前端开发中，相信每个人都会用到这个标签，所以在开发过程中也时候也会遇到一些问题，本文的内容是我在跟input相爱相杀过程中产生的，在此记录分享一下。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fr8z5luzpsj308m08sgmv.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/12/关于input的一些问题解决方法分享/"/>
+
+
+
+
+
+  <title>关于input的一些问题解决方法分享 | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类列表">
+          <a href="/Summary/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/12/关于input的一些问题解决方法分享/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关于input的一些问题解决方法分享</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T23:26:22+08:00">
+                2018-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/05/12/关于input的一些问题解决方法分享/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/05/12/关于input的一些问题解决方法分享/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2018/05/12/关于input的一些问题解决方法分享/" class="leancloud_visitors" data-flag-title="关于input的一些问题解决方法分享">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fr8z5luzpsj308m08sgmv.jpg" alt=""></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>input是我们接受来自用户的数据常用标签，在前端开发中，相信每个人都会用到这个标签，所以在开发过程中也时候也会遇到一些问题，本文的内容是我在跟input相爱相杀过程中产生的，在此记录分享一下。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。</p>
+<a id="more"></a>
+<hr>
+<h2 id="本文内容包括："><a href="#本文内容包括：" class="headerlink" title="本文内容包括："></a>本文内容包括：</h2><ol>
+<li>移动端底部input被弹出的键盘遮挡。</li>
+<li>控制input显/隐密码。</li>
+<li>在input中输入emoji表情导致请求失败。</li>
+<li>input多行输入显示换行。</li>
+<li>输入框首尾清除空格-trim()</li>
+<li>在input中监听键盘事件</li>
+</ol>
+<hr>
+<h3 id="移动端底部input被弹出的键盘遮挡"><a href="#移动端底部input被弹出的键盘遮挡" class="headerlink" title="移动端底部input被弹出的键盘遮挡"></a>移动端底部input被弹出的键盘遮挡</h3><p>input输入框是通过<code>position:fixed</code>一直放在页面底部，当点击input进行输入的时候，就会出现如下图片情况（有的机型会遮挡一些）。</p>
+<p>当时这个问题是去年在ios中遇到的，在最新版的ios系统中，貌似解决了这个bug，但是为了向下兼容以及防止其他其他机型也出现这个问题，大家可以稍微记一下这个解决方法。</p>
+<p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fr8jf4on3cj30ga0suwfi.jpg" alt=""></p>
+<p>在解决这个问题的时候，有试过下面这种方法:</p>
+<p><del>在input的focus事件中，开启一个定时器，然后每隔300毫秒进行一次document.body.scrollTop=document.body.scrollHeight的调整，运行3次即可。</del></p>
+<p>当时还以为解决了，但是当你底部评论区还有很多内容，你每次点击input，想要输入的时候，整个页面通过<code>scrollTop</code>就会不断的向下滚动，这个体验不用说自己也知道是相当失败的，然后就再去找解决方法，结果就有了下面这个。</p>
+<h4 id="Element-scrollIntoView"><a href="#Element-scrollIntoView" class="headerlink" title="Element.scrollIntoView()"></a>Element.scrollIntoView()</h4><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollIntoView" target="_blank" rel="noopener">Element.scrollIntoView()</a>:方法<strong>让当前的元素滚动到浏览器窗口的可视区域内</strong>。</p>
+<pre><code>document.querySelector(&apos;#inputId&apos;).scrollIntoView();
+//只要在input的点击事件，或者获取焦点的事件中，加入这个api就好了
+</code></pre><p>这个api还可以设置对齐方法，选择将input放在屏幕的上方/下方，类似的api还有:<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollIntoViewIfNeeded" target="_blank" rel="noopener">Element.scrollIntoViewIfNeeded()</a>，这两个是解决同一个问题的，选择一个用就可以了。</p>
+<hr>
+<h3 id="控制input显-隐密码"><a href="#控制input显-隐密码" class="headerlink" title="控制input显/隐密码"></a>控制input显/隐密码</h3><p>这个就很简单了，只需更改input的type属性值就可以了。可以看一下codepen的<a href="https://codepen.io/OBKoro1/pen/VxxgyG" target="_blank" rel="noopener">demo</a></p>
+<pre><code>//点击函数，获取dom，判断更改属性。
+show(){
+    let input=document.getElementById(&quot;inputId&quot;);  
+    if(input.type==&quot;password&quot;){ 
+      input.type=&apos;text&apos;;
+    }else{
+      input.type=&apos;password&apos;;
+    } 
+}
+</code></pre><hr>
+<h3 id="在input中输入emoji表情导致请求失败"><a href="#在input中输入emoji表情导致请求失败" class="headerlink" title="在input中输入emoji表情导致请求失败"></a>在input中输入emoji表情导致请求失败</h3><p>现在用户输入emoji简直已经成为了习惯，如果前后端没有对emoji表情进行处理，那么用户在上传的时候，就会请求失败。</p>
+<p><strong>通常这个问题是后端那边处理比较合适的</strong>，前端是做不了这件事的，或者说很难做这件事。</p>
+<p>之前看过一篇<a href="https://www.bbsmax.com/A/nAJvkxjY5r/" target="_blank" rel="noopener">文章</a>，这个文章里面讲了怎么在上传和拿数据下来的时候不会报错，但是不能在显示的时候转换为表情。</p>
+<p>ps:之前拿微信用户名的时候，有些人可能在微信昵称上面就会包含表情，<strong>如果后端没对表情处理转换，那么普通请求也会出错</strong>。</p>
+<p>之所以说这个，当表单请求错误的时候各位如果实在找不到问题可以往这方面考虑一下，我真的被坑过的o(╥﹏╥)o。</p>
+<hr>
+<h3 id="textarea多行回车换行，显示的时候换行设置："><a href="#textarea多行回车换行，显示的时候换行设置：" class="headerlink" title="textarea多行回车换行，显示的时候换行设置："></a>textarea多行回车换行，显示的时候换行设置：</h3><p>在使用<code>textarea</code>标签输入多行文本的时候，如果没有对多行文本显示处理，会导致没有换行的情况,就比如下面这种情况，用户在<code>textarea</code>是有换行的。</p>
+<p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fr8nibgks0j30bo0ertc3.jpg" alt=""></p>
+<h4 id="Css属性-white-space"><a href="#Css属性-white-space" class="headerlink" title="Css属性:white-space"></a>Css属性:<a href="http://www.w3school.com.cn/cssref/pr_text_white-space.asp" target="_blank" rel="noopener">white-space</a></h4><p>white-space 属性用于设置如何处理元素内的空白，其中包括空白符和换行符。</p>
+<p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fr8ntg3it2j30h106o3yu.jpg" alt=""></p>
+<p>只要在<strong>显示内容的地方将该属性设置为<code>white-space: pre-line</code>或者<code>white-space:pre-wrap</code>，多行文本就可以换行了</strong>。</p>
+<h4 id="设置之后，显示效果："><a href="#设置之后，显示效果：" class="headerlink" title="设置之后，显示效果："></a>设置之后，显示效果：</h4><p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1frbajugivgj30bj0e1q5g.jpg" alt=""></p>
+<hr>
+<h3 id="输入框首尾清除空格-trim"><a href="#输入框首尾清除空格-trim" class="headerlink" title="输入框首尾清除空格-trim()"></a>输入框首尾清除空格-trim()</h3><p>输入框清除首尾空格是input较为常见的需求，通常在上传的时候将首尾空格去除掉。一般使用:字符串的原生方法<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/Trim" target="_blank" rel="noopener">trim()</a> 从一个字符串的两端删除空白字符。</p>
+<p>trim() 方法并不影响原字符串本身，它返回的是一个新的字符串。</p>
+<h4 id="原生清除方法"><a href="#原生清除方法" class="headerlink" title="原生清除方法:"></a>原生清除方法:</h4><pre><code>//原生方法获取值，清除首尾空格上传str2 
+var str2 = document.getElementById(&quot;inputId&quot;).trim();
+</code></pre><h4 id="Vue清除方法："><a href="#Vue清除方法：" class="headerlink" title="Vue清除方法："></a>Vue清除方法：</h4><p>Vue提供了<a href="https://cn.vuejs.org/v2/guide/forms.html#trim" target="_blank" rel="noopener">修饰符</a>删除首尾空格， 加了修饰符<code>.trim</code>会自动过滤用户输入的首尾空白字符</p>
+<pre><code>&lt;input v-model.trim=&quot;msg&quot;&gt;
+</code></pre><p>貌似angular也提供了类似过滤的方法，感兴趣的可以自己去查一下。</p>
+<hr>
+<h3 id="在input中监听键盘事件"><a href="#在input中监听键盘事件" class="headerlink" title="在input中监听键盘事件"></a>在input中监听键盘事件</h3><p>在用户登录或者搜索框的时候，一般都会监听键盘事件绑定回车按键，来执行登录/搜索 等操作。</p>
+<h4 id="原生绑定"><a href="#原生绑定" class="headerlink" title="原生绑定:"></a>原生绑定:</h4><pre><code>&lt;input onkeydown=&quot;keydownMsg(event)&quot; type=&quot;text&quot; /&gt;
+function keydownMsg(key) {
+       keyCode = key.keyCode; //获取按键代码
+       if (keyCode == 13) {  //判断按下的是否为回车键
+           // 在input上监听到回车 do something
+       }
+   }
+</code></pre><h4 id="Vue按键修饰符"><a href="#Vue按键修饰符" class="headerlink" title="Vue按键修饰符"></a>Vue按键修饰符</h4><p>Vue为监听键盘事件，提供了<a href="https://cn.vuejs.org/v2/guide/events.html#%E6%8C%89%E9%94%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6" target="_blank" rel="noopener">按键修饰符</a>，并且为常用的按键提供了别名，使用方法如下:当回车按键在input中被按下的时候，会触发里面的函数。</p>
+<pre><code>&lt;input @keyup.enter=&quot;enterActive&quot;&gt;
+</code></pre><hr>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>上述内容就是我遇到的一些input问题的解决方式以及跟input相关的一些东西，如果有什么错误，欢迎指正！希望大家看完可以有所收获，喜欢的话，赶紧点波<del>订阅</del>关注/喜欢，方便以后<del>查找</del>复制粘贴，233。</p>
+<h3 id="希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。"><a href="#希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。" class="headerlink" title="希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。"></a>希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。</h3><p><strong><a href="http://obkoro1.com/" target="_blank" rel="noopener">个人blog</a></strong> and <strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a></strong>，如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！本人写文章本着交流记录的心态，写的不好之处，不撕逼，但是欢迎指点。</p>
+<p>如果喜欢本文的话，可以关注一下我刚开的订阅号，漫漫技术路，期待未来共同学习成长。</p>
+<p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fr8oubn0d3j309k09k3yg.jpg" alt=""></p>
+<p> 以上2018.5.12</p>
+<h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Element/scrollIntoView" target="_blank" rel="noopener">Element.scrollIntoView()</a></p>
+<p><a href="https://www.bbsmax.com/A/nAJvkxjY5r/" target="_blank" rel="noopener">移动前端手机输入法自带emoji表情字符处理</a></p>
+<p><a href="http://www.w3school.com.cn/cssref/pr_text_white-space.asp" target="_blank" rel="noopener">white-space</a></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/Trim" target="_blank" rel="noopener">String.prototype.trim()</a></p>
+<p><a href="https://cn.vuejs.org/v2/guide/events.html#%E6%8C%89%E9%94%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6" target="_blank" rel="noopener">Vue按键修饰符</a></p>
+<p><a href="http://www.jb51.net/article/21587.htm" target="_blank" rel="noopener">keyCode键码值表</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"></i> CSS</a>
+          
+            <a href="/tags/键盘事件/" rel="tag"><i class="fa fa-tag"></i> 键盘事件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/05/如何判断用户浏览器以及一些前端常用的正则表单验证/" rel="next" title="如何判断用户浏览器以及一些前端常用的正则表单验证">
+                <i class="fa fa-chevron-left"></i> 如何判断用户浏览器以及一些前端常用的正则表单验证
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/20/你对CSS权重真的足够了解吗？/" rel="prev" title="你对CSS权重真的足够了解吗？">
+                你对CSS权重真的足够了解吗？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文内容包括："><span class="nav-number">2.</span> <span class="nav-text">本文内容包括：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移动端底部input被弹出的键盘遮挡"><span class="nav-number">2.1.</span> <span class="nav-text">移动端底部input被弹出的键盘遮挡</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Element-scrollIntoView"><span class="nav-number">2.1.1.</span> <span class="nav-text">Element.scrollIntoView()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制input显-隐密码"><span class="nav-number">2.2.</span> <span class="nav-text">控制input显/隐密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在input中输入emoji表情导致请求失败"><span class="nav-number">2.3.</span> <span class="nav-text">在input中输入emoji表情导致请求失败</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#textarea多行回车换行，显示的时候换行设置："><span class="nav-number">2.4.</span> <span class="nav-text">textarea多行回车换行，显示的时候换行设置：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Css属性-white-space"><span class="nav-number">2.4.1.</span> <span class="nav-text">Css属性:white-space</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置之后，显示效果："><span class="nav-number">2.4.2.</span> <span class="nav-text">设置之后，显示效果：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入框首尾清除空格-trim"><span class="nav-number">2.5.</span> <span class="nav-text">输入框首尾清除空格-trim()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原生清除方法"><span class="nav-number">2.5.1.</span> <span class="nav-text">原生清除方法:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue清除方法："><span class="nav-number">2.5.2.</span> <span class="nav-text">Vue清除方法：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在input中监听键盘事件"><span class="nav-number">2.6.</span> <span class="nav-text">在input中监听键盘事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原生绑定"><span class="nav-number">2.6.1.</span> <span class="nav-text">原生绑定:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue按键修饰符"><span class="nav-number">2.6.2.</span> <span class="nav-text">Vue按键修饰符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。"><span class="nav-number">3.1.</span> <span class="nav-text">希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料："><span class="nav-number">3.2.</span> <span class="nav-text">参考资料：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytevxRRN';
+      var conf = '75faf3cb54138bb69e86ad05ff147b5d';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

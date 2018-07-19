@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Vue,Vue-router," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="前言用Vue开发一个网页并不难，但是也经常会遇到一些问题，其实大部分的问题都在文档中有所提及，再不然我们通过谷歌也能成功搜索到问题的答案，为了帮助小伙伴们提前踩坑，在遇到问题的时候，心里大概有个谱知道该如何去解决问题。这篇文章是将自己知道的一些小技巧，结合查阅资料整理成的一篇文章，如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。">
+<meta name="keywords" content="Vue,Vue-router">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你或许不知道Vue的这些小技巧">
+<meta property="og:url" content="http://yoursite.com/2018/06/03/你或许不知道Vue的这些小技巧/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="前言用Vue开发一个网页并不难，但是也经常会遇到一些问题，其实大部分的问题都在文档中有所提及，再不然我们通过谷歌也能成功搜索到问题的答案，为了帮助小伙伴们提前踩坑，在遇到问题的时候，心里大概有个谱知道该如何去解决问题。这篇文章是将自己知道的一些小技巧，结合查阅资料整理成的一篇文章，如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fry5mboqkdj30qe0hl4qp.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fry5f9w6r4j31h9090my4.jpg">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317">
+<meta property="og:updated_time" content="2018-06-03T10:44:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你或许不知道Vue的这些小技巧">
+<meta name="twitter:description" content="前言用Vue开发一个网页并不难，但是也经常会遇到一些问题，其实大部分的问题都在文档中有所提及，再不然我们通过谷歌也能成功搜索到问题的答案，为了帮助小伙伴们提前踩坑，在遇到问题的时候，心里大概有个谱知道该如何去解决问题。这篇文章是将自己知道的一些小技巧，结合查阅资料整理成的一篇文章，如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fry5mboqkdj30qe0hl4qp.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/03/你或许不知道Vue的这些小技巧/"/>
+
+
+
+
+
+  <title>你或许不知道Vue的这些小技巧 | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类列表">
+          <a href="/Summary/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/03/你或许不知道Vue的这些小技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">你或许不知道Vue的这些小技巧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-03T18:42:18+08:00">
+                2018-06-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/06/03/你或许不知道Vue的这些小技巧/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/06/03/你或许不知道Vue的这些小技巧/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2018/06/03/你或许不知道Vue的这些小技巧/" class="leancloud_visitors" data-flag-title="你或许不知道Vue的这些小技巧">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fry5mboqkdj30qe0hl4qp.jpg" alt=""></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>用Vue开发一个网页并不难，但是也经常会遇到一些问题，其实大部分的问题都在文档中有所提及，再不然我们通过谷歌也能成功搜索到问题的答案，为了帮助小伙伴们提前踩坑，在遇到问题的时候，心里大概有个谱知道该如何去解决问题。这篇文章是将自己知道的一些小技巧，结合查阅资料整理成的一篇文章，如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。</p>
+<a id="more"></a>
+<blockquote>
+<p>个人博客了解一下：<a href="http://obkoro1.com/" target="_blank" rel="noopener">obkoro1.com</a></p>
+</blockquote>
+<hr>
+<h2 id="文章内容总结"><a href="#文章内容总结" class="headerlink" title="文章内容总结:"></a>文章内容总结:</h2><ol>
+<li>组件style的scoped</li>
+<li>Vue 数组/对象更新 视图不更新</li>
+<li>vue filters 过滤器的使用</li>
+<li>列表渲染相关</li>
+<li>深度watch与watch立即触发回调</li>
+<li>这些情况下不要使用箭头函数</li>
+<li>路由懒加载写法</li>
+<li>路由的项目启动页和404页面</li>
+<li>Vue调试神器:vue-devtools</li>
+</ol>
+<hr>
+<h3 id="组件style的scoped"><a href="#组件style的scoped" class="headerlink" title="组件style的scoped:"></a>组件style的scoped:</h3><p>问题：在组件中用js动态创建的dom，添加样式不生效。</p>
+<p><strong>场景</strong>:</p>
+<pre><code>&lt;template&gt;
+     &lt;div class=&quot;test&quot;&gt;&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+    let a=document.querySelector(&apos;.test&apos;);
+    let newDom=document.createElement(&quot;div&quot;); // 创建dom
+    newDom.setAttribute(&quot;class&quot;,&quot;testAdd&quot; ); // 添加样式
+    a.appendChild(newDom); // 插入dom
+&lt;/script&gt;
+&lt;style scoped&gt;
+.test{
+   background:blue;
+    height:100px;
+    width:100px;
+}
+.testAdd{
+    background:red;
+    height:100px;
+    width:100px;
+}
+&lt;/style&gt;
+</code></pre><p><strong>结果</strong>：</p>
+<pre><code>// test生效   testAdd 不生效
+&lt;div data-v-1b971ada class=&quot;test&quot;&gt;&lt;div class=&quot;testAdd&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+.test[data-v-1b971ada]{ // 注意data-v-1b971ada
+    background:blue;
+    height:100px;
+    width:100px;
+}
+</code></pre><p><strong>原因</strong>:</p>
+<p>当 <code>&lt;style&gt;</code> 标签有 <a href="https://vue-loader-v14.vuejs.org/zh-cn/features/scoped-css.html" target="_blank" rel="noopener">scoped</a> 属性时，它的 CSS 只作用于当前组件中的元素。</p>
+<p>它会<strong>为组件中所有的标签和class样式添加一个<code>scoped</code>标识</strong>，就像上面结果中的<code>data-v-1b971ada</code>。</p>
+<p>所以原因就很清楚了：因为动态添加的dom没有<code>scoped</code>添加的标识，<strong>没有跟<code>testAdd</code>的样式匹配起来</strong>，导致样式失效。</p>
+<p><strong>解决方式</strong></p>
+<ul>
+<li>推荐：去掉该组件的scoped</li>
+</ul>
+<p>每个组件的css并不会很多，当设计到动态添加dom，并为dom添加样式的时候，就可以去掉scoped，会比下面的方法方便很多。</p>
+<ul>
+<li><p>可以动态添加style</p>
+<pre><code>// 上面的栗子可以这样添加样式
+newDom.style.height=&apos;100px&apos;;
+newDom.style.width=&apos;100px&apos;;
+newDom.style.background=&apos;red&apos;;
+</code></pre></li>
+</ul>
+<hr>
+<h3 id="Vue-数组-对象更新-视图不更新"><a href="#Vue-数组-对象更新-视图不更新" class="headerlink" title="Vue 数组/对象更新 视图不更新"></a>Vue 数组/对象更新 视图不更新</h3><p>很多时候，我们习惯于这样操作数组和对象:</p>
+<pre><code>  data() { // data数据
+     return {
+       arr: [1,2,3],
+       obj:{
+           a: 1,
+           b: 2
+       }
+     };
+   },
+// 数据更新 数组视图不更新
+ this.arr[0] = &apos;OBKoro1&apos;;
+ this.arr.length = 1;
+ console.log(arr);// [&apos;OBKoro1&apos;];
+ // 数据更新 对象视图不更新
+ this.obj.c = &apos;OBKoro1&apos;;
+ delete this.obj.a;
+ console.log(obj);  // {b:2,c:&apos;OBKoro1&apos;}
+</code></pre><p>由于js的限制，Vue 不能检测以上数组的变动，以及对象的添加/删除，很多人会因为像上面这样操作，出现视图没有更新的问题。</p>
+<p><strong>解决方式:</strong></p>
+<ol>
+<li><p><strong>this.$set(你要改变的数组/对象，你要改变的位置/key，你要改成什么value)</strong></p>
+<pre><code>this.$set(this.arr, 0, &quot;OBKoro1&quot;); // 改变数组
+this.$set(this.obj, &quot;c&quot;, &quot;OBKoro1&quot;); // 改变对象
+</code></pre></li>
+</ol>
+<p>如果还是不懂的话，可以看看这个codepen<a href="https://codepen.io/OBKoro1/pen/oyjdbZ" target="_blank" rel="noopener">demo</a>。</p>
+<ol start="2">
+<li><strong>数组原生方法触发视图更新</strong>:</li>
+</ol>
+<p>Vue可以监测到数组变化的，<strong>数组原生方法</strong>:</p>
+<pre><code>splice()、 push()、pop()、shift()、unshift()、sort()、reverse()
+</code></pre><p>意思是<strong>使用这些方法不用我们再进行额外的操作，视图自动进行更新</strong>。</p>
+<p>推荐使用<code>splice</code>方法会比较好自定义,因为slice可以在数组的任何位置进行删除/添加操作，这部分可以看看我前几天写的一篇文章:<a href="https://juejin.im/post/5b0903b26fb9a07a9d70c7e0?utm_source=gold_browser_extension#heading-7" target="_blank" rel="noopener">【干货】js 数组详细操作方法及解析合集</a></p>
+<ol start="3">
+<li><strong>替换数组/对象</strong></li>
+</ol>
+<p>比方说:你想遍历这个数组/对象，对每个元素进行处理，然后触发视图更新。</p>
+<pre><code>// 文档中的栗子: filter遍历数组，返回一个新数组，用新数组替换旧数组
+ example1.items = example1.items.filter(function (item) {
+   return item.message.match(/Foo/)
+ })
+</code></pre><p><strong>举一反三</strong>：可以先把这个数组/对象保存在一个变量中，然后对这个变量进行遍历，等遍历结束后再用<strong>变量替换对象/数组</strong>。</p>
+<p><strong>并不会重新渲染整个列表</strong>:</p>
+<p>Vue 为了使得 DOM 元素得到最大范围的重用而实现了一些智能的、启发式的方法，所以用一个含有相同元素的数组去替换原来的数组是非常高效的操作。</p>
+<p>如果你还是很困惑，可以看看<a href="https://cn.vuejs.org/v2/guide/list.html#%E6%95%B0%E7%BB%84%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B" target="_blank" rel="noopener">Vue文档</a>中关于这部分的解释。</p>
+<hr>
+<h3 id="vue-filters-过滤器的使用"><a href="#vue-filters-过滤器的使用" class="headerlink" title="vue filters 过滤器的使用:"></a>vue filters 过滤器的使用:</h3><p>过滤器，通常用于后台管理系统，或者一些约定类型，过滤。Vue过滤器用法是很简单，但是很多朋友可能都没有用过，这里稍微讲解一下。</p>
+<p><strong>在html模板中的两种用法</strong>：</p>
+<pre><code>&lt;!-- 在双花括号中 --&gt;
+{{ message | filterTest }}
+&lt;!-- 在 `v-bind` 中 --&gt;
+&lt;div :id=&quot;message | filterTest&quot;&gt;&lt;/div&gt;
+</code></pre><p><strong>在组件<code>script</code>中的用法</strong>:</p>
+<pre><code>export default {    
+     data() {
+        return {
+         message:1   
+        }
+     },
+    filters: {  
+        filterTest(value) {
+            // value在这里是message的值
+            if(value===1){
+                return &apos;最后输出这个值&apos;;
+            }
+        }
+    }
+}
+</code></pre><p>用法就是上面讲的这样，可以自己在组件中试一试就知道了，很简单很好用的。</p>
+<p>如果不想自己试，可以点这个<a href="https://codepen.io/OBKoro1/pen/rKxBMw" target="_blank" rel="noopener">demo</a>里面修改代码就可以了，demo中包括<strong>过滤器串联</strong>、<strong>过滤器传参</strong>。</p>
+<p>推荐看Vue<a href="https://cn.vuejs.org/v2/guide/filters.html" target="_blank" rel="noopener">过滤器</a>文档，你会更了解它的。</p>
+<hr>
+<h3 id="列表渲染相关"><a href="#列表渲染相关" class="headerlink" title="列表渲染相关"></a>列表渲染相关</h3><p><strong>v-for循环绑定model:</strong></p>
+<p>input在v-for中可以像如下这么进行绑定，我敢打赌很多人不知道。</p>
+<pre><code>// 数据    
+  data() {
+      return{
+       obj: {
+          ob: &quot;OB&quot;,
+          koro1: &quot;Koro1&quot;
+        },
+        model: {
+          ob: &quot;默认ob&quot;,
+          koro1: &quot;默认koro1&quot;
+        }   
+      }
+  },
+// html模板
+&lt;div v-for=&quot;(value,key) in obj&quot;&gt;
+   &lt;input type=&quot;text&quot; v-model=&quot;model[key]&quot;&gt;
+&lt;/div&gt;
+  // input就跟数据绑定在一起了，那两个默认数据也会在input中显示
+</code></pre><p>为此，我做了个<a href="https://codepen.io/OBKoro1/pen/gKPOgw" target="_blank" rel="noopener">demo</a>,你可以点进去试试。</p>
+<p><strong>一段取值的v-for</strong></p>
+<p>如果我们有一段重复的html模板要渲染，又没有数据关联，我们可以:</p>
+<pre><code>&lt;div v-for=&quot;n in 5&quot;&gt;
+    &lt;span&gt;这里会被渲染5次，渲染模板{{n}}&lt;/span&gt;
+ &lt;/div&gt;
+</code></pre><p><strong>v-if尽量不要与v-for在同一节点使用</strong>:</p>
+<p>v-for 的优先级比 v-if 更高,如果它们处于同一节点的话，那么每一个循环都会运行一遍v-if。</p>
+<p>如果你想根据循环中的<strong>每一项的数据来判断是否渲染，那么你这样做是对的</strong>:</p>
+<pre><code>&lt;li v-for=&quot;todo in todos&quot; v-if=&quot;todo.type===1&quot;&gt;
+  {{ todo }}
+&lt;/li&gt;
+</code></pre><p>如果你想要根据<strong>某些条件跳过循环，而又跟将要渲染的每一项数据没有关系的话，你可以将v-if放在v-for的父节点</strong>：</p>
+<pre><code>// 根据elseData是否为true 来判断是否渲染，跟每个元素没有关系    
+ &lt;ul v-if=&quot;elseData&quot;&gt;
+  &lt;li v-for=&quot;todo in todos&quot;&gt;
+    {{ todo }}
+  &lt;/li&gt;
+&lt;/ul&gt;
+// 数组是否有数据 跟每个元素没有关系
+&lt;ul v-if=&quot;todos.length&quot;&gt;
+  &lt;li v-for=&quot;todo in todos&quot;&gt;
+    {{ todo }}
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p v-else&gt;No todos left!&lt;/p&gt;
+</code></pre><p>如上，正确使用v-for与v-if优先级的关系，可以为你节省大量的性能。</p>
+<hr>
+<h3 id="深度watch与watch立即触发回调"><a href="#深度watch与watch立即触发回调" class="headerlink" title="深度watch与watch立即触发回调"></a>深度watch与watch立即触发回调</h3><p>watch很多人都在用，但是这watch中的这两个选项<code>deep</code>、<code>immediate</code>，或许不是很多人都知道，我猜。</p>
+<p><strong>选项：deep</strong></p>
+<p>在选项参数中指定 <code>deep: true</code>，可以监听对象中属性的变化。</p>
+<p><strong>选项：immediate</strong></p>
+<p>在选项参数中指定 immediate: true, 将立即以表达式的当前值触发回调，也就是默认触发一次。</p>
+<pre><code>watch: {
+    obj: {
+      handler(val, oldVal) {
+        console.log(&apos;属性发生变化触发这个回调&apos;,val, oldVal);
+      },
+      deep: true // 监听这个对象中的每一个属性变化
+    },
+    step: { // 属性
+      //watch
+      handler(val, oldVal) {
+        console.log(&quot;默认触发一次&quot;, val, oldVal);
+      },
+      immediate: true // 默认触发一次
+    },
+  },
+</code></pre><p>这两个选项可以同时使用，另外：是的，又有一个<a href="https://codepen.io/OBKoro1/pen/QxyWMa" target="_blank" rel="noopener">demo</a>。</p>
+<p>还有下面这一点需要注意。</p>
+<hr>
+<h3 id="这些情况下不要使用箭头函数"><a href="#这些情况下不要使用箭头函数" class="headerlink" title="这些情况下不要使用箭头函数:"></a>这些情况下不要使用箭头函数:</h3><ul>
+<li>不应该使用箭头函数来定义一个生命周期方法</li>
+<li>不应该使用箭头函数来定义 method 函数</li>
+<li>不应该使用箭头函数来定义计算属性函数</li>
+<li>不应该使用箭头函数来定义 watcher 函数</li>
+<li>不应该对 data 属性使用箭头函数</li>
+<li>不应该使用箭头函数来定义 watcher 函数</li>
+</ul>
+<p>示例：</p>
+<pre><code> // 上面watch的栗子：
+ handler:(val, oldVal)=&gt; { // 可以执行
+  console.log(&quot;默认触发一次&quot;, val, oldVal);
+},
+// method：
+  methods: {
+     plus: () =&gt; { // 可以执行
+       // do something
+     }
+   }
+// 生命周期:
+  created:()=&gt;{ // 可以执行
+    console.log(&apos;lala&apos;,this.obj) 
+   },
+</code></pre><p>是的，没错，这些都能执行。</p>
+<p><strong>but</strong>:</p>
+<p>箭头函数绑定了父级作用域的上下文，<strong>this 将不会按照期望指向 Vue 实例</strong>。</p>
+<p>也就是说，你<strong>不能使用this来访问你组件中的data数据以及method方法了</strong>。</p>
+<p>this将会指向undefined。</p>
+<hr>
+<h3 id="路由懒加载写法"><a href="#路由懒加载写法" class="headerlink" title="路由懒加载写法:"></a>路由懒加载写法:</h3><pre><code>// 我所采用的方法，个人感觉比较简洁一些，少了一步引入赋值。
+const router = new VueRouter({
+  routes: [
+    path: &apos;/app&apos;,
+    component: () =&gt; import(&apos;./app&apos;),  // 引入组件
+  ]
+})
+// Vue路由文档的写法:
+const app = () =&gt; import(&apos;./app.vue&apos;) // 引入组件
+const router = new VueRouter({
+  routes: [
+    { path: &apos;/app&apos;, component: app }
+  ]
+})
+</code></pre><p>文档的写法在于问题在于：如果我们的路由比较多的话，是不是要在路由上方引入赋值十几行组件？</p>
+<p>第一种跟第二种方法相比就是把引入赋值的一步，直接写在<code>component</code>上面，本质上是一样的。两种方式都可以的，大家自由选择哈。</p>
+<hr>
+<h3 id="路由的项目启动页和404页面"><a href="#路由的项目启动页和404页面" class="headerlink" title="路由的项目启动页和404页面"></a>路由的项目启动页和404页面</h3><p>实际上这也就是一个设置而已:</p>
+<pre><code>export default new Router({
+  routes: [
+    {
+      path: &apos;/&apos;, // 项目启动页
+      redirect:&apos;/login&apos;  // 重定向到下方声明的路由 
+    },
+    {
+      path: &apos;*&apos;, // 404 页面 
+      component: () =&gt; import(&apos;./notFind&apos;) // 或者使用component也可以的
+    },
+  ]
+})
+</code></pre><p>比如你的域名为:<code>www.baidu.com</code></p>
+<p>项目启动页指的是: 当你进入<code>www.baidu.com</code>，会自动跳转到login登录页。</p>
+<p>404页面指的是: 当进入一个没有 声明/没有匹配 的路由页面时就会跳转到404页面。</p>
+<p>比如进入<code>www.baidu.com/testRouter</code>,就会自动跳转到<code>notFind</code>页面。</p>
+<p>当你没有声明一个404页面，进入<code>www.baidu.com/testRouter</code>，显示的页面是一片空白。</p>
+<hr>
+<h3 id="Vue调试神器-vue-devtools"><a href="#Vue调试神器-vue-devtools" class="headerlink" title="Vue调试神器:vue-devtools"></a>Vue调试神器:vue-devtools</h3><p>每次调试的时候，写一堆<code>console</code>是否很烦？想要<strong>更快知道组件/Vuex内数据的变化</strong>？</p>
+<p>那么这款<strong>尤大开发</strong>的调试神器:vue-devtools，你真的要了解一下了。</p>
+<p>这波稳赚不赔，真的能提高开发效率。</p>
+<p><strong>安装方法</strong>：</p>
+<ul>
+<li>谷歌商店+科学上网,搜索vue-devtools即可安装。</li>
+<li>不会科学上网？<a href="https://segmentfault.com/a/1190000009682735" target="_blank" rel="noopener">手动安装</a></li>
+</ul>
+<p><strong>安装之后</strong>：</p>
+<p>在chrome开发者工具中会看一个vue的一栏，如下对我们网页应用内数据变化，组件层级等信息能够有更准确快速的了解。</p>
+<p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fry5f9w6r4j31h9090my4.jpg" alt=""></p>
+<hr>
+<h3 id="前几个月也写过一篇类似的"><a href="#前几个月也写过一篇类似的" class="headerlink" title="前几个月也写过一篇类似的:"></a>前几个月也写过一篇类似的:</h3><p><a href="https://juejin.im/post/5a587b46f265da3e3b7a7677" target="_blank" rel="noopener">Vue 实践过程中的几个问题</a></p>
+<hr>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本文的内容很多都在Vue文档里面有过说明，推荐大家可以多看看Vue文档，不止看教程篇，还有文档的Api什么的，也都可以看。然后其实还有两三点想写的，因为预计篇幅都会比较长一点，所以准备留到以后的文章里面吧~</p>
+<p>文章如有不正确的地方欢迎各位路过的大佬鞭策！希望大家看完可以有所收获，喜欢的话，赶紧点波<del>订阅</del>关注/喜欢。</p>
+<h3 id="看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。"><a href="#看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。" class="headerlink" title="看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。"></a>看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。</h3><p><strong><a href="http://obkoro1.com/" target="_blank" rel="noopener">个人blog</a></strong> and <strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a></strong>，如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！</p>
+<p>如果喜欢本文的话，欢迎关注我的订阅号，漫漫技术路，期待未来共同学习成长。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317" alt=""></p>
+<p> 以上2018.6.3</p>
+<h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><p><a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">Vue文档</a></p>
+<p><a href="https://cn.vuejs.org/v2/api/" target="_blank" rel="noopener">Vue Api文档</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+          
+            <a href="/tags/Vue-router/" rel="tag"><i class="fa fa-tag"></i> Vue-router</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/30/js-数组详细操作方法及解析合集/" rel="next" title="js 数组详细操作方法及解析合集">
+                <i class="fa fa-chevron-left"></i> js 数组详细操作方法及解析合集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/09/浅析HTTP缓存的机制-浏览器缓存/" rel="prev" title="浅析HTTP缓存的机制-浏览器缓存">
+                浅析HTTP缓存的机制-浏览器缓存 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章内容总结"><span class="nav-number">2.</span> <span class="nav-text">文章内容总结:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#组件style的scoped"><span class="nav-number">2.1.</span> <span class="nav-text">组件style的scoped:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-数组-对象更新-视图不更新"><span class="nav-number">2.2.</span> <span class="nav-text">Vue 数组/对象更新 视图不更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vue-filters-过滤器的使用"><span class="nav-number">2.3.</span> <span class="nav-text">vue filters 过滤器的使用:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表渲染相关"><span class="nav-number">2.4.</span> <span class="nav-text">列表渲染相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度watch与watch立即触发回调"><span class="nav-number">2.5.</span> <span class="nav-text">深度watch与watch立即触发回调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#这些情况下不要使用箭头函数"><span class="nav-number">2.6.</span> <span class="nav-text">这些情况下不要使用箭头函数:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由懒加载写法"><span class="nav-number">2.7.</span> <span class="nav-text">路由懒加载写法:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由的项目启动页和404页面"><span class="nav-number">2.8.</span> <span class="nav-text">路由的项目启动页和404页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue调试神器-vue-devtools"><span class="nav-number">2.9.</span> <span class="nav-text">Vue调试神器:vue-devtools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前几个月也写过一篇类似的"><span class="nav-number">2.10.</span> <span class="nav-text">前几个月也写过一篇类似的:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。"><span class="nav-number">3.1.</span> <span class="nav-text">看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料："><span class="nav-number">3.2.</span> <span class="nav-text">参考资料：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytevxRRN';
+      var conf = '75faf3cb54138bb69e86ad05ff147b5d';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

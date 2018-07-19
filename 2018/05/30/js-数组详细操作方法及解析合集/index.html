@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="js,Array," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="前言在开发中，数组的使用场景非常多，平日中也涉及到很多数组的api/相关操作，一直也没有对这块内容进行一块整理总结，很多时候就算用过几次这个api，在开发中也很容易忘记，还是要谷歌一下。所以就希望对这块内容有一个比较系统性的总结，在这背景下，就有了本篇文章，如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。">
+<meta name="keywords" content="js,Array">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js 数组详细操作方法及解析合集">
+<meta property="og:url" content="http://yoursite.com/2018/05/30/js-数组详细操作方法及解析合集/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="前言在开发中，数组的使用场景非常多，平日中也涉及到很多数组的api/相关操作，一直也没有对这块内容进行一块整理总结，很多时候就算用过几次这个api，在开发中也很容易忘记，还是要谷歌一下。所以就希望对这块内容有一个比较系统性的总结，在这背景下，就有了本篇文章，如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1frtrbx8b69j30n20cyh3q.jpg">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317">
+<meta property="og:updated_time" content="2018-05-30T15:08:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js 数组详细操作方法及解析合集">
+<meta name="twitter:description" content="前言在开发中，数组的使用场景非常多，平日中也涉及到很多数组的api/相关操作，一直也没有对这块内容进行一块整理总结，很多时候就算用过几次这个api，在开发中也很容易忘记，还是要谷歌一下。所以就希望对这块内容有一个比较系统性的总结，在这背景下，就有了本篇文章，如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1frtrbx8b69j30n20cyh3q.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/30/js-数组详细操作方法及解析合集/"/>
+
+
+
+
+
+  <title>js 数组详细操作方法及解析合集 | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类列表">
+          <a href="/Summary/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/30/js-数组详细操作方法及解析合集/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js 数组详细操作方法及解析合集</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-30T22:54:20+08:00">
+                2018-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/05/30/js-数组详细操作方法及解析合集/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/05/30/js-数组详细操作方法及解析合集/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2018/05/30/js-数组详细操作方法及解析合集/" class="leancloud_visitors" data-flag-title="js 数组详细操作方法及解析合集">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1frtrbx8b69j30n20cyh3q.jpg" alt=""></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在开发中，数组的使用场景非常多，平日中也涉及到很多数组的<code>api</code>/相关操作，一直也没有对这块内容进行一块整理总结，很多时候就算用过几次这个<code>api</code>，在开发中也很容易忘记，还是要谷歌一下。所以就希望对这块内容有一个比较系统性的总结，在这背景下，就有了本篇文章，如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。</p>
+<a id="more"></a>
+<blockquote>
+<p>个人博客了解一下：<a href="http://obkoro1.com/" target="_blank" rel="noopener">obkoro1.com</a></p>
+</blockquote>
+<hr>
+<h2 id="本文篇幅较长，建议点赞保存再看，也便于日后翻阅。"><a href="#本文篇幅较长，建议点赞保存再看，也便于日后翻阅。" class="headerlink" title="本文篇幅较长，建议点赞保存再看，也便于日后翻阅。"></a>本文篇幅较长，建议点赞保存再看，也便于日后翻阅。</h2><hr>
+<h3 id="创建一个数组"><a href="#创建一个数组" class="headerlink" title="创建一个数组:"></a>创建一个数组:</h3><pre><code>// 字面量方式:
+// 这个方法也是我们最常用的，在初始化数组的时候 相当方便
+var a = [3, 11, 8];  // [3,11,8];
+// 构造器:
+// 实际上 new Array === Array,加不加new 一点影响都没有。
+var a = Array(); // [] 
+var a = Array(3); // [undefined,undefined,undefined]
+var a = Array(3,11,8); // [ 3,11,8 ]
+</code></pre><h4 id="ES6-Array-of-返回由所有参数值组成的数组"><a href="#ES6-Array-of-返回由所有参数值组成的数组" class="headerlink" title="ES6 Array.of()  返回由所有参数值组成的数组"></a>ES6 Array.of()  返回由所有参数值组成的数组</h4><p>定义：返回由所有参数值组成的数组，如果没有参数，就返回一个空数组。</p>
+<p>目的：Array.of() 出现的目的是为了解决上述构造器因参数个数不同，导致的行为有差异的问题。</p>
+<pre><code>let a = Array.of(3, 11, 8); // [3,11,8]
+let a = Array.of(3); // [3]
+</code></pre><h4 id="ES6-Arrar-from-将两类对象转为真正的数组"><a href="#ES6-Arrar-from-将两类对象转为真正的数组" class="headerlink" title="ES6 Arrar.from() 将两类对象转为真正的数组"></a>ES6 Arrar.from() 将两类对象转为真正的数组</h4><p>定义：用于将两类对象转为真正的数组（不改变原对象，返回新的数组）。</p>
+<p>参数：</p>
+<p>第一个参数(必需):要转化为真正数组的对象。</p>
+<p>第二个参数(可选): 类似数组的map方法，对每个元素进行处理，将处理后的值放入返回的数组。</p>
+<p>第三个参数(可选): 用来绑定this。</p>
+<pre><code>// 1. 对象拥有length属性
+let obj = {0: &apos;a&apos;, 1: &apos;b&apos;, 2:&apos;c&apos;, length: 3};
+let arr = Array.from(obj); // [&apos;a&apos;,&apos;b&apos;,&apos;c&apos;];
+// 2. 部署了 Iterator接口的数据结构 比如:字符串、Set、NodeList对象
+let arr = Array.from(&apos;hello&apos;); // [&apos;h&apos;,&apos;e&apos;,&apos;l&apos;,&apos;l&apos;]
+let arr = Array.from(new Set([&apos;a&apos;,&apos;b&apos;])); // [&apos;a&apos;,&apos;b&apos;]
+</code></pre><hr>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法:"></a>方法:</h2><p>数组原型提供了非常多的方法，这里分为三类来讲，一类会改变原数组的值，一类是不会改变原数组，以及数组的遍历方法。</p>
+<h3 id="改变原数组的方法-9个"><a href="#改变原数组的方法-9个" class="headerlink" title="改变原数组的方法(9个):"></a>改变原数组的方法(9个):</h3><pre><code>let a = [1,2,3];
+ES5:
+a.pop()/ a.shift()/  a.push()/ a.unshift()/ a.reverse()/  a.splice()/ a.sort() 
+ES6:
+a.copyWithin() / a.fill
+</code></pre><p>对于这些能够改变原数组的方法，要注意避免在循环遍历中改变原数组的选项，比如: 改变数组的长度，导致遍历的长度出现问题。</p>
+<h4 id="pop-删除一个数组中的最后的一个元素"><a href="#pop-删除一个数组中的最后的一个元素" class="headerlink" title="pop() 删除一个数组中的最后的一个元素"></a>pop() 删除一个数组中的最后的一个元素</h4><p>定义: pop() 方法删除一个数组中的最后的一个元素，并且返回这个元素。</p>
+<p>参数: 无。</p>
+<pre><code>let  a =  [1,2,3];
+let item = a.pop();  // 3
+console.log(a); // [1,2]
+</code></pre><h4 id="shift-删除数组的第一个元素"><a href="#shift-删除数组的第一个元素" class="headerlink" title="shift() 删除数组的第一个元素"></a>shift() 删除数组的第一个元素</h4><p>定义: shift()方法删除数组的第一个元素，并返回这个元素。</p>
+<p>参数: 无。</p>
+<pre><code>let  a =  [1,2,3];
+let item = a.shift();  // 1
+console.log(a); // [2,3]
+</code></pre><h4 id="push-向数组的末尾添加元素"><a href="#push-向数组的末尾添加元素" class="headerlink" title="push() 向数组的末尾添加元素"></a>push() 向数组的末尾添加元素</h4><p>定义：push() 方法可向数组的末尾添加一个或多个元素，并返回新的长度。</p>
+<p>参数:  item1, item2, …, itemX ,要添加到数组末尾的元素</p>
+<pre><code>let  a =  [1,2,3];
+let item = a.push(&apos;末尾&apos;);  // 4
+console.log(a); // [1,2,3,&apos;末尾&apos;]
+</code></pre><h4 id="unshift"><a href="#unshift" class="headerlink" title="unshift()"></a>unshift()</h4><p>定义：unshift() 方法可向数组的开头添加一个或更多元素，并返回新的长度。</p>
+<p>参数:  item1, item2, …, itemX ,要添加到数组开头的元素</p>
+<pre><code>let  a =  [1,2,3];
+let item = a.unshift(&apos;开头&apos;);  // 4
+console.log(a); // [&apos;开头&apos;,1,2,3]
+</code></pre><h4 id="reverse-颠倒数组中元素的顺序"><a href="#reverse-颠倒数组中元素的顺序" class="headerlink" title="reverse() 颠倒数组中元素的顺序"></a>reverse() 颠倒数组中元素的顺序</h4><p>定义: reverse() 方法用于颠倒数组中元素的顺序。</p>
+<p>参数: 无</p>
+<pre><code>let  a =  [1,2,3];
+a.reverse();  
+console.log(a); // [3,2,1]
+</code></pre><h4 id="splice-添加-删除数组元素"><a href="#splice-添加-删除数组元素" class="headerlink" title="splice() 添加/删除数组元素"></a>splice() 添加/删除数组元素</h4><p>定义： splice() 方法<strong>向/从数组中添加/删除</strong>项目，然后返回被删除的项目</p>
+<p>语法： <code>array.splice(index,howmany,item1,.....,itemX)</code></p>
+<p>参数: </p>
+<ol>
+<li>index：必需。整数，规定添加/删除项目的位置，使用负数可从数组结尾处规定位置。</li>
+<li>howmany：必需。要删除的项目数量。如果设置为 0，则不会删除项目。</li>
+<li>item1, …, itemX： 可选。向数组添加的新项目。</li>
+</ol>
+<p>返回值: 如果有元素被删除,返回包含被删除项目的新数组。</p>
+<p>eg1:删除元素</p>
+<pre><code>let a = [1, 2, 3, 4, 5, 6, 7];
+let item = a.splice(0, 3); // [1,2,3]
+console.log(a); // [4,5,6,7]
+// 从数组下标0开始，删除3个元素
+let item = a.splice(-1, 3); // [7]
+// 从最后一个元素开始删除3个元素，因为最后一个元素，所以只删除了7
+</code></pre><p>eg2: 删除并添加</p>
+<pre><code> let a = [1, 2, 3, 4, 5, 6, 7];
+let item = a.splice(0,3,&apos;添加&apos;); // [1,2,3]
+console.log(a); // [&apos;添加&apos;,4,5,6,7]
+// 从数组下标0开始，删除3个元素，并添加元素&apos;添加&apos;
+ let b = [1, 2, 3, 4, 5, 6, 7];
+let item = b.splice(-2,3,&apos;添加1&apos;,&apos;添加2&apos;); // [6,7]
+console.log(b); // [1,2,3,4,5,&apos;添加1&apos;,&apos;添加2&apos;]
+// 从数组最后第二个元素开始，删除3个元素，并添加两个元素&apos;添加1&apos;、&apos;添加2&apos;
+</code></pre><p>eg3: 不删除只添加:</p>
+<pre><code>let a = [1, 2, 3, 4, 5, 6, 7];
+let item = a.splice(0,0,&apos;添加1&apos;,&apos;添加2&apos;); // [] 没有删除元素，返回空数组
+console.log(a); // [&apos;添加1&apos;,&apos;添加2&apos;,1,2,3,4,5,6,7]
+let b = [1, 2, 3, 4, 5, 6, 7];
+let item = b.splice(-1,0,&apos;添加1&apos;,&apos;添加2&apos;); // [] 没有删除元素，返回空数组
+console.log(b); // [1,2,3,4,5,6,&apos;添加1&apos;,&apos;添加2&apos;,7] 在最后一个元素的前面添加两个元素
+</code></pre><p>从上述三个栗子可以得出:</p>
+<ol>
+<li>数组如果元素不够，会删除到最后一个元素为止</li>
+<li>操作的元素，包括开始的那个元素</li>
+<li>可以添加很多个元素</li>
+<li>添加是在开始的元素前面添加的</li>
+</ol>
+<h4 id="sort-数组排序"><a href="#sort-数组排序" class="headerlink" title="sort() 数组排序"></a>sort() 数组排序</h4><p>定义: sort()方法对数组元素进行排序，并返回这个数组。</p>
+<p>参数可选: 规定排序顺序的比较函数。  </p>
+<p>默认情况下sort()方法没有传比较函数的话，默认按字母升序，如果不是元素不是字符串的话，会调用<code>toString()</code>方法将元素转化为字符串的Unicode(万国码)位点，然后再比较字符。</p>
+<pre><code>// 字符串排列 看起来很正常
+var a = [&quot;Banana&quot;, &quot;Orange&quot;, &quot;Apple&quot;, &quot;Mango&quot;];
+a.sort(); // [&quot;Apple&quot;,&quot;Banana&quot;,&quot;Mango&quot;,&quot;Orange&quot;]
+// 数字排序的时候 因为转换成Unicode字符串之后，有些数字会比较大会排在后面 这显然不是我们想要的
+var    a = [10, 1, 3, 20,25,8];
+console.log(a.sort()) // [1,10,20,25,3,8];
+</code></pre><p><strong>比较函数的两个参数：</strong></p>
+<p>sort的比较函数有两个默认参数，要在函数中接收这两个参数，这两个参数是数组中两个要比较的元素，通常我们用 a 和 b 接收两个将要比较的元素：</p>
+<ul>
+<li>若比较函数返回值&lt;0，那么a将排到b的前面;</li>
+<li>若比较函数返回值=0，那么a 和 b 相对位置不变；</li>
+<li>若比较函数返回值&gt;0，那么b 排在a 将的前面；</li>
+</ul>
+<p>对于sort()方法更深层级的内部实现以及处理机制可以看一下这篇文章<a href="https://juejin.im/entry/59f7f3346fb9a04514635552" target="_blank" rel="noopener">深入了解javascript的sort方法</a></p>
+<p><strong>sort排序常见用法</strong>：</p>
+<ol>
+<li><p>数组元素为数字的升序、降序:</p>
+<pre><code>var array =  [10, 1, 3, 4,20,4,25,8];
+// 升序 a-b &lt; 0   a将排到b的前面，按照a的大小来排序的 
+// 比如被减数a是10，减数是20  10-20 &lt; 0   被减数a(10)在减数b(20)前面   
+array.sort(function(a,b){
+  return a-b;
+});
+console.log(array); // [1,3,4,4,8,10,20,25];
+// 降序 被减数和减数调换了  20-10&gt;0 被减数b(20)在减数a(10)的前面
+array.sort(function(a,b){
+  return b-a;
+});
+console.log(array); // [25,20,10,8,4,4,3,1];
+</code></pre></li>
+<li><p>数组多条件排序</p>
+<pre><code>var array = [{id:10,age:2},{id:5,age:4},{id:6,age:10},{id:9,age:6},{id:2,age:8},{id:10,age:9}];
+    array.sort(function(a,b){
+        if(a.id === b.id){// 如果id的值相等，按照age的值降序
+            return b.age - a.age
+        }else{ // 如果id的值不相等，按照id的值升序
+            return a.id - b.id
+        }
+    })
+ // [{&quot;id&quot;:2,&quot;age&quot;:8},{&quot;id&quot;:5,&quot;age&quot;:4},{&quot;id&quot;:6,&quot;age&quot;:10},{&quot;id&quot;:9,&quot;age&quot;:6},{&quot;id&quot;:10,&quot;age&quot;:9},{&quot;id&quot;:10,&quot;age&quot;:2}] 
+</code></pre></li>
+<li><p>自定义比较函数，天空才是你的极限 </p>
+</li>
+</ol>
+<p>类似的：<strong>运用好返回值，我们可以写出任意符合自己需求的比较函数</strong></p>
+<pre><code>var array = [{name:&apos;Koro1&apos;},{name:&apos;Koro1&apos;},{name:&apos;OB&apos;},{name:&apos;Koro1&apos;},{name:&apos;OB&apos;},{name:&apos;OB&apos;}];
+array.sort(function(a,b){
+    if(a.name === &apos;Koro1&apos;){// 如果name是&apos;Koro1&apos; 返回-1 ，-1&lt;0 a排在b的前面
+        return -1
+    }else{ // 如果不是的话，a排在b的后面
+      return 1
+    }
+})
+// [{&quot;name&quot;:&quot;Koro1&quot;},{&quot;name&quot;:&quot;Koro1&quot;},{&quot;name&quot;:&quot;Koro1&quot;},{&quot;name&quot;:&quot;OB&quot;},{&quot;name&quot;:&quot;OB&quot;},{&quot;name&quot;:&quot;OB&quot;}] 
+</code></pre><h4 id="ES6-copyWithin-指定位置的成员复制到其他位置"><a href="#ES6-copyWithin-指定位置的成员复制到其他位置" class="headerlink" title="ES6: copyWithin() 指定位置的成员复制到其他位置"></a>ES6: copyWithin() 指定位置的成员复制到其他位置</h4><p>定义: 在当前数组内部，将指定位置的成员复制到其他位置,并返回这个数组。</p>
+<p>语法:</p>
+<pre><code>array.copyWithin(target, start = 0, end = this.length)
+</code></pre><p>参数:</p>
+<p>三个参数都是数值，如果不是，会自动转为数值.</p>
+<ol>
+<li>target（必需）：从该位置开始替换数据。如果为负值，表示倒数。</li>
+<li>start（可选）：从该位置开始读取数据，默认为 0。如果为负值，表示倒数。</li>
+<li>end（可选）：到该位置前停止读取数据，默认等于数组长度。使用负数可从数组结尾处规定位置。</li>
+</ol>
+<p>浏览器兼容(MDN): chrome 45,Edge 12,Firefox32,Opera 32,Safari 9, IE 不支持</p>
+<p>eg:</p>
+<pre><code>// -2相当于3号位，-1相当于4号位
+[1, 2, 3, 4, 5].copyWithin(0, -2, -1)
+// [4, 2, 3, 4, 5]
+var a=[&apos;OB1&apos;,&apos;Koro1&apos;,&apos;OB2&apos;,&apos;Koro2&apos;,&apos;OB3&apos;,&apos;Koro3&apos;,&apos;OB4&apos;,&apos;Koro4&apos;,&apos;OB5&apos;,&apos;Koro5&apos;]
+// 2位置开始被替换,3位置开始读取要替换的 5位置前面停止替换
+a.copyWithin(2,3,5)
+// [&quot;OB1&quot;,&quot;Koro1&quot;,&quot;Koro2&quot;,&quot;OB3&quot;,&quot;OB3&quot;,&quot;Koro3&quot;,&quot;OB4&quot;,&quot;Koro4&quot;,&quot;OB5&quot;,&quot;Koro5&quot;] 
+</code></pre><p>从上述栗子: </p>
+<ol>
+<li>第一个参数是开始被替换的元素位置</li>
+<li>要替换数据的位置范围:从第二个参数是开始读取的元素，在第三个参数前面一个元素停止读取</li>
+<li>数组的长度不会改变</li>
+<li><strong>读了几个元素就从开始被替换的地方替换几个元素</strong></li>
+</ol>
+<h4 id="ES6-fill-填充数组"><a href="#ES6-fill-填充数组" class="headerlink" title="ES6: fill() 填充数组"></a>ES6: fill() 填充数组</h4><p>定义:  使用给定值，填充一个数组。</p>
+<p>参数:</p>
+<p>第一个元素(必须): 要填充数组的值</p>
+<p>第二个元素(可选): 填充的开始位置,默认值为0</p>
+<p>第三个元素(可选)：填充的结束位置，默认是为<code>this.length</code></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/fill#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7" target="_blank" rel="noopener">MDN浏览器兼容</a></p>
+<pre><code>[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;].fill(7)
+// [7, 7, 7]
+[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;].fill(7, 1, 2)
+// [&apos;a&apos;, 7, &apos;c&apos;]
+</code></pre><hr>
+<h3 id="不改变原数组的方法-8个"><a href="#不改变原数组的方法-8个" class="headerlink" title="不改变原数组的方法(8个):"></a>不改变原数组的方法(8个):</h3><pre><code>ES5：
+join、toLocateString、toStrigin、slice、cancat、indexOf、lastIndexOf、
+ES7：
+includes
+</code></pre><h4 id="join-数组转字符串"><a href="#join-数组转字符串" class="headerlink" title="join()  数组转字符串"></a>join()  数组转字符串</h4><p>定义:  join() 方法用于把数组中的所有元素通过指定的分隔符进行分隔放入一个字符串，返回生成的字符串。</p>
+<p>语法:</p>
+<pre><code>array.join(str)
+</code></pre><p>参数:</p>
+<p>str(可选): 指定要使用的分隔符，默认使用逗号作为分隔符。</p>
+<pre><code>let a= [&apos;hello&apos;,&apos;world&apos;];
+let str=a.join(); // &apos;hello,world&apos;
+let str2=a.join(&apos;+&apos;); // &apos;hello+world&apos;
+</code></pre><p>使用join方法或者下文说到的toString方法时，当数组中的元素也是数组或者是对象时会出现什么情况？</p>
+<pre><code>let a= [[&apos;OBKoro1&apos;,&apos;23&apos;],&apos;test&apos;];
+let str1=a.join(); // OBKoro1,23,test
+let b= [{name:&apos;OBKoro1&apos;,age:&apos;23&apos;},&apos;test&apos;];
+let str2 = b.join(); // [object Object],test
+// 对象转字符串推荐JSON.stringify(obj);
+</code></pre><p>所以，<code>join()/toString()</code>方法在数组元素是数组的时候，会将里面的数组也调用<code>join()/toString()</code>,如果是对象的话，对象会被转为<code>[object Object]</code>字符串。</p>
+<h4 id="toLocaleString-数组转字符串"><a href="#toLocaleString-数组转字符串" class="headerlink" title="toLocaleString() 数组转字符串"></a>toLocaleString() 数组转字符串</h4><p>定义: 返回一个表示数组元素的字符串。该字符串由数组中的每个元素的 toLocaleString() 返回值经调用 join() 方法连接（由逗号隔开）组成。</p>
+<p>语法:</p>
+<pre><code>array.toLocaleString()
+</code></pre><p>参数：无。</p>
+<pre><code>let a=[{name:&apos;OBKoro1&apos;},23,&apos;abcd&apos;,new Date()];
+let str=a.toLocaleString(); // [object Object],23,abcd,2018/5/28 下午1:52:20 
+</code></pre><p>如上述栗子：调用数组的<code>toLocaleString</code>方法，数组中的每个元素都会调用自身的<code>toLocaleString</code>方法，对象调用对象的<code>toLocaleString</code>,Date调用Date的<code>toLocaleString</code>。</p>
+<h4 id="toString-数组转字符串-不推荐"><a href="#toString-数组转字符串-不推荐" class="headerlink" title="toString() 数组转字符串 不推荐"></a>toString() 数组转字符串 不推荐</h4><p>定义: toString() 方法可把数组转换为由逗号链接起来的字符串。</p>
+<p>语法:</p>
+<pre><code>array.toString()
+</code></pre><p>参数: 无。</p>
+<p>该方法的效果和join方法一样，都是用于数组转字符串的，但是与join方法相比没有优势，也不能自定义字符串的分隔符，因此不推荐使用。</p>
+<p><strong>值得注意的是</strong>：当数组和字符串操作的时候，js 会调用这个方法将数组自动转换成字符串</p>
+<pre><code>let b= [ &apos;toString&apos;,&apos;演示&apos;].toString(); // toString,演示
+let a= [&apos;调用toString&apos;,&apos;连接在我后面&apos;]+&apos;啦啦啦&apos;; // 调用toString,连接在我后面啦啦啦
+</code></pre><h4 id="slice-浅拷贝数组的元素"><a href="#slice-浅拷贝数组的元素" class="headerlink" title="slice() 浅拷贝数组的元素"></a>slice() 浅拷贝数组的元素</h4><p>定义： 方法返回一个从开始到结束（不包括结束）选择的数组的一部分浅拷贝到一个新数组对象，且原数组不会被修改。</p>
+<p><strong>注意</strong>：字符串也有一个slice() 方法是用来提取字符串的，不要弄混了。</p>
+<p>语法:</p>
+<pre><code>array.slice(begin, end);
+</code></pre><p>参数: </p>
+<p>begin(可选): 索引数值,接受负值，从该索引处开始提取原数组中的元素,默认值为0。</p>
+<p>end(可选):索引数值(不包括),接受负值，在该索引处前结束提取原数组元素，默认值为数组末尾(包括最后一个元素)。</p>
+<pre><code>let a= [&apos;hello&apos;,&apos;world&apos;];
+let b=a.slice(0,1); // [&apos;hello&apos;]
+a[0]=&apos;改变原数组&apos;;
+console.log(a,b); // [&apos;改变原数组&apos;,&apos;world&apos;] [&apos;hello&apos;]
+b[0]=&apos;改变拷贝的数组&apos;;
+ console.log(a,b); // [&apos;改变原数组&apos;,&apos;world&apos;] [&apos;改变拷贝的数组&apos;]
+</code></pre><p>如上：新数组是浅拷贝的，<strong>元素是简单数据类型，改变之后不会互相干扰</strong>。</p>
+<p>如果是<strong>复杂数据类型(对象,数组)的话，改变其中一个，另外一个也会改变</strong>。</p>
+<pre><code>let a= [{name:&apos;OBKoro1&apos;}];
+let b=a.slice();
+console.log(b,a); // [{&quot;name&quot;:&quot;OBKoro1&quot;}]  [{&quot;name&quot;:&quot;OBKoro1&quot;}]
+// a[0].name=&apos;改变原数组&apos;;
+// console.log(b,a); // [{&quot;name&quot;:&quot;改变原数组&quot;}] [{&quot;name&quot;:&quot;改变原数组&quot;}]
+// b[0].name=&apos;改变拷贝数组&apos;,b[0].koro=&apos;改变拷贝数组&apos;;
+//  [{&quot;name&quot;:&quot;改变拷贝数组&quot;,&quot;koro&quot;:&quot;改变拷贝数组&quot;}] [{&quot;name&quot;:&quot;改变拷贝数组&quot;,&quot;koro&quot;:&quot;改变拷贝数组&quot;}]
+</code></pre><p>原因在定义上面说过了的：slice()是浅拷贝，对于复杂的数据类型浅拷贝，拷贝的只是指向原数组的指针，所以无论改变原数组，还是浅拷贝的数组，都是改变原数组的数据。</p>
+<h4 id="cancat"><a href="#cancat" class="headerlink" title="cancat"></a>cancat</h4><p>定义： 方法用于合并两个或多个数组，返回一个新数组。</p>
+<p>语法：</p>
+<pre><code>var newArr =oldArray.concat(arrayX,arrayX,......,arrayX)
+</code></pre><p>参数：</p>
+<p>arrayX（必须）：该参数可以是具体的值，也可以是数组对象。可以是任意多个。</p>
+<p>eg1: </p>
+<pre><code> let a = [1, 2, 3];
+ let b = [4, 5, 6];
+ //连接两个数组
+ let newVal=a.concat(b); // [1,2,3,4,5,6]
+ // 连接三个数组
+ let c = [7, 8, 9]
+ let newVal2 = a.concat(b, c); // [1,2,3,4,5,6,7,8,9]
+ // 添加元素
+ let newVal3 = a.concat(&apos;添加元素&apos;,b, c,&apos;再加一个&apos;); 
+ // [1,2,3,&quot;添加元素&quot;,4,5,6,7,8,9,&quot;再加一个&quot;]
+// 合并嵌套数组  会浅拷贝嵌套数组
+let d = [1,2 ];
+let f = [3,[4]];
+let newVal4 = d.concat(f); // [1,2,3,[4]]
+</code></pre><p><strong>ES6扩展运算符<code>...</code>合并数组</strong>：</p>
+<p>因为ES6的语法更简洁易懂，所以现在合并数组我大部分采用<code>...</code>来处理，<code>...</code>运算符可以实现<code>cancat</code>的每个栗子，且更简洁和具有高度自定义数组元素位置的效果。</p>
+<pre><code>let a = [2, 3, 4, 5]
+let b = [ 4,...a, 4, 4]
+console.log(a,b); //  [2, 3, 4, 5] [4,2,3,4,5,4,4]
+</code></pre><p>更多关于扩展符的详细内容移步阮一峰大神的<a href="http://es6.ruanyifeng.com/#docs/array#%E6%89%A9%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6" target="_blank" rel="noopener">ECMAScript 6 入门</a></p>
+<h4 id="indexOf-查找数组是否存在某个元素，返回下标"><a href="#indexOf-查找数组是否存在某个元素，返回下标" class="headerlink" title="indexOf() 查找数组是否存在某个元素，返回下标"></a>indexOf() 查找数组是否存在某个元素，返回下标</h4><p>定义: 返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回-1。</p>
+<p>语法:</p>
+<pre><code>array.indexOf(searchElement,fromIndex)
+</code></pre><p>参数:</p>
+<p>searchElement(必须):被查找的元素</p>
+<p>fromIndex(可选):开始查找的位置(不能大于等于数组的长度，返回-1)，接受负值，默认值为0。</p>
+<p>严格相等的搜索:</p>
+<p>数组的indexOf搜索跟字符串的indexOf不一样,数组的indexOf使用严格相等<code>===</code>搜索元素，即<strong>数组元素要完全匹配</strong>才能搜索成功。</p>
+<p><strong>注意</strong>：indexOf()不能识别<code>NaN</code></p>
+<p>eg: </p>
+<pre><code>let a=[&apos;啦啦&apos;,2,4,24,NaN]
+console.log(a.indexOf(&apos;啦&apos;));  // -1 
+console.log(a.indexOf(&apos;NaN&apos;));  // -1 
+console.log(a.indexOf(&apos;啦啦&apos;)); // 0
+</code></pre><p>使用场景：</p>
+<ol>
+<li><a href="https://juejin.im/post/5aad40e4f265da237f1e12ed#heading-10" target="_blank" rel="noopener">数组去重</a></li>
+<li>根据获取的数组下标执行操作，改变数组中的值等。</li>
+<li>判断是否存在，执行操作。 </li>
+</ol>
+<h4 id="lastIndexOf-查找指定元素在数组中的最后一个位置"><a href="#lastIndexOf-查找指定元素在数组中的最后一个位置" class="headerlink" title="lastIndexOf() 查找指定元素在数组中的最后一个位置"></a>lastIndexOf() 查找指定元素在数组中的最后一个位置</h4><p>定义:  方法返回指定元素,在数组中的最后一个的索引，如果不存在则返回 -1。（从数组后面往前查找）</p>
+<p>语法:</p>
+<pre><code>arr.lastIndexOf(searchElement,fromIndex)
+</code></pre><p>参数: </p>
+<p>searchElement(必须): 被查找的元素</p>
+<p>fromIndex(可选): 逆向查找开始位置，默认值数组的长度-1，即查找整个数组。</p>
+<p>关于fromIndex有三个规则:</p>
+<ol>
+<li>正值。如果该值大于或等于数组的长度，则整个数组会被查找。</li>
+<li>负值。将其视为从数组末尾向前的偏移。(比如-2，从数组最后第二个元素开始往前查找)</li>
+<li><p>负值。其绝对值大于数组长度，则方法返回 -1，即数组不会被查找。</p>
+<pre><code>let a=[&apos;OB&apos;,4,&apos;Koro1&apos;,1,2,&apos;Koro1&apos;,3,4,5,&apos;Koro1&apos;]; // 数组长度为10
+// let b=a.lastIndexOf(&apos;Koro1&apos;,4); // 从下标4开始往前找 返回下标2
+// let b=a.lastIndexOf(&apos;Koro1&apos;,100); //  大于或数组的长度 查找整个数组 返回9
+// let b=a.lastIndexOf(&apos;Koro1&apos;,-11); // -1 数组不会被查找
+let b=a.lastIndexOf(&apos;Koro1&apos;,-9); // 从第二个元素4往前查找，没有找到 返回-1
+</code></pre></li>
+</ol>
+<h4 id="ES7-includes-查找数组是否包含某个元素-返回布尔"><a href="#ES7-includes-查找数组是否包含某个元素-返回布尔" class="headerlink" title="ES7 includes() 查找数组是否包含某个元素 返回布尔"></a>ES7 includes() 查找数组是否包含某个元素 返回布尔</h4><p>定义： 返回一个布尔值，表示某个数组是否包含给定的值</p>
+<p>语法：</p>
+<pre><code>array.includes(searchElement,fromIndex=0)
+</code></pre><p>参数：</p>
+<p>searchElement(必须):被查找的元素</p>
+<p>fromIndex(可选):默认值为0，参数表示搜索的起始位置，接受负值。正值超过数组长度，数组不会被搜索，返回false。负值绝对值超过长数组度，重置从0开始搜索。</p>
+<p><strong>includes方法是为了弥补indexOf方法的缺陷而出现的:</strong></p>
+<ol>
+<li>indexOf方法不能识别<code>NaN</code></li>
+<li>indexOf方法检查是否包含某个值不够语义化，需要判断是否不等于<code>-1</code>，表达不够直观</li>
+</ol>
+<p>eg: </p>
+<pre><code>let a=[&apos;OB&apos;,&apos;Koro1&apos;,1,NaN];
+// let b=a.includes(NaN); // true 识别NaN
+// let b=a.includes(&apos;Koro1&apos;,100); // false 超过数组长度 不搜索
+// let b=a.includes(&apos;Koro1&apos;,-3);  // true 从倒数第三个元素开始搜索 
+// let b=a.includes(&apos;Koro1&apos;,-100);  // true 负值绝对值超过数组长度，搜索整个数组
+</code></pre><p>兼容性(MDN): chrome47, Firefox 43,Edge 14,Opera 34, Safari 9,IE 未实现。</p>
+<hr>
+<h3 id="遍历方法-12个"><a href="#遍历方法-12个" class="headerlink" title="遍历方法(12个):"></a>遍历方法(12个):</h3><p>js中遍历数组并不会改变原始数组的方法总共有12个:</p>
+<pre><code>ES5：
+forEach、every 、some、 fliter、map、reduce、reduceRight、
+ES6：
+find、findIndex、keys、values、entries
+</code></pre><h4 id="关于遍历："><a href="#关于遍历：" class="headerlink" title="关于遍历："></a>关于遍历：</h4><ul>
+<li>关于遍历的效率，可以看一下这篇<a href="http://louiszhai.github.io/2015/12/18/traverse/#%E6%B5%8B%E8%AF%95%E5%90%84%E6%96%B9%E6%B3%95%E6%95%88%E7%8E%87" target="_blank" rel="noopener">详解JS遍历</a></li>
+<li>尽量不要在遍历的时候，修改后面要遍历的值</li>
+<li>尽量不要在遍历的时候修改数组的长度（删除/添加）</li>
+</ul>
+<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><p>定义: 按升序为数组中含有效值的每一项执行一次回调函数。</p>
+<p>语法：</p>
+<pre><code>array.forEach(function(currentValue, index, arr), thisValue)
+</code></pre><p>参数: </p>
+<p>function(必须): 数组中每个元素需要调用的函数。</p>
+<pre><code>// 回调函数的参数
+1. currentValue(必须),数组当前元素的值
+2. index(可选), 当前元素的索引值
+3. arr(可选),数组对象本身
+</code></pre><p>thisValue(可选):  当执行回调函数时this绑定对象的值，默认值为<code>undefined</code></p>
+<p><strong>关于forEach()你要知道</strong>：</p>
+<ul>
+<li>无法中途退出循环，只能用<code>return</code>退出本次回调，进行下一次回调。</li>
+<li>它总是返回 undefined值,即使你return了一个值。</li>
+</ul>
+<h4 id="下面类似语法同样适用这些规则"><a href="#下面类似语法同样适用这些规则" class="headerlink" title="下面类似语法同样适用这些规则"></a>下面类似语法同样适用这些规则</h4><pre><code>1. 对于空数组是不会执行回调函数的
+2. 对于已在迭代过程中删除的元素，或者空元素会跳过回调函数
+3. 遍历次数再第一次循环前就会确定，再添加到数组中的元素不会被遍历。
+4. 如果已经存在的值被改变，则传递给 callback 的值是遍历到他们那一刻的值。
+</code></pre><p>eg:</p>
+<pre><code>let a = [1, 2, ,3]; // 最后第二个元素是空的，不会遍历(undefined、null会遍历)
+let obj = { name: &apos;OBKoro1&apos; };
+let result = a.forEach(function (value, index, array) { 
+  a[3] = &apos;改变元素&apos;;
+  a.push(&apos;添加到尾端，不会被遍历&apos;)
+  console.log(value, &apos;forEach传递的第一个参数&apos;); // 分别打印 1 ,2 ,改变元素
+  console.log(this.name); // OBKoro1 打印三次 this绑定在obj对象上
+  // break; // break会报错
+  return value; // return只能结束本次回调 会执行下次回调
+  console.log(&apos;不会执行，因为return 会执行下一次循环回调&apos;)
+}, obj);
+console.log(result); // 即使return了一个值,也还是返回undefined
+// 回调函数也接受接头函数写法
+</code></pre><h4 id="every-检测数组所有元素是否都符合判断条件"><a href="#every-检测数组所有元素是否都符合判断条件" class="headerlink" title="every 检测数组所有元素是否都符合判断条件"></a>every 检测数组所有元素是否都符合判断条件</h4><p>定义: 方法用于检测数组所有元素是否都符合函数定义的条件</p>
+<p>语法：</p>
+<pre><code>array.every(function(currentValue, index, arr), thisValue)
+</code></pre><p>参数:(这几个方法的参数，语法都类似)</p>
+<p>function(必须): 数组中每个元素需要调用的函数。</p>
+<pre><code>// 回调函数的参数
+1. currentValue(必须),数组当前元素的值
+2. index(可选), 当前元素的索引值
+3. arr(可选),数组对象本身
+</code></pre><p>thisValue(可选):  当执行回调函数时this绑定对象的值，默认值为<code>undefined</code></p>
+<p>方法返回值规则:</p>
+<ol>
+<li>如果数组中检测到<strong>有一个元素不满足，则整个表达式返回 false</strong>，且剩余的元素不会再进行检测。</li>
+<li>如果所有元素<strong>都满足条件，则返回 true</strong>。=</li>
+</ol>
+<p>eg:</p>
+<pre><code>function isBigEnough(element, index, array) { 
+  return element &gt;= 10; // 判断数组中的所有元素是否都大于10
+}
+let result = [12, 5, 8, 130, 44].every(isBigEnough);   // false
+let result = [12, 54, 18, 130, 44].every(isBigEnough); // true
+// 接受箭头函数写法 
+[12, 5, 8, 130, 44].every(x =&gt; x &gt;= 10); // false
+[12, 54, 18, 130, 44].every(x =&gt; x &gt;= 10); // true
+</code></pre><h4 id="some-数组中的是否有满足判断条件的元素"><a href="#some-数组中的是否有满足判断条件的元素" class="headerlink" title="some 数组中的是否有满足判断条件的元素"></a>some 数组中的是否有满足判断条件的元素</h4><p>定义：数组中的是否有满足判断条件的元素</p>
+<p>语法：</p>
+<pre><code>array.some(function(currentValue, index, arr), thisValue)
+</code></pre><p>参数:(这几个方法的参数，语法都类似)</p>
+<p>function(必须): 数组中每个元素需要调用的函数。</p>
+<pre><code>// 回调函数的参数
+1. currentValue(必须),数组当前元素的值
+2. index(可选), 当前元素的索引值
+3. arr(可选),数组对象本身
+</code></pre><p>thisValue(可选):  当执行回调函数时this绑定对象的值，默认值为<code>undefined</code></p>
+<p>方法返回值规则：</p>
+<ol>
+<li>如果<strong>有一个元素满足条件，则表达式返回true</strong>, 剩余的元素不会再执行检测。</li>
+<li><p>如果<strong>没有满足条件的元素，则返回false</strong>。</p>
+<pre><code>function isBigEnough(element, index, array) {
+  return (element &gt;= 10); //数组中是否有一个元素大于 10
+}
+let result = [2, 5, 8, 1, 4].some(isBigEnough); // false
+let result = [12, 5, 8, 1, 4].some(isBigEnough); // true
+</code></pre></li>
+</ol>
+<h4 id="filter-过滤原始数组，返回新数组"><a href="#filter-过滤原始数组，返回新数组" class="headerlink" title="filter 过滤原始数组，返回新数组"></a>filter 过滤原始数组，返回新数组</h4><p>定义: 返回一个新数组, 其包含通过所提供函数实现的测试的所有元素。 </p>
+<p>语法：</p>
+<pre><code>let new_array = arr.filter(function(currentValue, index, arr), thisArg)
+</code></pre><p>参数:(这几个方法的参数，语法都类似)</p>
+<p>function(必须): 数组中每个元素需要调用的函数。</p>
+<pre><code>// 回调函数的参数
+1. currentValue(必须),数组当前元素的值
+2. index(可选), 当前元素的索引值
+3. arr(可选),数组对象本身
+</code></pre><p>thisValue(可选):  当执行回调函数时this绑定对象的值，默认值为<code>undefined</code></p>
+<p>eg:</p>
+<pre><code> let a = [32, 33, 16, 40];
+let result = a.filter(function (value, index, array) {
+  return value &gt;= 18; // 返回a数组中所有大于18的元素
+});
+console.log(result,a);// [32,33,40] [32,33,16,40]
+</code></pre><h4 id="map-对数组中的每个元素进行处理，返回新的数组"><a href="#map-对数组中的每个元素进行处理，返回新的数组" class="headerlink" title="map 对数组中的每个元素进行处理，返回新的数组"></a>map 对数组中的每个元素进行处理，返回新的数组</h4><p>定义：创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。</p>
+<p>语法：</p>
+<pre><code>let new_array = arr.map(function(currentValue, index, arr), thisArg)
+</code></pre><p>参数:(这几个方法的参数，语法都类似)</p>
+<p>function(必须): 数组中每个元素需要调用的函数。</p>
+<pre><code>// 回调函数的参数
+1. currentValue(必须),数组当前元素的值
+2. index(可选), 当前元素的索引值
+3. arr(可选),数组对象本身
+</code></pre><p>thisValue(可选):  当执行回调函数时this绑定对象的值，默认值为<code>undefined</code></p>
+<p>eg:</p>
+<pre><code>let a = [&apos;1&apos;,&apos;2&apos;,&apos;3&apos;,&apos;4&apos;];
+let result = a.map(function (value, index, array) {
+  return value + &apos;新数组的新元素&apos;
+});
+console.log(result, a); 
+// [&quot;1新数组的新元素&quot;,&quot;2新数组的新元素&quot;,&quot;3新数组的新元素&quot;,&quot;4新数组的新元素&quot;] [&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;]
+</code></pre><h4 id="reduce-为数组提供累加器，合并为一个值"><a href="#reduce-为数组提供累加器，合并为一个值" class="headerlink" title="reduce 为数组提供累加器，合并为一个值"></a>reduce 为数组提供累加器，合并为一个值</h4><p>定义：reduce() 方法对累加器和数组中的每个元素（从左到右）应用一个函数，最终合并为一个值。</p>
+<p>语法：</p>
+<pre><code>array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
+</code></pre><p>参数：</p>
+<p>function(必须): 数组中每个元素需要调用的函数。</p>
+<pre><code>// 回调函数的参数
+1. total(必须)，初始值, 或者上一次调用回调返回的值
+2. currentValue(必须),数组当前元素的值
+3. index(可选), 当前元素的索引值
+4. arr(可选),数组对象本身
+</code></pre><p>initialValue(可选): 指定第一次回调 的第一个参数。</p>
+<p>回调第一次执行时:</p>
+<ul>
+<li>如果 initialValue 在调用 reduce 时被提供，那么第一个 total 将等于 initialValue，此时 currentValue 等于数组中的第一个值；</li>
+<li>如果 initialValue 未被提供，那么 total 等于数组中的第一个值，currentValue 等于数组中的第二个值。此时如果数组为空，那么将抛出 TypeError。</li>
+<li>如果数组仅有一个元素，并且没有提供 initialValue，或提供了 initialValue 但数组为空，那么回调不会被执行，数组的唯一值将被返回。</li>
+</ul>
+<p>eg:</p>
+<pre><code>// 数组求和 
+let sum = [0, 1, 2, 3].reduce(function (a, b) {
+  return a + b;
+}, 0);
+// 6
+// 将二维数组转化为一维 将数组元素展开
+let flattened = [[0, 1], [2, 3], [4, 5]].reduce(
+  (a, b) =&gt; a.concat(b),
+  []
+);
+ // [0, 1, 2, 3, 4, 5]
+</code></pre><h4 id="reduceRight-从右至左累加"><a href="#reduceRight-从右至左累加" class="headerlink" title="reduceRight  从右至左累加"></a>reduceRight  从右至左累加</h4><p>这个方法除了与reduce执行方向相反外，其他完全与其一致，请参考上述 reduce 方法介绍。</p>
+<h4 id="ES6：find-amp-findIndex-根据条件找到数组成员"><a href="#ES6：find-amp-findIndex-根据条件找到数组成员" class="headerlink" title="ES6：find()&amp; findIndex() 根据条件找到数组成员"></a>ES6：find()&amp; findIndex() 根据条件找到数组成员</h4><p>find()定义：用于找出第一个符合条件的数组成员，并返回该成员，如果没有符合条件的成员，则返回undefined。</p>
+<p>findIndex()定义：返回第一个符合条件的数组成员的位置，如果所有成员都不符合条件，则返回-1。</p>
+<p>这两个方法</p>
+<p>语法：</p>
+<pre><code>let new_array = arr.find(function(currentValue, index, arr), thisArg)
+ let new_array = arr.findIndex(function(currentValue, index, arr), thisArg)
+</code></pre><p>参数:(这几个方法的参数，语法都类似)</p>
+<p>function(必须): 数组中每个元素需要调用的函数。</p>
+<pre><code>// 回调函数的参数
+1. currentValue(必须),数组当前元素的值
+2. index(可选), 当前元素的索引值
+3. arr(可选),数组对象本身
+</code></pre><p>thisValue(可选):  当执行回调函数时this绑定对象的值，默认值为<code>undefined</code></p>
+<p>这两个方法都可以识别<code>NaN</code>,弥补了<code>indexOf</code>的不足.</p>
+<p>eg:</p>
+<pre><code>// find
+let a = [1, 4, -5, 10].find((n) =&gt; n &lt; 0); // 返回元素-5
+let b = [1, 4, -5, 10,NaN].find((n) =&gt; Object.is(NaN, n));  // 返回元素NaN
+// findIndex
+let a = [1, 4, -5, 10].findIndex((n) =&gt; n &lt; 0); // 返回索引2
+let b = [1, 4, -5, 10,NaN].findIndex((n) =&gt; Object.is(NaN, n));  // 返回索引4
+</code></pre><p>浏览器兼容(MDN):Chrome 45,Firefox 25,Opera 32, Safari 8, Edge yes,</p>
+<h4 id="ES6-keys-amp-values-amp-entries-遍历键名、遍历键值、遍历键名-键值"><a href="#ES6-keys-amp-values-amp-entries-遍历键名、遍历键值、遍历键名-键值" class="headerlink" title="ES6 keys()&amp;values()&amp;entries() 遍历键名、遍历键值、遍历键名+键值"></a>ES6 keys()&amp;values()&amp;entries() 遍历键名、遍历键值、遍历键名+键值</h4><p>定义：三个方法都返回一个新的 Array Iterator 对象，对象根据方法不同包含不同的值。</p>
+<p>语法：</p>
+<pre><code>array.keys()
+array.values()
+array.entries()
+</code></pre><p>参数：无。</p>
+<p>遍历栗子(摘自<a href="http://es6.ruanyifeng.com/#docs/array#%E6%95%B0%E7%BB%84%E5%AE%9E%E4%BE%8B%E7%9A%84-entries%EF%BC%8Ckeys-%E5%92%8C-values" target="_blank" rel="noopener">ECMAScript 6 入门</a>)：</p>
+<pre><code>for (let index of [&apos;a&apos;, &apos;b&apos;].keys()) {
+  console.log(index);
+}
+// 0
+// 1
+
+for (let elem of [&apos;a&apos;, &apos;b&apos;].values()) {
+  console.log(elem);
+}
+// &apos;a&apos;
+// &apos;b&apos;
+
+for (let [index, elem] of [&apos;a&apos;, &apos;b&apos;].entries()) {
+  console.log(index, elem);
+}
+// 0 &quot;a&quot;
+// 1 &quot;b&quot;
+</code></pre><p>在<code>for..of</code>中如果遍历中途要退出，可以使用<code>break</code>退出循环。</p>
+<p>如果不使用<code>for...of</code>循环，可以手动调用遍历器对象的next方法，进行遍历:</p>
+<pre><code>let letter = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;];
+let entries = letter.entries();
+console.log(entries.next().value); // [0, &apos;a&apos;]
+console.log(entries.next().value); // [1, &apos;b&apos;]
+console.log(entries.next().value); // [2, &apos;c&apos;]
+</code></pre><p>entries()浏览器兼容性(MDN):Chrome 38, Firefox 28,Opera 25,Safari 7.1</p>
+<p>keys()浏览器兼容性(MDN):Chrome 38, Firefox 28,Opera 25,Safari 8,</p>
+<p><strong>注意</strong>:目前只有Safari 9支持,，其他浏览器未实现，babel转码器也还未实现</p>
+<hr>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>呼~终于写好了，断断续续，上班也偷偷划水的写了几天，虽说很辛苦，但是现在对数组操作方法，整体清晰了很多，各个API也理解的更好一点了，收获颇多，文章如有不正确的地方欢迎各位大佬鞭策！希望大家看完可以有所收获，喜欢的话，赶紧点波<del>订阅</del>关注/喜欢。</p>
+<h3 id="希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。"><a href="#希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。" class="headerlink" title="希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。"></a>希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。</h3><p><strong><a href="http://obkoro1.com/" target="_blank" rel="noopener">个人blog</a></strong> and <strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a></strong>，如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！本人写文章本着交流记录的心态，写的不好之处，不撕逼，但是欢迎指点。</p>
+<p>如果喜欢本文的话，欢迎关注我的订阅号，漫漫技术路，期待未来共同学习成长。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317" alt=""></p>
+<p> 以上2018.5.30</p>
+<h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><p><a href="http://es6.ruanyifeng.com/#docs/array" target="_blank" rel="noopener">ECMAScript6 入门 数组的扩展</a></p>
+<p><a href="https://blog.csdn.net/aiynmimi/article/details/78667555" target="_blank" rel="noopener">JavaScript Array数组相关汇总</a></p>
+<p><a href="https://juejin.im/entry/59f7f3346fb9a04514635552" target="_blank" rel="noopener">深入了解javascript的sort方法</a></p>
+<p><a href="https://juejin.im/post/5902d56e1b69e60058c634d6#heading-6" target="_blank" rel="noopener">【深度长文】JavaScript数组所有API全解密</a></p>
+<p><a href="http://louiszhai.github.io/2015/12/18/traverse/#%E6%B5%8B%E8%AF%95%E5%90%84%E6%96%B9%E6%B3%95%E6%95%88%E7%8E%87" target="_blank" rel="noopener">详解JS遍历</a></p>
+<p><a href="http://zxhfighter.github.io/blog/javascript/2013/02/27/how-to-judge-a-variable-is-a-array.html" target="_blank" rel="noopener">判断一个变量是否为数组</a></p>
+<p><a href="https://www.zhihu.com/question/19863166" target="_blank" rel="noopener">在 JavaScript 中，如何求出两个数组的交集和差集？</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/Array/" rel="tag"><i class="fa fa-tag"></i> Array</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/20/你对CSS权重真的足够了解吗？/" rel="next" title="你对CSS权重真的足够了解吗？">
+                <i class="fa fa-chevron-left"></i> 你对CSS权重真的足够了解吗？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/03/你或许不知道Vue的这些小技巧/" rel="prev" title="你或许不知道Vue的这些小技巧">
+                你或许不知道Vue的这些小技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文篇幅较长，建议点赞保存再看，也便于日后翻阅。"><span class="nav-number">2.</span> <span class="nav-text">本文篇幅较长，建议点赞保存再看，也便于日后翻阅。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个数组"><span class="nav-number">2.1.</span> <span class="nav-text">创建一个数组:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ES6-Array-of-返回由所有参数值组成的数组"><span class="nav-number">2.1.1.</span> <span class="nav-text">ES6 Array.of()  返回由所有参数值组成的数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES6-Arrar-from-将两类对象转为真正的数组"><span class="nav-number">2.1.2.</span> <span class="nav-text">ES6 Arrar.from() 将两类对象转为真正的数组</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">3.</span> <span class="nav-text">方法:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变原数组的方法-9个"><span class="nav-number">3.1.</span> <span class="nav-text">改变原数组的方法(9个):</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pop-删除一个数组中的最后的一个元素"><span class="nav-number">3.1.1.</span> <span class="nav-text">pop() 删除一个数组中的最后的一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shift-删除数组的第一个元素"><span class="nav-number">3.1.2.</span> <span class="nav-text">shift() 删除数组的第一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#push-向数组的末尾添加元素"><span class="nav-number">3.1.3.</span> <span class="nav-text">push() 向数组的末尾添加元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unshift"><span class="nav-number">3.1.4.</span> <span class="nav-text">unshift()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reverse-颠倒数组中元素的顺序"><span class="nav-number">3.1.5.</span> <span class="nav-text">reverse() 颠倒数组中元素的顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#splice-添加-删除数组元素"><span class="nav-number">3.1.6.</span> <span class="nav-text">splice() 添加/删除数组元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort-数组排序"><span class="nav-number">3.1.7.</span> <span class="nav-text">sort() 数组排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES6-copyWithin-指定位置的成员复制到其他位置"><span class="nav-number">3.1.8.</span> <span class="nav-text">ES6: copyWithin() 指定位置的成员复制到其他位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES6-fill-填充数组"><span class="nav-number">3.1.9.</span> <span class="nav-text">ES6: fill() 填充数组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不改变原数组的方法-8个"><span class="nav-number">3.2.</span> <span class="nav-text">不改变原数组的方法(8个):</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#join-数组转字符串"><span class="nav-number">3.2.1.</span> <span class="nav-text">join()  数组转字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toLocaleString-数组转字符串"><span class="nav-number">3.2.2.</span> <span class="nav-text">toLocaleString() 数组转字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toString-数组转字符串-不推荐"><span class="nav-number">3.2.3.</span> <span class="nav-text">toString() 数组转字符串 不推荐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slice-浅拷贝数组的元素"><span class="nav-number">3.2.4.</span> <span class="nav-text">slice() 浅拷贝数组的元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cancat"><span class="nav-number">3.2.5.</span> <span class="nav-text">cancat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#indexOf-查找数组是否存在某个元素，返回下标"><span class="nav-number">3.2.6.</span> <span class="nav-text">indexOf() 查找数组是否存在某个元素，返回下标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lastIndexOf-查找指定元素在数组中的最后一个位置"><span class="nav-number">3.2.7.</span> <span class="nav-text">lastIndexOf() 查找指定元素在数组中的最后一个位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES7-includes-查找数组是否包含某个元素-返回布尔"><span class="nav-number">3.2.8.</span> <span class="nav-text">ES7 includes() 查找数组是否包含某个元素 返回布尔</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历方法-12个"><span class="nav-number">3.3.</span> <span class="nav-text">遍历方法(12个):</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于遍历："><span class="nav-number">3.3.1.</span> <span class="nav-text">关于遍历：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forEach"><span class="nav-number">3.3.2.</span> <span class="nav-text">forEach</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下面类似语法同样适用这些规则"><span class="nav-number">3.3.3.</span> <span class="nav-text">下面类似语法同样适用这些规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#every-检测数组所有元素是否都符合判断条件"><span class="nav-number">3.3.4.</span> <span class="nav-text">every 检测数组所有元素是否都符合判断条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#some-数组中的是否有满足判断条件的元素"><span class="nav-number">3.3.5.</span> <span class="nav-text">some 数组中的是否有满足判断条件的元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#filter-过滤原始数组，返回新数组"><span class="nav-number">3.3.6.</span> <span class="nav-text">filter 过滤原始数组，返回新数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-对数组中的每个元素进行处理，返回新的数组"><span class="nav-number">3.3.7.</span> <span class="nav-text">map 对数组中的每个元素进行处理，返回新的数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reduce-为数组提供累加器，合并为一个值"><span class="nav-number">3.3.8.</span> <span class="nav-text">reduce 为数组提供累加器，合并为一个值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reduceRight-从右至左累加"><span class="nav-number">3.3.9.</span> <span class="nav-text">reduceRight  从右至左累加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES6：find-amp-findIndex-根据条件找到数组成员"><span class="nav-number">3.3.10.</span> <span class="nav-text">ES6：find()&amp; findIndex() 根据条件找到数组成员</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES6-keys-amp-values-amp-entries-遍历键名、遍历键值、遍历键名-键值"><span class="nav-number">3.3.11.</span> <span class="nav-text">ES6 keys()&amp;values()&amp;entries() 遍历键名、遍历键值、遍历键名+键值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。"><span class="nav-number">4.1.</span> <span class="nav-text">希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料："><span class="nav-number">4.2.</span> <span class="nav-text">参考资料：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytevxRRN';
+      var conf = '75faf3cb54138bb69e86ad05ff147b5d';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

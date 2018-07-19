@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="js,性能,读书笔记," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="缺陷这本书是2010年出版的，这本书谈性能是有时效性的，现在马上就2018年了，这几年前端发展的速度是飞快的，书里面还有一些内容考虑IE6、7、8的东西，殊不知现在这些都已经不再考虑了，所以不可避免的有一些知识是比较老的。有些解决方法现在已经不是最好的解决方式，比如工具那一章。 前言总的来说，这本书整体给出的性能优化建议，以及作者耐心的实践，对我们开发优化的启发和帮助还是很大的，因为它里边的很多知">
+<meta name="keywords" content="js,性能,读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【读书笔记】《高性能JavaScript》">
+<meta property="og:url" content="http://yoursite.com/2018/01/09/【读书笔记】《高性能JavaScript》/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="缺陷这本书是2010年出版的，这本书谈性能是有时效性的，现在马上就2018年了，这几年前端发展的速度是飞快的，书里面还有一些内容考虑IE6、7、8的东西，殊不知现在这些都已经不再考虑了，所以不可避免的有一些知识是比较老的。有些解决方法现在已经不是最好的解决方式，比如工具那一章。 前言总的来说，这本书整体给出的性能优化建议，以及作者耐心的实践，对我们开发优化的启发和帮助还是很大的，因为它里边的很多知">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/31/160ac466f78b83d3?w=600&h=784&f=jpeg&s=53979">
+<meta property="og:updated_time" content="2018-01-09T08:56:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【读书笔记】《高性能JavaScript》">
+<meta name="twitter:description" content="缺陷这本书是2010年出版的，这本书谈性能是有时效性的，现在马上就2018年了，这几年前端发展的速度是飞快的，书里面还有一些内容考虑IE6、7、8的东西，殊不知现在这些都已经不再考虑了，所以不可避免的有一些知识是比较老的。有些解决方法现在已经不是最好的解决方式，比如工具那一章。 前言总的来说，这本书整体给出的性能优化建议，以及作者耐心的实践，对我们开发优化的启发和帮助还是很大的，因为它里边的很多知">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/12/31/160ac466f78b83d3?w=600&h=784&f=jpeg&s=53979">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/09/【读书笔记】《高性能JavaScript》/"/>
+
+
+
+
+
+  <title>【读书笔记】《高性能JavaScript》 | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类列表">
+          <a href="/Summary/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/09/【读书笔记】《高性能JavaScript》/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【读书笔记】《高性能JavaScript》</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T16:07:25+08:00">
+                2018-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/01/09/【读书笔记】《高性能JavaScript》/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/01/09/【读书笔记】《高性能JavaScript》/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2018/01/09/【读书笔记】《高性能JavaScript》/" class="leancloud_visitors" data-flag-title="【读书笔记】《高性能JavaScript》">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h3><p>这本书是2010年出版的，这本书谈性能是有时效性的，现在马上就2018年了，这几年前端发展的速度是飞快的，书里面还有一些内容考虑IE6、7、8的东西，殊不知现在这些都已经不再考虑了，所以不可避免的有一些知识是比较老的。有些解决方法现在已经不是最好的解决方式，比如工具那一章。</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>总的来说，这本书整体给出的性能优化建议，以及作者耐心的实践，对我们开发优化的启发和帮助还是很大的</strong>，因为它里边的很多知识，都是作者通过实践总结出来的，都是经验的积累，这在一般的教科书上是学不到的。特别是对于js基础比较差一点的，里面有很多知识点尽管在现在还是非常有必要的。</p>
+<p><strong>下面我就将各章节的一些重要的知识点总结写出来，争取将干货都提取出来</strong>。</p>
+<blockquote>
+<p>本文首发于我的个人blog：<a href="http://obkoro1.com/" target="_blank" rel="noopener">obkoro1.com</a></p>
+</blockquote>
+<hr>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p><img src="https://user-gold-cdn.xitu.io/2017/12/31/160ac466f78b83d3?w=600&amp;h=784&amp;f=jpeg&amp;s=53979" alt=" 封面 "></p>
+<h3 id="第一章-加载和执行"><a href="#第一章-加载和执行" class="headerlink" title="第一章-加载和执行"></a>第一章-加载和执行</h3><ol>
+<li>js的阻塞特性：</li>
+</ol>
+<p>当浏览器在执行js代码的时候，不能同时做其他事情。（界面ui线程和js线程用的是同一进程，所以js执行越久，网页的响应时间越长。）</p>
+<ol start="2">
+<li>脚本的位置</li>
+</ol>
+<p><strong>如果把脚本<code>&lt;script&gt;</code>放在<code>&lt;head&gt;</code>中，页面会等js文件全部下载并执行完成后才开始渲染</strong>，在这些文件下载和执行的过程中：会导致访问网站的时候有明显的延迟，表现为：页面空白。</p>
+<p> 性能提升：<strong>推荐将所有的<code>&lt;script&gt;</code>标签尽可能的放到<code>&lt;body&gt;</code>标签的底部</strong>，优先渲染页面，减少页面空白时间。</p>
+<ol start="3">
+<li>组件脚本。</li>
+</ol>
+<p>每个<code>&lt;script&gt;</code>标签初始下载的时候都会阻塞页面的渲染。性能提升做法：<br><strong>减少内嵌脚本：减少内嵌的<code>&lt;script&gt;</code>标签</strong>，将代码写在一个标签中。</p>
+<p><strong>合并外链的js文件</strong>：http请求会带来额外的性能开销，栗子：下载一个100KB的js文件比下载4个25kb的js文件更快。具体操作方法自行搜索。</p>
+<ol start="4">
+<li>无阻塞脚本的方法</li>
+</ol>
+<p><strong>script标签的aync属性</strong>：</p>
+<p>async 属性规定一旦脚本可用，则会异步执行。async 属性仅适用于外部脚本（只有在使用 src 属性时）。如果 async=”async”：脚本相对于页面的其余部分异步地执行（当页面继续进行解析时，脚本将被执行）</p>
+<p><strong>script标签的defer属性</strong>：</p>
+<p>js文件在页面解析到script标签的时候开始下载，但并不会执行，dom加载完成执行。<strong>这两个属性的区别在于执行时机</strong>。</p>
+<p><strong>动态脚本元素</strong>。</p>
+<p>js操作dom创建<code>&lt;script&gt;</code>标签，自定义生成标签的type、src属性。文件会在该元素被添加到页面的时候开始下载。ps：如果文件顺序很重要的话，最好按照顺序合成一个文件。然后再添加到页面中。这样：无论何时启动下载。文件的下载和执行过程不会阻塞页面的其他进程。</p>
+<h5 id="3-XHR-ajax脚本注入、"><a href="#3-XHR-ajax脚本注入、" class="headerlink" title="3. XHR ajax脚本注入、"></a>3. XHR ajax脚本注入、</h5><p>用get请求一个文件，请求好了。然后创建动态脚本，最后添加进去。<br>缺陷：文件要再请求页面的同一个域。不能从cdn下载</p>
+<h3 id="第一章加载和执行小结："><a href="#第一章加载和执行小结：" class="headerlink" title="第一章加载和执行小结："></a>第一章加载和执行小结：</h3><ol>
+<li>把文件放在body标签签名，</li>
+<li>合并脚本，减少<code>&lt;script&gt;</code>标签。</li>
+<li>采用无阻塞下载js。使用script的defer和async属性 异步下载。动态创建script标签和执行代码。</li>
+</ol>
+<h3 id="第二章-数据存取"><a href="#第二章-数据存取" class="headerlink" title="第二章-数据存取"></a>第二章-数据存取</h3><ol>
+<li><strong>js四种基本的数据存取位置</strong>。<br>1、字面量：字符串、数字、布尔、对象、数组、函数、正则、null、undefined，字面量只代表自身，没有存储位置。 2、局部变量。 let var 声明的变量。3、数组元素。4、对象成员。</li>
+</ol>
+<p>性能：<strong>访问字面量和局部变量的速度是最快的，访问数组和对象成员相对较慢</strong></p>
+<ol start="2">
+<li><strong>变量标识符解析过程</strong>：</li>
+</ol>
+<p>搜索执行环境的作用域链，查找同名标识符。搜索过程从作用域链头部开始，也就是当前运行函数的活动对象。如果找到，就使用这个标识符，对应的变量；如果没有找到，继续搜索下面的对象。搜索过程会持续进行，直到找到标识符，若无法搜索到匹配的对象，那么标识符被视为未定义、</p>
+<p><strong>性能问题：一个标识符所在的位置越深，它的读写速度也就越慢</strong>。因此，函数中读写局部变量总是最快的，而读写全局变量通常是最慢的。</p>
+<p><strong>建议：将全局变量存储到局部变量，加快读写速度。</strong></p>
+<ol start="2">
+<li>闭包，原型，嵌套对象。</li>
+</ol>
+<p><strong>优化建议：将常用的跨作用域变量存储到局部变量，然后直接访问局部变量</strong>。理由如上，变量标识符解析过程。</p>
+<h3 id="第二章数据存取小结："><a href="#第二章数据存取小结：" class="headerlink" title="第二章数据存取小结："></a>第二章数据存取小结：</h3><ol>
+<li>访问字面量和局部变量的速度最快，相反，访问数组元素和对象成员相对较慢。</li>
+<li>由于局部变量存在于作用域链的起始位置，因为<strong>访问局部变量比访问跨作用域变量更快。这个道理同样适用于数组，对象，跨作用域变量</strong>。</li>
+<li>把常用的对象，数组，跨域变量保存在局部变量可以改善js性能，局部变量访问速度更快。</li>
+</ol>
+<h3 id="第三章DOM编程小结："><a href="#第三章DOM编程小结：" class="headerlink" title="第三章DOM编程小结："></a>第三章DOM编程小结：</h3><ol>
+<li><strong>dom操作天生就慢，尽量减少dom操作</strong>，减少访问dom的次数。</li>
+<li>使用document.querySelect来做选择器，比其他方式快。</li>
+<li>需要多次访问某个dom节点，使用局部变量存储。</li>
+<li>html集合，把集合长度缓存到一个变量中，然后遍历使用这个变量，如果经常操作集合，建议拷到一个数组中。</li>
+<li>要留意浏览器的重绘和重排；批量修改样式的时候，‘离线’操作DOM树，使用缓存，并减少访问布局信息的次数。<br>重绘和重排是DOM编程优化的一个相当重要概念：<a href="http://web.jobbole.com/83164/" target="_blank" rel="noopener">重绘和重排</a>。</li>
+<li>动画中使用绝对定义，使用拖放处理。</li>
+<li>使用事件委托来减少事件处理器的数量。</li>
+</ol>
+<h3 id="第四章算法和流程控制小结："><a href="#第四章算法和流程控制小结：" class="headerlink" title="第四章算法和流程控制小结："></a>第四章算法和流程控制小结：</h3><ol>
+<li><p>for、while和do-while循环性能差不多，<strong>for-in循环速度只有前面几种类型的1/7</strong>，所以尽量避免使用for-in循环，除非你需要遍历一个属性数量未知的对象。</p>
+<p> forEach比for慢，如果运行速度要求严格，不建议使用。</p>
+</li>
+<li><p>改善循环性能的最佳方式是<strong>减少每次迭代的工作量和减少循环迭代的次数</strong>。</p>
+</li>
+</ol>
+<p>减少迭代工作量：减少属性查找和倒序循环，循环次数越多，性能优化越明显。</p>
+<pre><code>for(var i=0;i&lt;items.length;i++){代码}//正序循环
+for(var i=items.length;i--){代码}//倒序循环
+//减少属性查找：查找一次属性，把值存在局部变量，在控制条件里面使用这个变量
+
+倒序循环在i&gt;0的时候会自动转换为true，等于0的时候为false。
+//倒序循环：控制条件从（迭代数少于总数吗？它是否为true？）变为（它是否为true）
+</code></pre><p>减少迭代的次数：”Duff’s Device”循环体展开技术，有兴趣的可以看一下，迭代工作量大于1000的时候适用。</p>
+<ol start="3">
+<li><p>if-else与switch：条件数量越大，越倾向于使用switch。</p>
+<p> 优化if-else：</p>
+<pre><code>1、把最可能出现的条件放在首位。2、使用二分法把值域分成一系列的区间。
+</code></pre></li>
+<li><p>浏览器的调用栈大小限制了递归算法在js中的应用；栈溢出错误会导致其他代码中断运行。</p>
+<pre><code>小心使用递归，现在es6递归可以尾递归，在es6中只要使用尾递归就不会发生栈溢出，相对节省性能。
+</code></pre></li>
+</ol>
+<h3 id="第五章字符串和正则表达式小结："><a href="#第五章字符串和正则表达式小结：" class="headerlink" title="第五章字符串和正则表达式小结："></a>第五章字符串和正则表达式小结：</h3><ol>
+<li><p>字符串合并的时候使用简单的’+’和’+=’操作符。</p>
+<pre><code>str+=&apos;abc&apos;+&apos;efg;//2个以上的字符串拼接，会产生临时字符串
+str=str+&apos;abc&apos;+&apos;efg&apos;;//推荐，提速10%~40%  
+</code></pre></li>
+<li><p>书里面讲的<strong>正则原理和回溯原理，这个很重要</strong>，找个篇<a href="http://blog.csdn.net/c_kite/article/details/77875328" target="_blank" rel="noopener">博客</a>：跟书里面讲的差不多，但还是建议大家可以去找找PDF好好看看正则表达式这节。</p>
+</li>
+<li><p>提高正则表达式效率的方法：</p>
+<pre><code>1、最重要的是：具体化正则表达式！具体化正则表达式！具体化正则表达式！
+2、关注如何让匹配更快失败，找出一些必需，特殊的字符
+3、正则表达式以简单的、必需的字元开始。
+4、使用量词模式，使它们后面的字元互斥。
+5、较少分支数量，缩小分支范围
+6、使用合适的量词
+7、把正则表达式赋值给变量并重用
+8、将复杂的正则拆分为简单的片段
+//事实上，书里面讲的方法不止这么几个，而且每一个都有详细的解析 大佬们 还是去看看这一章节吧
+</code></pre></li>
+<li><p>正则表达式并不总是最好的解决方案，当你只是搜索字面字符串或者你事先知道字符串的哪一部分将要被查找时：</p>
+<pre><code>使用indexOf()和lastIndexOf()更适合查找特定字符串的位置或者判断它们是否存在
+//例如：判断当前浏览器之类。
+</code></pre></li>
+</ol>
+<h3 id="第六章快速响应的用户界面小结："><a href="#第六章快速响应的用户界面小结：" class="headerlink" title="第六章快速响应的用户界面小结："></a>第六章快速响应的用户界面小结：</h3><p>js和用户界面更新在同一个进程中运行，因此一次只能处理一件事情。高效的管理UI线程就是要确保js不能运行太长时间，以免影响用户体验。</p>
+<ol>
+<li><p>浏览器限制了js任务的运行时间，这种限制很有必要，它确保某些恶意代码不能通过永不停止的密集操作锁住用户的浏览器。此限制分为两种：调用栈的大小和长时间运行脚本。</p>
+</li>
+<li><p>任何js任务都不应当执行超过100毫秒。过长的运行时间会导致UI更新出现明显延迟，从而对用户体验造成负面影响。 </p>
+</li>
+<li><p>定时器可用来安排代码延迟执行，它使得你可以把长时间运行脚本分解成一系列的小任务。</p>
+</li>
+</ol>
+<h3 id="第七章-AJAX-小结"><a href="#第七章-AJAX-小结" class="headerlink" title="第七章 AJAX 小结"></a>第七章 AJAX 小结</h3><p>这一章节貌似东西都比较老一点。。</p>
+<ol>
+<li>post更适合发送大量数据到服务器。</li>
+<li><p>get请求能够被浏览器缓存，Expires头信息设置浏览器缓存请求多久。可用于从不改变的图片或者其他静态数据集（js、css等）</p>
+</li>
+<li><p>JSON是一种使用js对象和数组直接量编写的轻量级且易于解析的数据格式，它不仅传输尺寸小，而且解析速度快。JSON是高性能AJAX的基础，尤其在使用动态脚本注入时。</p>
+</li>
+</ol>
+<p>json应该是近几年一直在用的。。。</p>
+<ol start="4">
+<li>减少请求数，通过合并js和css文件。</li>
+<li>缩短页面的加载时间，页面主要内容加载完成后，用AJAX获取那些次要的文件。</li>
+</ol>
+<h3 id="第八章编程实践小结"><a href="#第八章编程实践小结" class="headerlink" title="第八章编程实践小结"></a>第八章编程实践小结</h3><ol>
+<li><p>避免双重求值：避免使用eval()和 function()构造器来避免双重求值带来的性能消耗，同样的，给setTimeout()和setInterval()传递函数而不是字符串作为参数。</p>
+<pre><code>//双重求值：就是在js代码中执行另一段js代码，不建议使用下面这些方式
+eval(&apos;代码&apos;) 
+function构造函数--new function(&apos;代码&apos;)
+setTimeout(‘代码’,100)和setInterval(‘代码’,100) 
+</code></pre></li>
+<li>尽量使用直接量创建对象和数组。直接量的创建和初始化都比非直接量形式要快。</li>
+<li>避免做重复工作，能节省的步骤就节省。</li>
+<li>js原生方法总会比你写的任何代码都要快。</li>
+</ol>
+<h3 id="第九章-构建并部署高性能js应用小结"><a href="#第九章-构建并部署高性能js应用小结" class="headerlink" title="第九章 构建并部署高性能js应用小结"></a>第九章 构建并部署高性能js应用小结</h3><p>构建和部署的过程对基于js的web应用的性能有着巨大影响。这个过程中最重要的步骤有：</p>
+<ol>
+<li>合并、压缩js文件。<strong>可使用Gzip压缩，能够减少约70%的体积</strong>！</li>
+</ol>
+<p>这些都是在构建过程中完成的工作，不要等到运行时去做，webpack也是在构建过程中，完成的工作。</p>
+<ol start="2">
+<li>通过正确设置HTTP响应头来缓存js文件，通过向文件名增加时间戳来避免缓存问题。</li>
+<li>使用CDN提供js文件；CDN不仅可以提升性能，它也为你管理文件的压缩与缓存，。</li>
+</ol>
+<h3 id="第十章-工具-小结："><a href="#第十章-工具-小结：" class="headerlink" title="第十章 工具 小结："></a>第十章 工具 小结：</h3><p>当网页变慢时，分析从网络下载的资源以及分析的资源以及分析脚本的运行性能能让你专注于那些最需要优化的地方。</p>
+<ol>
+<li><p>使用网络分析工具找出加载脚本和页面中其他资源的瓶颈，这会帮助你决定那些脚本需要延迟加载，或者需要进一步分析。</p>
+<pre><code>检查图片、样式表和脚本的加载过程，以及它们对页面整体加载和渲染的影响。从而针对性的做出优化
+</code></pre></li>
+<li>把脚本尽可能延迟加载，这样做可以加快页面渲染速度，给用户带来更好的体验。</li>
+<li><p>确认脚本和其他资源文件的加载过程已经被优化</p>
+<pre><code>这里主要是说文件从服务器的下载速度，比如服务器那边的配置问题之类的。
+栗子：我就被后端坑过。一个js文件就200k ，下载下来需要50秒钟！
+后面发现原来是后端那边nginx没有开启加速配置什么的，导致出现的问题，找问题找半天。 
+</code></pre></li>
+<li><p>测试脚本的运行时间,用一个Date实例减去另一个Date实例，得到的时间差就是脚本运行消耗的时间。</p>
+<pre><code>let start=new Date();
+//你的代码
+let time=newDate()-start;
+</code></pre></li>
+<li><p><strong>chrome ,火狐 等主流浏览器的控制面板，已经能够反映很多性能问题</strong>。仔细分析就能找出很多问题。例如：资源加载，断点等</p>
+</li>
+</ol>
+<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>事实上，<strong>自认为这本书最宝贵的就是一些提到的细节</strong>，比如：</p>
+<p>1、字符串合并的时候使用简单的’+’和’+=’操作符。</p>
+<pre><code>str+=&apos;abc&apos;+&apos;efg;//2个以上的字符串拼接，会产生临时字符串
+str=str+&apos;abc&apos;+&apos;efg&apos;;//推荐，提速10%~40%
+</code></pre><p>2、避免双重求值：避免使用eval()和 function()构造器来避免双重求值带来的性能消耗，同样的，给setTimeout()和setInterval()传递函数而不是字符串作为参数。</p>
+<pre><code>//双重求值：就是在js代码中执行另一段js代码，不建议使用下面这些方式
+eval(&apos;代码&apos;) 
+function构造函数--new function(&apos;代码&apos;)
+setTimeout(‘代码’,100)和setInterval(‘代码’,100) 
+</code></pre><h3 id="这些东西可以让我们知道什么是更好的实践，什么样的代码可以跑得更快，让我们养成更好的开发习惯。"><a href="#这些东西可以让我们知道什么是更好的实践，什么样的代码可以跑得更快，让我们养成更好的开发习惯。" class="headerlink" title="这些东西可以让我们知道什么是更好的实践，什么样的代码可以跑得更快，让我们养成更好的开发习惯。"></a>这些东西可以让我们知道什么是更好的实践，什么样的代码可以跑得更快，让我们养成更好的开发习惯。</h3><p>书不太厚，如果对里面的内容感兴趣，还是建议买一本回家看一看。</p>
+<p>以上2017.1.9</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/性能/" rel="tag"><i class="fa fa-tag"></i> 性能</a>
+          
+            <a href="/tags/读书笔记/" rel="tag"><i class="fa fa-tag"></i> 读书笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/07/js-简单的推箱子小游戏步骤解析-大家都玩过的/" rel="next" title="js 简单的推箱子小游戏步骤解析--大家都玩过的">
+                <i class="fa fa-chevron-left"></i> js 简单的推箱子小游戏步骤解析--大家都玩过的
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/17/Vue实践过程中的几个问题/" rel="prev" title="Vue实践过程中的几个问题">
+                Vue实践过程中的几个问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺陷"><span class="nav-number">1.</span> <span class="nav-text">缺陷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number"></span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一章-加载和执行"><span class="nav-number">1.</span> <span class="nav-text">第一章-加载和执行</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-XHR-ajax脚本注入、"><span class="nav-number">1.0.1.</span> <span class="nav-text">3. XHR ajax脚本注入、</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一章加载和执行小结："><span class="nav-number">2.</span> <span class="nav-text">第一章加载和执行小结：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章-数据存取"><span class="nav-number">3.</span> <span class="nav-text">第二章-数据存取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章数据存取小结："><span class="nav-number">4.</span> <span class="nav-text">第二章数据存取小结：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三章DOM编程小结："><span class="nav-number">5.</span> <span class="nav-text">第三章DOM编程小结：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四章算法和流程控制小结："><span class="nav-number">6.</span> <span class="nav-text">第四章算法和流程控制小结：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五章字符串和正则表达式小结："><span class="nav-number">7.</span> <span class="nav-text">第五章字符串和正则表达式小结：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六章快速响应的用户界面小结："><span class="nav-number">8.</span> <span class="nav-text">第六章快速响应的用户界面小结：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七章-AJAX-小结"><span class="nav-number">9.</span> <span class="nav-text">第七章 AJAX 小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第八章编程实践小结"><span class="nav-number">10.</span> <span class="nav-text">第八章编程实践小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第九章-构建并部署高性能js应用小结"><span class="nav-number">11.</span> <span class="nav-text">第九章 构建并部署高性能js应用小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第十章-工具-小结："><span class="nav-number">12.</span> <span class="nav-text">第十章 工具 小结：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后话"><span class="nav-number"></span> <span class="nav-text">后话</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#这些东西可以让我们知道什么是更好的实践，什么样的代码可以跑得更快，让我们养成更好的开发习惯。"><span class="nav-number">1.</span> <span class="nav-text">这些东西可以让我们知道什么是更好的实践，什么样的代码可以跑得更快，让我们养成更好的开发习惯。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytevxRRN';
+      var conf = '75faf3cb54138bb69e86ad05ff147b5d';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

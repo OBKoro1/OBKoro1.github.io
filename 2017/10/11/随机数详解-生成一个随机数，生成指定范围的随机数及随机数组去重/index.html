@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="js随机数," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="写在前面：很早之前在简书写过几篇关于随机数的文章之前写的很乱，现在重新整理一下这些知识点。本文包含了如下这些知识点：js生成随机数，生成指定范围的随机数，获得不重复随机数组。 js生成随机数。Math.random()——生成大于等于0.0且小于1.0的一个随机数;通常我们生成随机数都是使用这个方法，这个方法返回值是一个伪随机选择的数，该值大于等于0.0且小于1.0，即取值范围是[0.0,1.0)">
+<meta name="keywords" content="js随机数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[随机数详解]生成一个随机数，生成指定范围的随机数及随机数组去重">
+<meta property="og:url" content="http://yoursite.com/2017/10/11/随机数详解-生成一个随机数，生成指定范围的随机数及随机数组去重/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="写在前面：很早之前在简书写过几篇关于随机数的文章之前写的很乱，现在重新整理一下这些知识点。本文包含了如下这些知识点：js生成随机数，生成指定范围的随机数，获得不重复随机数组。 js生成随机数。Math.random()——生成大于等于0.0且小于1.0的一个随机数;通常我们生成随机数都是使用这个方法，这个方法返回值是一个伪随机选择的数，该值大于等于0.0且小于1.0，即取值范围是[0.0,1.0)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/28f0d68a124f814fdc95.gif">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/0ce56e1004e532fa864d.gif">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/2c45c7ba19472ed64d1e">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/588f5a1dc540001c7ca1.gif">
+<meta property="og:updated_time" content="2017-10-11T14:53:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[随机数详解]生成一个随机数，生成指定范围的随机数及随机数组去重">
+<meta name="twitter:description" content="写在前面：很早之前在简书写过几篇关于随机数的文章之前写的很乱，现在重新整理一下这些知识点。本文包含了如下这些知识点：js生成随机数，生成指定范围的随机数，获得不重复随机数组。 js生成随机数。Math.random()——生成大于等于0.0且小于1.0的一个随机数;通常我们生成随机数都是使用这个方法，这个方法返回值是一个伪随机选择的数，该值大于等于0.0且小于1.0，即取值范围是[0.0,1.0)">
+<meta name="twitter:image" content="https://dn-mhke0kuv.qbox.me/28f0d68a124f814fdc95.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/11/随机数详解-生成一个随机数，生成指定范围的随机数及随机数组去重/"/>
+
+
+
+
+
+  <title>[随机数详解]生成一个随机数，生成指定范围的随机数及随机数组去重 | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类列表">
+          <a href="/Summary/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/11/随机数详解-生成一个随机数，生成指定范围的随机数及随机数组去重/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[随机数详解]生成一个随机数，生成指定范围的随机数及随机数组去重</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T22:52:42+08:00">
+                2017-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/10/11/随机数详解-生成一个随机数，生成指定范围的随机数及随机数组去重/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/10/11/随机数详解-生成一个随机数，生成指定范围的随机数及随机数组去重/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2017/10/11/随机数详解-生成一个随机数，生成指定范围的随机数及随机数组去重/" class="leancloud_visitors" data-flag-title="[随机数详解]生成一个随机数，生成指定范围的随机数及随机数组去重">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面："><a href="#写在前面：" class="headerlink" title="写在前面："></a>写在前面：</h2><p>很早之前在简书写过几篇关于随机数的文章之前写的很乱，现在重新整理一下这些知识点。本文包含了如下这些知识点：js生成随机数，生成指定范围的随机数，获得不重复随机数组。</p>
+<h2 id="js生成随机数。"><a href="#js生成随机数。" class="headerlink" title="js生成随机数。"></a>js生成随机数。</h2><h3 id="Math-random-——生成大于等于0-0且小于1-0的一个随机数"><a href="#Math-random-——生成大于等于0-0且小于1-0的一个随机数" class="headerlink" title="Math.random()——生成大于等于0.0且小于1.0的一个随机数;"></a>Math.random()——生成大于等于0.0且小于1.0的一个随机数;</h3><p>通常我们生成随机数都是使用这个方法，这个方法返回值是一个伪随机选择的数，<strong>该值大于等于0.0且小于1.0</strong>，即取值范围是[0.0,1.0)的左闭右开区间，在该范围内（近似）<strong>均匀分布</strong>。</p>
+<p>下面有张动态图栗子，可以看一下。</p>
+<h3 id="Math-floor-Math-random-20-——取0-20之间的随机整数："><a href="#Math-floor-Math-random-20-——取0-20之间的随机整数：" class="headerlink" title="Math.floor(Math.random()*20)——取0~20之间的随机整数："></a>Math.floor(Math.random()*20)——取0~20之间的随机整数：</h3><p>Math.floor(x)——使后面括号内的x（任意数值或表达式），生成一个<strong>小于等于 x，且与 x 最接近的整数</strong>。</p>
+<p>Math.floor(x)，可以<strong>简单理解为下舍入</strong>。这里有几个栗子帮助理解，//后面是输出的内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">document.write(Math.floor(0.60) + &quot;&lt;br /&gt;&quot;)//0</span><br><span class="line">document.write(Math.floor(0.40) + &quot;&lt;br /&gt;&quot;)//0</span><br><span class="line">document.write(Math.floor(5) + &quot;&lt;br /&gt;&quot;)//5</span><br><span class="line">document.write(Math.floor(5.1) + &quot;&lt;br /&gt;&quot;)//5</span><br><span class="line">document.write(Math.floor(-5.1) + &quot;&lt;br /&gt;&quot;)//-6</span><br><span class="line">document.write(Math.floor(-5.9))//-6</span><br></pre></td></tr></table></figure></p>
+<h4 id="解析上面Math-floor-Math-random-20-的栗子："><a href="#解析上面Math-floor-Math-random-20-的栗子：" class="headerlink" title="解析上面Math.floor(Math.random()*20)的栗子："></a>解析上面Math.floor(Math.random()*20)的栗子：</h4><p>1.通过Math.random()生成0-1之间的随机数<br>2.然后乘以20，就是取从0~20间的随机数，注意这里并不是整数。这里的<strong>范围可以改变</strong>，只要改后面那个数字为50,、8，就可以变成0~50,0~80之间的随机数。<br>3.Math.floor()，使括号里面的(Math.random()乘以20)这个表达式，<strong>下舍入</strong>，生成为一个整数。</p>
+<h2 id="上面两个方法的demo动态图。"><a href="#上面两个方法的demo动态图。" class="headerlink" title="上面两个方法的demo动态图。"></a>上面两个方法的demo动态图。</h2><p><img src="https://dn-mhke0kuv.qbox.me/28f0d68a124f814fdc95.gif" alt=""></p>
+<p>文末有<strong>demo链接</strong>，可以把代码复制回去，自己试试</p>
+<h2 id="生成指定范围的随机数（从任意值到任意值）"><a href="#生成指定范围的随机数（从任意值到任意值）" class="headerlink" title="生成指定范围的随机数（从任意值到任意值）"></a>生成指定范围的随机数（从任意值到任意值）</h2><p>这里是从任意值开始，我们刚才取的随机数都是从0开始。但是有些场景可能需要我们取一个<strong>指定范围的随机数，比如20-30,80-120等等</strong>。</p>
+<h3 id="这里有一个公式：Math-floor-Math-random-max-min-1-min"><a href="#这里有一个公式：Math-floor-Math-random-max-min-1-min" class="headerlink" title="这里有一个公式：Math.floor(Math.random()*(max-min+1)+min);"></a>这里有一个公式：Math.floor(Math.random()*(max-min+1)+min);</h3><p>ps： max - 范围内的最大值，min - 单位内的最小值</p>
+<p>按照这个公式来，就没错了，下面是demo栗子。</p>
+<h3 id="值得注意的是："><a href="#值得注意的是：" class="headerlink" title="值得注意的是："></a>值得注意的是：</h3><p>如果是<strong>负数范围的随机数</strong>，要<strong>进行符号转换</strong>的，比如–30（这里是说减去三十。），转换符号后变成+。不转换符号，会出现报错！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Math.floor(Math.random()*(-10--30+1)+-30)//错误</span><br><span class="line">Math.floor(Math.random()*(-10+30+1)-30);//正确。</span><br></pre></td></tr></table></figure>
+<h3 id="生成指定范围的随机数的栗子："><a href="#生成指定范围的随机数的栗子：" class="headerlink" title="生成指定范围的随机数的栗子："></a>生成指定范围的随机数的栗子：</h3><p><img src="https://dn-mhke0kuv.qbox.me/0ce56e1004e532fa864d.gif" alt="生成指定范围的随机数的栗子"></p>
+<h3 id="获得不重复的随机数组。"><a href="#获得不重复的随机数组。" class="headerlink" title="获得不重复的随机数组。"></a>获得不重复的随机数组。</h3><p>获得不重复随机数组的方法非常多，这里就介绍一种：<strong>使用indexOf()的方法来去重，然后通过push()方法来添加数组</strong>。</p>
+<h3 id="push-方法的作用："><a href="#push-方法的作用：" class="headerlink" title="push() 方法的作用："></a>push() 方法的作用：</h3><p>push() 方法可向数组的末尾添加一个或多个元素，并返回新的长度。</p>
+<h3 id="indexOf-方法的定义及介绍："><a href="#indexOf-方法的定义及介绍：" class="headerlink" title="indexOf()方法的定义及介绍："></a>indexOf()方法的定义及介绍：</h3><p><img src="https://dn-mhke0kuv.qbox.me/2c45c7ba19472ed64d1e" alt="来自W3C"></p>
+<p>看完了还是一脸懵逼，到底跟随机数组去重有什么关系？？</p>
+<p>这里有一句特别关键：</p>
+<h4 id="注释：如果要检索的字符串值没有出现，则该方法返回-1。"><a href="#注释：如果要检索的字符串值没有出现，则该方法返回-1。" class="headerlink" title="注释：如果要检索的字符串值没有出现，则该方法返回 -1。"></a>注释：如果要检索的字符串值没有出现，则该方法返回 -1。</h4><p>依靠这句注释，<strong>通过if条件判断</strong>，我们就可以做出<strong>随机数组去重</strong>的功能。</p>
+<p>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//num是一个数组，randomNum是一个随机数值。</span><br><span class="line"> while (num.length&lt;3)&#123;//num.length代表数组的长度，当数组的长度不再满足小于3，跳出循环</span><br><span class="line">       var randomNum=Math.floor(Math.random()*9);//获得在0-9之间的随机数</span><br><span class="line">       if (num.indexOf(randomNum)&lt;0)&#123;</span><br><span class="line"> //判断randomNum之前有没有在数组里面，如果没有，就添加进去，如果有，重新循环。</span><br><span class="line">            num.push(randomNum);</span><br><span class="line">            // 将randomNum这个随机数，添加到num这个数组里面。</span><br><span class="line">         &#125;</span><br><span class="line">        console.log(num);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码思路："><a href="#代码思路：" class="headerlink" title="代码思路："></a>代码思路：</h3><p>1.先限定数组的长度，否则就成死循环了。<br>2.获得一个随机数<br>3.判断是否已经在数组里面，如果没有，就执行if下面的函数。<br>4.<strong>没有出现这个随机数，indexOf（）这个方法会返回-1</strong>，这是判断条件的依据。<br>5.当随机数达到三个了就跳出循环。此时num数组已经去重完毕。</p>
+<h3 id="代码执行演示："><a href="#代码执行演示：" class="headerlink" title="代码执行演示："></a>代码执行演示：</h3><p>以下是演示的一个栗子，当<strong>数组里面已经有6了，再随机到6的时候，就会跳过push，直到随机到不重复的</strong>。</p>
+<p><img src="https://dn-mhke0kuv.qbox.me/588f5a1dc540001c7ca1.gif" alt=""></p>
+<h3 id="ps：indexOf（）这个方法去重效率到后期偏低，仅适用于数据量比较小的时候，因为后期数据量大的话，数组中每一个都进行依次比较的话，时间方面会花很长时间。"><a href="#ps：indexOf（）这个方法去重效率到后期偏低，仅适用于数据量比较小的时候，因为后期数据量大的话，数组中每一个都进行依次比较的话，时间方面会花很长时间。" class="headerlink" title="ps：indexOf（）这个方法去重效率到后期偏低，仅适用于数据量比较小的时候，因为后期数据量大的话，数组中每一个都进行依次比较的话，时间方面会花很长时间。"></a>ps：indexOf（）这个方法去重效率到后期偏低，仅适用于数据量比较小的时候，因为后期数据量大的话，数组中每一个都进行依次比较的话，时间方面会花很长时间。</h3><h3 id="文中出现栗子的：demo链接"><a href="#文中出现栗子的：demo链接" class="headerlink" title="文中出现栗子的：demo链接"></a>文中出现栗子的：<a href="https://obkoro1.github.io/article-demo/2017/js-random/randomDemo.html" target="_blank" rel="noopener">demo链接</a></h3><p>以上就是本文介绍的一些随机数的知识点。</p>
+<p><strong>最后</strong>：如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！因为我经常看不懂别人写的分享，所以个人写文比较偏小白，写的不好之处，欢迎指点。然后就是希望看完的朋友点个<strong>喜欢</strong>，也可以<strong>关注</strong>一下我。<br><strong>ps</strong>：目前<strong>待业</strong>，坐标北京，本人适应互联网快节奏，高强度，持续学习，持续成长，认真，严谨，学习积极性强。<strong>中小公司大佬求带走</strong>，邮箱：<a href="mailto:1677593011@qq.com" target="_blank" rel="noopener">1677593011@qq.com</a>。<br><strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a> </strong></p>
+<p>2017.5.9</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js随机数/" rel="tag"><i class="fa fa-tag"></i> js随机数</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/11/用原生-JS-实现双向绑定及应用实例/" rel="next" title="用原生 JS 实现双向绑定及应用实例">
+                <i class="fa fa-chevron-left"></i> 用原生 JS 实现双向绑定及应用实例
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/11/js定时器用法详解——setTimeout-、setInterval-、clearTimeout-、clearInterval/" rel="prev" title="js定时器用法详解——setTimeout()、setInterval()、clearTimeout()、clearInterval()">
+                js定时器用法详解——setTimeout()、setInterval()、clearTimeout()、clearInterval() <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面："><span class="nav-number">1.</span> <span class="nav-text">写在前面：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js生成随机数。"><span class="nav-number">2.</span> <span class="nav-text">js生成随机数。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Math-random-——生成大于等于0-0且小于1-0的一个随机数"><span class="nav-number">2.1.</span> <span class="nav-text">Math.random()——生成大于等于0.0且小于1.0的一个随机数;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Math-floor-Math-random-20-——取0-20之间的随机整数："><span class="nav-number">2.2.</span> <span class="nav-text">Math.floor(Math.random()*20)——取0~20之间的随机整数：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解析上面Math-floor-Math-random-20-的栗子："><span class="nav-number">2.2.1.</span> <span class="nav-text">解析上面Math.floor(Math.random()*20)的栗子：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上面两个方法的demo动态图。"><span class="nav-number">3.</span> <span class="nav-text">上面两个方法的demo动态图。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成指定范围的随机数（从任意值到任意值）"><span class="nav-number">4.</span> <span class="nav-text">生成指定范围的随机数（从任意值到任意值）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#这里有一个公式：Math-floor-Math-random-max-min-1-min"><span class="nav-number">4.1.</span> <span class="nav-text">这里有一个公式：Math.floor(Math.random()*(max-min+1)+min);</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值得注意的是："><span class="nav-number">4.2.</span> <span class="nav-text">值得注意的是：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成指定范围的随机数的栗子："><span class="nav-number">4.3.</span> <span class="nav-text">生成指定范围的随机数的栗子：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获得不重复的随机数组。"><span class="nav-number">4.4.</span> <span class="nav-text">获得不重复的随机数组。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#push-方法的作用："><span class="nav-number">4.5.</span> <span class="nav-text">push() 方法的作用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#indexOf-方法的定义及介绍："><span class="nav-number">4.6.</span> <span class="nav-text">indexOf()方法的定义及介绍：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注释：如果要检索的字符串值没有出现，则该方法返回-1。"><span class="nav-number">4.6.1.</span> <span class="nav-text">注释：如果要检索的字符串值没有出现，则该方法返回 -1。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码思路："><span class="nav-number">4.7.</span> <span class="nav-text">代码思路：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码执行演示："><span class="nav-number">4.8.</span> <span class="nav-text">代码执行演示：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ps：indexOf（）这个方法去重效率到后期偏低，仅适用于数据量比较小的时候，因为后期数据量大的话，数组中每一个都进行依次比较的话，时间方面会花很长时间。"><span class="nav-number">4.9.</span> <span class="nav-text">ps：indexOf（）这个方法去重效率到后期偏低，仅适用于数据量比较小的时候，因为后期数据量大的话，数组中每一个都进行依次比较的话，时间方面会花很长时间。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文中出现栗子的：demo链接"><span class="nav-number">4.10.</span> <span class="nav-text">文中出现栗子的：demo链接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytevxRRN';
+      var conf = '75faf3cb54138bb69e86ad05ff147b5d';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="angular ui-router," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="写在前面：ui-router是angular的一个插件，因为angular前面几个版本自带的原生ng-router不能很好的满足开发需求，所以在实现angular单页面嵌套的时候，都是使用ui-router。本文是的内容关于angular ui-router实现过程，内含demo以及代码地址，需要的朋友可以过来参考下，喜欢的可以点波赞，或者关注一下本人，ui-router的实现过程并不复杂，希望通">
+<meta name="keywords" content="angular ui-router">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angular ui-router：简单的单页面嵌套路由的实现过程">
+<meta property="og:url" content="http://yoursite.com/2017/10/11/angular-ui-router：简单的单页面嵌套路由的实现过程/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="写在前面：ui-router是angular的一个插件，因为angular前面几个版本自带的原生ng-router不能很好的满足开发需求，所以在实现angular单页面嵌套的时候，都是使用ui-router。本文是的内容关于angular ui-router实现过程，内含demo以及代码地址，需要的朋友可以过来参考下，喜欢的可以点波赞，或者关注一下本人，ui-router的实现过程并不复杂，希望通">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/1035fc96102e99ed0631.gif">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/6fe0883403f7cb72acd7">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/a7e76d330ad49be344e8">
+<meta property="og:updated_time" content="2017-10-11T15:03:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="angular ui-router：简单的单页面嵌套路由的实现过程">
+<meta name="twitter:description" content="写在前面：ui-router是angular的一个插件，因为angular前面几个版本自带的原生ng-router不能很好的满足开发需求，所以在实现angular单页面嵌套的时候，都是使用ui-router。本文是的内容关于angular ui-router实现过程，内含demo以及代码地址，需要的朋友可以过来参考下，喜欢的可以点波赞，或者关注一下本人，ui-router的实现过程并不复杂，希望通">
+<meta name="twitter:image" content="https://dn-mhke0kuv.qbox.me/1035fc96102e99ed0631.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/11/angular-ui-router：简单的单页面嵌套路由的实现过程/"/>
+
+
+
+
+
+  <title>angular ui-router：简单的单页面嵌套路由的实现过程 | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类列表">
+          <a href="/Summary/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/11/angular-ui-router：简单的单页面嵌套路由的实现过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">angular ui-router：简单的单页面嵌套路由的实现过程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T22:58:03+08:00">
+                2017-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/angular/" itemprop="url" rel="index">
+                    <span itemprop="name">angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/10/11/angular-ui-router：简单的单页面嵌套路由的实现过程/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/10/11/angular-ui-router：简单的单页面嵌套路由的实现过程/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2017/10/11/angular-ui-router：简单的单页面嵌套路由的实现过程/" class="leancloud_visitors" data-flag-title="angular ui-router：简单的单页面嵌套路由的实现过程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面："><a href="#写在前面：" class="headerlink" title="写在前面："></a>写在前面：</h2><p>ui-router是angular的一个插件，因为angular前面几个版本自带的原生ng-router不能很好的满足开发需求，所以在实现angular单页面嵌套的时候，都是使用ui-router。本文是的内容关于angular ui-router实现过程，内含demo以及代码地址，需要的朋友可以过来参考下，喜欢的可以点波赞，或者关注一下本人，ui-router的实现过程并不复杂，希望通过本文大家能够学会ui-router的使用方法。</p>
+<h2 id="ui-router与ng-router："><a href="#ui-router与ng-router：" class="headerlink" title="ui-router与ng-router："></a>ui-router与ng-router：</h2><p>UI-Router是angular原生ng-route进化版，相较与ng-router有如下两条优点：</p>
+<ol>
+<li><p>视图不能嵌套,这意味着$scope会发生不必要的重新载入。</p>
+</li>
+<li><p>同一URL下不支持多个视图。这一需求也是常见的：我们希望导航栏用一个视图（和相应的控制器）、内容部分用另一个视图（和相应的控制器）。</p>
+</li>
+</ol>
+<h2 id="最终实现demo效果"><a href="#最终实现demo效果" class="headerlink" title="最终实现demo效果"></a>最终实现demo效果</h2><p><img src="https://dn-mhke0kuv.qbox.me/1035fc96102e99ed0631.gif" alt=""></p>
+<h2 id="AngularJS单页面实现原理："><a href="#AngularJS单页面实现原理：" class="headerlink" title="AngularJS单页面实现原理："></a>AngularJS单页面实现原理：</h2><p>AngularJS 路由允许我们通过不同的 URL 访问不同的内容，通常我们的<strong>URL形式</strong>为<a href="http://runoob.com/first/page" target="_blank" rel="noopener">http://runoob.com/first/page</a> ，在单页Web应用中 AngularJS 通过<strong> # + 标记 </strong>实现，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://runoob.com/#/first</span><br><span class="line">http://runoob.com/#/second</span><br><span class="line">http://runoob.com/#/third</span><br></pre></td></tr></table></figure>
+<ol>
+<li>当我们访问这上面任意一个链接的时候，向服务端<strong>请求的都是同一个地址</strong>： <a href="http://runoob.com/" target="_blank" rel="noopener">http://runoob.com/</a></li>
+<li><strong>#号之后的内容</strong>在向服务端请求时会<strong>被浏览器忽略掉</strong></li>
+<li><p>路由就通过<strong> # + 标记</strong>帮助我们<strong>区分不同的逻辑页面并将不同的页面绑定到对应的控制器上</strong>，如下图所示：</p>
+<p><img src="https://dn-mhke0kuv.qbox.me/6fe0883403f7cb72acd7" alt="不同的视图页面对应不同的控制器"></p>
+</li>
+</ol>
+<h3 id="demo地址"><a href="#demo地址" class="headerlink" title="demo地址"></a><a href="https://obkoro1.github.io/article-demo/2017/uiRouter/index.html#/PageTab/Page3" target="_blank" rel="noopener">demo地址</a></h3><hr>
+<h1 id="ui-router实现过程"><a href="#ui-router实现过程" class="headerlink" title="ui-router实现过程"></a>ui-router实现过程</h1><h2 id="1、创建页面："><a href="#1、创建页面：" class="headerlink" title=" 1、创建页面："></a> 1、创建页面：</h2><p>要实现上文那个demo效果，我们需要创建如下页面：</p>
+<ol>
+<li>app.js<br> 这是路由的配置页面</li>
+<li>index.html<br> 通常叫做index.html是单页面的首页，里面导入了各种css样式、库，插件，框架之类的。</li>
+<li>PageTab.html<br> 进入index.html首先展示的视图页面，下面几个是PageTab下面的嵌套页面</li>
+<li>Page-1.html</li>
+<li>Page-2.html</li>
+<li>Page-3.html</li>
+</ol>
+<p>代码上传到github上面了，需要的朋友可以自行查看： <a href="https://github.com/OBKoro1/article-demo/tree/master/2017/uiRouter" target="_blank" rel="noopener">代码地址</a></p>
+<p><strong>注：</strong>angular用的是：1.4.6，ui-router用的是1.0</p>
+<p>ps：现在angular4，自带的原生ng-router好像也已经支持了多层嵌套。但是因为还没流传开，市面上，大多还是1.4，所以还是需要用到ui-router。</p>
+<h2 id="2、在index-html里面导入js文件"><a href="#2、在index-html里面导入js文件" class="headerlink" title=" 2、在index.html里面导入js文件"></a> 2、在index.html里面导入js文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://cdn.bootcss.com/angular.js/1.4.6/angular.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;https://cdn.bootcss.com/angular-ui-router/1.0.0-rc.1/angular-ui-router.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;App.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>1.angular文件，2.ui-router插件,3.路由js页面</p>
+<h4 id="注意：angular文件必须在ui-router前面，因为ui-router是依赖angular的插件。"><a href="#注意：angular文件必须在ui-router前面，因为ui-router是依赖angular的插件。" class="headerlink" title="注意：angular文件必须在ui-router前面，因为ui-router是依赖angular的插件。"></a>注意：angular文件必须在ui-router前面，因为ui-router是依赖angular的插件。</h4><p>这几个文件是最基本的页面，如果是一个<strong>完整的angular单页面项目</strong>的话，<strong>index,html</strong>是这幅样子：</p>
+<p><img src="https://dn-mhke0kuv.qbox.me/a7e76d330ad49be344e8" alt=""></p>
+<p>在单页面中，不管你从哪个视图查看网页代码，都是这样子，第一次看的都醉了！</p>
+<h2 id="3-app-js"><a href="#3-app-js" class="headerlink" title=" 3.app.js"></a> 3.app.js</h2><p><strong>app.js声明了AngularJS模块和路由配置</strong>。当页面加载的时候我们会在index.html中显示PageTab.html的内容。具体代码如下，每一个关键的地方都有相应的<strong>注释注释注释</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">var myApp = angular.module(&quot;myApp&quot;, [&quot;ui.router&quot;]);</span><br><span class="line">//这里叫做App模块，这将告诉HTML页面这是一个AngularJS作用的页面，并把ui-router注入AngularJS主模块，它的内容由AngularJS引擎来解释。</span><br><span class="line">myApp.config(function ($stateProvider, $urlRouterProvider) &#123;</span><br><span class="line">    //这一行声明了把 $stateProvider 和 $urlRouteProvider 路由引擎作为函数参数传入，这样我们就可以为这个应用程序配置路由了.</span><br><span class="line">    $urlRouterProvider.when(&quot;&quot;, &quot;/PageTab&quot;);</span><br><span class="line">    //如果没有路由引擎能匹配当前的导航状态，默认将路径路由至 PageTab.html, 那它就像switch case语句中的default选项.就是一个默认的视图选项</span><br><span class="line">    $stateProvider</span><br><span class="line">        //这一行定义了会在main.html页面第一个显示出来的状态（就是进入页面先加载的html），作为页面被加载好以后第一个被使用的路由.</span><br><span class="line">        .state(&quot;PageTab&quot;, &#123;//导航用的名字</span><br><span class="line">            url: &quot;/PageTab&quot;,//#+标识符，这里就是url地址栏上面的标识符，通过标识符，进入不同的html页面</span><br><span class="line">            templateUrl: &quot;PageTab.html&quot;//这里是html的路径，这是跟标识符相对应的html页面</span><br><span class="line">        &#125;)</span><br><span class="line">        .state(&quot;PageTab.Page1&quot;, &#123;//引号里面代表Page1是PageTab的子页面，用.隔开</span><br><span class="line">            url:&quot;/Page1&quot;,</span><br><span class="line">            templateUrl: &quot;Page-1.html&quot;</span><br><span class="line">        &#125;)</span><br><span class="line">        .state(&quot;PageTab.Page2&quot;, &#123;//需要跳转页面的时候，就是用这双引号里面的地址</span><br><span class="line">            url:&quot;/Page2&quot;,</span><br><span class="line">            templateUrl: &quot;Page-2.html&quot;</span><br><span class="line">        &#125;)</span><br><span class="line">        .state(&quot;PageTab.Page3&quot;, &#123;</span><br><span class="line">            url:&quot;/Page3&quot;,</span><br><span class="line">            templateUrl: &quot;Page3.html&quot;</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>现在已经成功把appjs实现出来，然后需要在html里面定义视图，以及视图跳转链接</p>
+<h2 id="4-html定义视图"><a href="#4-html定义视图" class="headerlink" title=" 4.html定义视图"></a> 4.html定义视图</h2><p>现在要把我们写好的html视图页面在页面中展示出来，我们来看看index.html里面的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;body data-ng-app=&quot;myApp&quot;&gt;</span><br><span class="line">&lt;!--ui-router的html代码--&gt;</span><br><span class="line">&lt;div data-ui-view=&quot;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;!--这里要引入上面说的文件--&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;html&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="在ui-view-””的双引号里面，ui-view展示的页面是根据app-js设置的url对应的html来展示的。"><a href="#在ui-view-””的双引号里面，ui-view展示的页面是根据app-js设置的url对应的html来展示的。" class="headerlink" title="在ui-view=””的双引号里面，ui-view展示的页面是根据app.js设置的url对应的html来展示的。"></a>在ui-view=””的双引号里面，ui-view展示的页面是根据app.js设置的url对应的html来展示的。</h4><h3 id="嵌套页面跳转："><a href="#嵌套页面跳转：" class="headerlink" title="嵌套页面跳转："></a>嵌套页面跳转：</h3><ol>
+<li><p>导航里面的名字必须是“<strong>父页面的名字.子页面的名字</strong>”<br>比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.state(&quot;PageTab&quot;, &#123;//这里是名字</span><br><span class="line">          url: &quot;/PageTab&quot;,</span><br><span class="line">          templateUrl: &quot;PageTab.html&quot;</span><br><span class="line">      &#125;)</span><br><span class="line">      .state(&quot;PageTab.Page1&quot;, &#123;//意思是PageTab视图下面的Page1视图</span><br><span class="line">          url:&quot;/Page1&quot;,</span><br><span class="line">          templateUrl: &quot;Page-1.html&quot;</span><br><span class="line">      &#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在html里面，用<strong>ui-sref</strong>进行跳转<br> demo代码栗子：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">       &lt;h1&gt;下面这几个按钮是在主页面下面再嵌套一层的页面&lt;/h1&gt;</span><br><span class="line">       &lt;!--ui-sref跳转--&gt;</span><br><span class="line">       &lt;span style=&quot;width:100px&quot; ui-sref=&quot;.Page1&quot;&gt;&lt;a href=&quot;&quot;&gt;Page-1&lt;/a&gt;&lt;/span&gt;</span><br><span class="line">       &lt;span style=&quot;width:100px&quot; ui-sref=&quot;.Page2&quot;&gt;&lt;a href=&quot;&quot;&gt;Page-2&lt;/a&gt;&lt;/span&gt;</span><br><span class="line">       &lt;span style=&quot;width:100px&quot; ui-sref=&quot;.Page3&quot;&gt;&lt;a href=&quot;&quot;&gt;Page-3&lt;/a&gt;&lt;/span&gt;</span><br><span class="line">   &lt;/div&gt;</span><br><span class="line">   &lt;div&gt;</span><br><span class="line">       &lt;!--PageTap嵌套的视图html展示的地方--&gt;</span><br><span class="line">       &lt;div ui-view=&quot;&quot;/&gt;</span><br><span class="line">   &lt;/div&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果觉得不太明白可以点击下面的代码地址，将代码复制到本地，自己多试一试，应该就明白了：<br><a href="https://obkoro1.github.io/article-demo/2017/uiRouter/index.html#/PageTab/Page3" target="_blank" rel="noopener">demo地址</a>、<a href="https://github.com/OBKoro1/article-demo/tree/master/2017/uiRouter" target="_blank" rel="noopener">demo代码地址</a></p>
+<hr>
+<h2 id="写在后面："><a href="#写在后面：" class="headerlink" title="写在后面："></a>写在后面：</h2><p>现在只是一个最简单的使用方式，本来想在写一些深一点的使用方式（内容：路由的其他参数、路由懒加载引用文件、路由视图页面传递参数），写了好久，结果发现还是需要demo结合起来写，比较清楚，等我写好了在下面加个链接。</p>
+<p><strong>最后</strong>：如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！因为我经常看不懂别人写的分享，所以个人写文比较偏小白，写的不好之处，欢迎指点。然后就是希望看完的朋友点个<strong>喜欢</strong>，也可以<strong>关注</strong>一下我。<br><strong>ps</strong>：目前<strong>待业</strong>，<strong>城市：杭州/北京（纠结中）</strong>，本人适应互联网快节奏，高强度的工作状态，认真，严谨，学习积极性强。<strong>中小公司大佬求带走</strong>，邮箱：<a href="mailto:obkoro1@foxmail.com" target="_blank" rel="noopener">obkoro1@foxmail.com</a>。<br><strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a> </strong></p>
+<h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><p><a href="http://www.runoob.com/angularjs/angularjs-routing.html" target="_blank" rel="noopener">AngularJS 路由,菜鸟教程</a><br><a href="http://blog.csdn.net/zcl_love_wx/article/details/52034193" target="_blank" rel="noopener">深究AngularJS——ui-router详解</a>\<br><a href="http://www.oschina.net/translate/angularjs-ui-router-nested-routes" target="_blank" rel="noopener">AngularJS ui-router (嵌套路由)</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/angular-ui-router/" rel="tag"><i class="fa fa-tag"></i> angular ui-router</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/11/小白来实现一个Ajax请求-Ajax使用方法及相关知识点详细解析——超级全/" rel="next" title="小白来实现一个Ajax请求[Ajax使用方法及相关知识点详细解析——超级全]">
+                <i class="fa fa-chevron-left"></i> 小白来实现一个Ajax请求[Ajax使用方法及相关知识点详细解析——超级全]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/11/手摸手教你使用vue-cli脚手架-详细步骤图文解析-vue入门/" rel="prev" title="手摸手教你使用vue-cli脚手架-详细步骤图文解析[vue入门]">
+                手摸手教你使用vue-cli脚手架-详细步骤图文解析[vue入门] <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面："><span class="nav-number">1.</span> <span class="nav-text">写在前面：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ui-router与ng-router："><span class="nav-number">2.</span> <span class="nav-text">ui-router与ng-router：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最终实现demo效果"><span class="nav-number">3.</span> <span class="nav-text">最终实现demo效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AngularJS单页面实现原理："><span class="nav-number">4.</span> <span class="nav-text">AngularJS单页面实现原理：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#demo地址"><span class="nav-number">4.1.</span> <span class="nav-text">demo地址</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ui-router实现过程"><span class="nav-number"></span> <span class="nav-text">ui-router实现过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、创建页面："><span class="nav-number">1.</span> <span class="nav-text"> 1、创建页面：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、在index-html里面导入js文件"><span class="nav-number">2.</span> <span class="nav-text"> 2、在index.html里面导入js文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意：angular文件必须在ui-router前面，因为ui-router是依赖angular的插件。"><span class="nav-number">2.0.1.</span> <span class="nav-text">注意：angular文件必须在ui-router前面，因为ui-router是依赖angular的插件。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-app-js"><span class="nav-number">3.</span> <span class="nav-text"> 3.app.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-html定义视图"><span class="nav-number">4.</span> <span class="nav-text"> 4.html定义视图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在ui-view-””的双引号里面，ui-view展示的页面是根据app-js设置的url对应的html来展示的。"><span class="nav-number">4.0.1.</span> <span class="nav-text">在ui-view=””的双引号里面，ui-view展示的页面是根据app.js设置的url对应的html来展示的。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套页面跳转："><span class="nav-number">4.1.</span> <span class="nav-text">嵌套页面跳转：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在后面："><span class="nav-number">5.</span> <span class="nav-text">写在后面：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料："><span class="nav-number">5.1.</span> <span class="nav-text">参考资料：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytevxRRN';
+      var conf = '75faf3cb54138bb69e86ad05ff147b5d';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

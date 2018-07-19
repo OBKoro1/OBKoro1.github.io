@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Vue,js," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="前言现在的前端面试不管你用的什么框架，总会问你这个框架的双向绑定机制，有的甚至要求你现场实现一个双向绑定出来，那对于没有好好研究过这方面知识的同学来说，当然是很难的，接下来本文用160行代码带你实现一个极简的双向绑定机制。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。 本文是在面试题：你能写一个Vue的双向数据绑定吗？的基础上仔细研究+改动，并添加了详细注释，而成的。">
+<meta name="keywords" content="Vue,js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="160行代码仿Vue实现极简双向绑定[详细注释]">
+<meta property="og:url" content="http://yoursite.com/2018/06/24/160行代码仿Vue实现极简双向绑定-详细注释/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="前言现在的前端面试不管你用的什么框架，总会问你这个框架的双向绑定机制，有的甚至要求你现场实现一个双向绑定出来，那对于没有好好研究过这方面知识的同学来说，当然是很难的，接下来本文用160行代码带你实现一个极简的双向绑定机制。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。 本文是在面试题：你能写一个Vue的双向数据绑定吗？的基础上仔细研究+改动，并添加了详细注释，而成的。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl9m7cdk1j30hs0buqeb.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl70vrkj3g30aw09iq3y.gif">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl7dygfovj30ka0augpd.jpg">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317">
+<meta property="og:updated_time" content="2018-06-24T09:25:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="160行代码仿Vue实现极简双向绑定[详细注释]">
+<meta name="twitter:description" content="前言现在的前端面试不管你用的什么框架，总会问你这个框架的双向绑定机制，有的甚至要求你现场实现一个双向绑定出来，那对于没有好好研究过这方面知识的同学来说，当然是很难的，接下来本文用160行代码带你实现一个极简的双向绑定机制。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。 本文是在面试题：你能写一个Vue的双向数据绑定吗？的基础上仔细研究+改动，并添加了详细注释，而成的。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl9m7cdk1j30hs0buqeb.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/24/160行代码仿Vue实现极简双向绑定-详细注释/"/>
+
+
+
+
+
+  <title>160行代码仿Vue实现极简双向绑定[详细注释] | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类列表">
+          <a href="/Summary/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/24/160行代码仿Vue实现极简双向绑定-详细注释/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">160行代码仿Vue实现极简双向绑定[详细注释]</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-24T17:12:24+08:00">
+                2018-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/06/24/160行代码仿Vue实现极简双向绑定-详细注释/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/06/24/160行代码仿Vue实现极简双向绑定-详细注释/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2018/06/24/160行代码仿Vue实现极简双向绑定-详细注释/" class="leancloud_visitors" data-flag-title="160行代码仿Vue实现极简双向绑定[详细注释]">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl9m7cdk1j30hs0buqeb.jpg" alt=""></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在的前端面试不管你用的什么框架，总会问你这个框架的双向绑定机制，有的甚至要求你现场实现一个双向绑定出来，那对于没有好好研究过这方面知识的同学来说，当然是很难的，<strong>接下来本文用160行代码带你实现一个极简的双向绑定机制</strong>。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。</p>
+<p>本文是在<a href="https://juejin.im/post/5acc17cb51882555745a03f8" target="_blank" rel="noopener">面试题：你能写一个Vue的双向数据绑定吗？</a>的基础上仔细研究+改动，并添加了详细注释，而成的。</p>
+<a id="more"></a>
+<blockquote>
+<p>个人博客了解一下：<a href="http://obkoro1.com/" target="_blank" rel="noopener">obkoro1.com</a></p>
+</blockquote>
+<hr>
+<h2 id="效果GIF："><a href="#效果GIF：" class="headerlink" title="效果GIF："></a>效果GIF：</h2><p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl70vrkj3g30aw09iq3y.gif" alt=""></p>
+<h2 id="demo地址："><a href="#demo地址：" class="headerlink" title="demo地址："></a>demo地址：</h2><p><strong>codepen:</strong><a href="https://codepen.io/OBKoro1/pen/qKKqQe?editors=0010" target="_blank" rel="noopener">仿Vue极简双向绑定</a></p>
+<p><strong>Github:</strong><a href="http://obkoro1.com/simpleDemo/myVue/index.html" target="_blank" rel="noopener">仿Vue极简双向绑定</a></p>
+<hr>
+<h2 id="了解Object-defineProperty-："><a href="#了解Object-defineProperty-：" class="headerlink" title="了解Object.defineProperty()："></a>了解Object.defineProperty()：</h2><p>这个API是实现双向绑定的核心，最主要的作用是重写数据的<code>get</code>、<code>set</code>方法，现在的三大框架(vue react angular)也都是通过这个API来实现双向绑定的。</p>
+<h3 id="使用方式："><a href="#使用方式：" class="headerlink" title="使用方式："></a>使用方式：</h3><pre><code>let obj = {
+  singer: &quot;周杰伦&quot;
+};
+let value = &quot;青花瓷&quot;;
+Object.defineProperty(obj, &quot;music&quot;, {
+  // value: &apos;七里香&apos;, // 设置属性的值 下面设置了get set函数 所以这里不能设置
+  configurable: false, // 是否可以删除属性 默认不能删除
+  // writable: true,  // 是否可以修改对象 下面设置了get set函数 所以这里不能设置
+  enumerable: true, // music是否可以被枚举 默认是不能被枚举(遍历)
+  // ☆ get,set设置时不能设置writable和value，要一对一对设置，交叉设置/同时存在 就会报错
+  get() {
+    // 获取obj.music的时候就会调用get方法
+    // let value = &quot;强行设置get的返回值&quot;; // 打开注释 读取属性永远都是‘强行设置get的返回值’
+    return value;
+  },
+  set(val) {
+    // 将修改的值重新赋给song
+    value = val;
+  }
+});
+console.log(obj.music); // 青花瓷
+delete obj.music; // configurable设为false 删除无效
+console.log(obj.music); // 青花瓷
+obj.music = &quot;听妈妈的话&quot;; 
+console.log(obj.music); // 听妈妈的话
+for (let key in obj) {
+  // 默认情况下通过defineProperty定义的属性是不能被枚举(遍历)的
+  // 需要设置enumerable为true才可以 否则只能拿到singer 属性
+  console.log(key); // singer, music
+}
+</code></pre><h3 id="示例demo："><a href="#示例demo：" class="headerlink" title="示例demo："></a>示例demo：</h3><p>对，这里有个<a href="https://codepen.io/OBKoro1/pen/XYYMMp?editors=0010" target="_blank" rel="noopener">demo</a>。</p>
+<h3 id="画一下重点："><a href="#画一下重点：" class="headerlink" title="画一下重点："></a>画一下重点：</h3><ul>
+<li>get,set设置时不能设置writable和value, 他们是一对情侣的存在，<strong>交叉设置或同时存在,会报错</strong></li>
+<li>通过<code>defineProperty</code>设置的属性，<strong>默认不能删除，不能遍历</strong>，当然你可以通过设置更改他们。</li>
+<li><strong>get、set 是函数，可以做的事情很多</strong>。</li>
+</ul>
+<p><strong>兼容性</strong>：IE 9,Firefox 4, Chorme 5,Opera 11.6,Safari 5.1 </p>
+<p>更详细的可以看一下<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" target="_blank" rel="noopener">MDN</a></p>
+<hr>
+<h2 id="实现思路："><a href="#实现思路：" class="headerlink" title="实现思路："></a>实现思路：</h2><h3 id="mvvm系列的双向绑定，关键步骤："><a href="#mvvm系列的双向绑定，关键步骤：" class="headerlink" title="mvvm系列的双向绑定，关键步骤："></a>mvvm系列的双向绑定，关键步骤：</h3><ol>
+<li>实现数据监听器Observer，用<code>Object.defineProperty()</code><strong>重写数据的get、set，值更新就在set中通知订阅者更新数据</strong>。</li>
+<li>实现模板编译Compile，深度遍历dom树，对每个元素节点的指令模板进行<strong>替换数据以及订阅数据</strong>。</li>
+<li>实现Watch用于连接Observer和Compile，<strong>能够订阅并收到每个属性变动的通知，执行指令绑定的相应回调函数，从而更新视图</strong>。</li>
+<li>mvvm入口函数，整合以上三者。</li>
+</ol>
+<h3 id="流程图："><a href="#流程图：" class="headerlink" title="流程图："></a>流程图：</h3><p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl7dygfovj30ka0augpd.jpg" alt=""></p>
+<p>这部分讲的很清楚，现在有点懵逼也没关系，看完代码，自己copy下来玩一玩之后，回头再看实现思路，相信会有收获的。</p>
+<hr>
+<h2 id="具体代码实现："><a href="#具体代码实现：" class="headerlink" title="具体代码实现："></a>具体代码实现：</h2><h3 id="html结构："><a href="#html结构：" class="headerlink" title="html结构："></a>html结构：</h3><pre><code>&lt;div id=&quot;app&quot;&gt;
+    &lt;input type=&quot;text&quot; v-model=&quot;name&quot;&gt;
+    &lt;h3 v-bind=&quot;name&quot;&gt;&lt;/h3&gt;
+    &lt;input type=&quot;text&quot; v-model=&quot;testData1&quot;&gt;
+    &lt;h3&gt;{{ testData1 }}&lt;/h3&gt;
+    &lt;input type=&quot;text&quot; v-model=&quot;testData2&quot;&gt;
+    &lt;h3&gt;{{ testData2 }}&lt;/h3&gt;
+&lt;/div&gt;
+</code></pre><p>看到这个模板，相信用过Vue的同学都不会陌生。</p>
+<h3 id="调用方法："><a href="#调用方法：" class="headerlink" title="调用方法："></a>调用方法：</h3><p>采用类Vue方式来使用双向绑定：</p>
+<pre><code> window.onload = function () {
+    var app = new myVue({
+        el: &apos;#app&apos;, // dom
+        data: { // 数据
+            testData1: &apos;仿Vue&apos;,
+            testData2: &apos;极简双向绑定&apos;,
+            name: &apos;OBKoro1&apos;
+        }
+    })
+}
+</code></pre><h3 id="创建myVue函数："><a href="#创建myVue函数：" class="headerlink" title="创建myVue函数："></a>创建myVue函数：</h3><p>实际上这里是我们实现思路中的第四步，用于整合数据监听器<code>this._observer()</code>、指令解析器<code>this._compile()</code>以及连接Observer和Compile的_watcherTpl的watch池。</p>
+<pre><code>function myVue(options = {}) {  // 防止没传，设一个默认值
+    this.$options = options; // 配置挂载
+    this.$el = document.querySelector(options.el); // 获取dom
+    this._data = options.data; // 数据挂载
+    this._watcherTpl = {}; // watcher池
+    this._observer(this._data); // 传入数据，执行函数，重写数据的get set
+    this._compile(this.$el); // 传入dom，执行函数，编译模板 发布订阅
+};
+</code></pre><hr>
+<h3 id="Watcher函数"><a href="#Watcher函数" class="headerlink" title="Watcher函数:"></a>Watcher函数:</h3><p>这是实现思路中的第三步，因为下方数据监听器<code>_observer()</code>需要用到Watcher函数，所以这里就先讲了。</p>
+<p>像实现思路中所说的，这里起到了连接Observer和Compile的作用：</p>
+<ol>
+<li><strong>在模板编译_compile()阶段发布订阅</strong></li>
+<li><strong>在赋值操作的时候，更新视图</strong></li>
+</ol>
+<pre><code>// new Watcher() 为this._compile()发布订阅+ 在this._observer()中set(赋值)的时候更新视图
+function Watcher(el, vm, val, attr) {
+    this.el = el; // 指令对应的DOM元素
+    this.vm = vm; // myVue实例
+    this.val = val; // 指令对应的值 
+    this.attr = attr; // dom获取值，如value获取input的值 / innerHTML获取dom的值
+    this.update(); // 更新视图
+}
+Watcher.prototype.update = function () { 
+    this.el[this.attr] = this.vm._data[this.val]; // 获取data的最新值 赋值给dom 更新视图
+}
+</code></pre><p>没有看错，代码量就这么多，可能需要把整个代码连接起来，多看几遍才能够理解。</p>
+<h3 id="实现数据监听器-observer-："><a href="#实现数据监听器-observer-：" class="headerlink" title="实现数据监听器_observer()："></a>实现数据监听器_observer()：</h3><p>实现思路中的第一步，用<code>Object.defineProperty()</code>遍历data重写所有属性的get set。</p>
+<p>然后在给对象的某个属性赋值的时候，就会触发set。</p>
+<p><strong>在set中我们可以监听到数据的变化，然后就可以触发watch更新视图</strong>。</p>
+<pre><code>myVue.prototype._observer = function (obj) {
+       var _this = this;
+       Object.keys(obj).forEach(key =&gt; { // 遍历数据
+           _this._watcherTpl[key] = { // 每个数据的订阅池()
+               _directives: []
+           };
+           var value = obj[key]; // 获取属性值
+           var watcherTpl = _this._watcherTpl[key]; // 数据的订阅池
+           Object.defineProperty(_this._data, key, { // 双向绑定最重要的部分 重写数据的set get
+               configurable: true,  // 可以删除
+               enumerable: true, // 可以遍历
+               get() {
+                   console.log(`${key}获取值：${value}`);
+                   return value; // 获取值的时候 直接返回
+               },
+               set(newVal) { // 改变值的时候 触发set
+                   console.log(`${key}更新：${newVal}`);
+                   if (value !== newVal) {
+                       value = newVal;
+                       watcherTpl._directives.forEach((item) =&gt; { // 遍历订阅池 
+                           item.update();
+                           // 遍历所有订阅的地方(v-model+v-bind+{{}}) 触发this._compile()中发布的订阅Watcher 更新视图  
+                       });
+                   }
+               }
+           })
+       });
+   }
+</code></pre><h3 id="实现Compile-模板编译"><a href="#实现Compile-模板编译" class="headerlink" title="实现Compile 模板编译"></a>实现Compile 模板编译</h3><p>这里是实现思路中的第三步，让我们来总结一下这里做了哪些事情：</p>
+<ul>
+<li>首先是深度遍历dom树，遍历每个节点以及子节点。</li>
+<li>将模板中的变量替换成数据，初始化渲染页面视图。</li>
+<li>把指令绑定的属性添加到对应的订阅池中</li>
+<li>一旦数据有变动，收到通知，更新视图。</li>
+</ul>
+<pre><code>myVue.prototype._compile = function (el) {
+    var _this = this, nodes = el.children; // 获取app的dom
+    for (var i = 0, len = nodes.length; i &lt; len; i++) { // 遍历dom节点
+        var node = nodes[i];
+        if (node.children.length) {
+            _this._compile(node);  // 递归深度遍历 dom树
+        }
+        // 如果有v-model属性，并且元素是INPUT或者TEXTAREA，我们监听它的input事件    
+        if (node.hasAttribute(&apos;v-model&apos;) &amp;&amp; (node.tagName = &apos;INPUT&apos; || node.tagName == &apos;TEXTAREA&apos;)) {
+            node.addEventListener(&apos;input&apos;, (function (key) {
+                var attVal = node.getAttribute(&apos;v-model&apos;); // 获取v-model绑定的值
+                _this._watcherTpl[attVal]._directives.push(new Watcher( // 将dom替换成属性的数据并发布订阅 在set的时候更新数据
+                    node,
+                    _this,
+                    attVal,
+                    &apos;value&apos;
+                ));
+                return function () {
+                    _this._data[attVal] = nodes[key].value;  // input值改变的时候 将新值赋给数据 触发set=&gt;set触发watch 更新视图
+                }
+            })(i));
+        }
+        if (node.hasAttribute(&apos;v-bind&apos;)) { // v-bind指令 
+            var attrVal = node.getAttribute(&apos;v-bind&apos;); // 绑定的data
+            _this._watcherTpl[attrVal]._directives.push(new Watcher( // 将dom替换成属性的数据并发布订阅 在set的时候更新数据
+                node,
+                _this,
+                attrVal,
+                &apos;innerHTML&apos;
+            ))
+        }
+        var reg = /\{\{\s*([^}]+\S)\s*\}\}/g, txt = node.textContent;   // 正则匹配{{}}
+        if (reg.test(txt)) {
+            node.textContent = txt.replace(reg, (matched, placeholder) =&gt; {
+                // matched匹配的文本节点包括{{}}, placeholder 是{{}}中间的属性名
+                var getName = _this._watcherTpl; // 所有绑定watch的数据
+                getName = getName[placeholder];  // 获取对应watch 数据的值
+                if (!getName._directives) { // 没有事件池 创建事件池
+                    getName._directives = [];
+                }
+                getName._directives.push(new Watcher( // 将dom替换成属性的数据并发布订阅 在set的时候更新数据
+                    node,
+                    _this,
+                    placeholder,
+                    &apos;innerHTML&apos;
+                ));
+                return placeholder.split(&apos;.&apos;).reduce((val, key) =&gt; {
+                    return _this._data[key]; // 获取数据的值 触发get 返回当前值 
+                }, _this.$el);
+            });
+        }
+    }
+}
+</code></pre><hr>
+<h2 id="完整代码-amp-demo地址"><a href="#完整代码-amp-demo地址" class="headerlink" title="完整代码&amp;demo地址"></a>完整代码&amp;demo地址</h2><p><a href="https://github.com/OBKoro1/simpleDemo/blob/master/myVue/index.html" target="_blank" rel="noopener">GitHub完整代码</a></p>
+<p><strong>codepen:</strong><a href="https://codepen.io/OBKoro1/pen/qKKqQe?editors=0010" target="_blank" rel="noopener">仿Vue极简双向绑定</a></p>
+<p><strong>Github:</strong><a href="http://obkoro1.com/simpleDemo/myVue/index.html" target="_blank" rel="noopener">仿Vue极简双向绑定</a></p>
+<p>如果觉得还不错的话，就给个<a href="https://github.com/OBKoro1/simpleDemo" target="_blank" rel="noopener">Star</a>⭐️鼓励一下我吧~</p>
+<hr>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本文只是一个简单的实现双向绑定的方法，主要目的是帮助各位同学理解mvvm框架的双向绑定机制，也并没有很完善，这里还是有很多缺陷，比如：没有实现数据的深度对数据进行<code>get</code>、<code>set</code>等。希望看完本文，大家能有所收获。</p>
+<h3 id="希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。"><a href="#希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。" class="headerlink" title="希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。"></a>希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。</h3><p><strong><a href="http://obkoro1.com/" target="_blank" rel="noopener">个人blog</a></strong> and <strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a></strong>，如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！本人写文章本着交流记录的心态，写的不好之处，不撕逼，但是欢迎指点。</p>
+<p>如果喜欢本文的话，欢迎关注我的订阅号，漫漫技术路，期待未来共同学习成长。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317" alt=""></p>
+<p> 以上2018.6.24</p>
+<h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><p><a href="https://segmentfault.com/a/1190000006599500" target="_blank" rel="noopener">剖析Vue原理&amp;实现双向绑定MVVM</a></p>
+<p><a href="https://juejin.im/post/5acc17cb51882555745a03f8" target="_blank" rel="noopener">面试题：你能写一个Vue的双向数据绑定吗？</a></p>
+<p><a href="https://juejin.im/post/5abdd6f6f265da23793c4458#heading-8" target="_blank" rel="noopener">不好意思！耽误你的十分钟，让MVVM原理还给你</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/17/JS忍者秘籍中的定时器机制详解/" rel="next" title="JS忍者秘籍中的定时器机制详解">
+                <i class="fa fa-chevron-left"></i> JS忍者秘籍中的定时器机制详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/30/你不知道的js中关于this绑定机制的解析-看完还不懂算我输/" rel="prev" title="你不知道的js中关于this绑定机制的解析[看完还不懂算我输]">
+                你不知道的js中关于this绑定机制的解析[看完还不懂算我输] <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果GIF："><span class="nav-number">2.</span> <span class="nav-text">效果GIF：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#demo地址："><span class="nav-number">3.</span> <span class="nav-text">demo地址：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#了解Object-defineProperty-："><span class="nav-number">4.</span> <span class="nav-text">了解Object.defineProperty()：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用方式："><span class="nav-number">4.1.</span> <span class="nav-text">使用方式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例demo："><span class="nav-number">4.2.</span> <span class="nav-text">示例demo：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#画一下重点："><span class="nav-number">4.3.</span> <span class="nav-text">画一下重点：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现思路："><span class="nav-number">5.</span> <span class="nav-text">实现思路：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mvvm系列的双向绑定，关键步骤："><span class="nav-number">5.1.</span> <span class="nav-text">mvvm系列的双向绑定，关键步骤：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程图："><span class="nav-number">5.2.</span> <span class="nav-text">流程图：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体代码实现："><span class="nav-number">6.</span> <span class="nav-text">具体代码实现：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html结构："><span class="nav-number">6.1.</span> <span class="nav-text">html结构：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用方法："><span class="nav-number">6.2.</span> <span class="nav-text">调用方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建myVue函数："><span class="nav-number">6.3.</span> <span class="nav-text">创建myVue函数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Watcher函数"><span class="nav-number">6.4.</span> <span class="nav-text">Watcher函数:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现数据监听器-observer-："><span class="nav-number">6.5.</span> <span class="nav-text">实现数据监听器_observer()：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现Compile-模板编译"><span class="nav-number">6.6.</span> <span class="nav-text">实现Compile 模板编译</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码-amp-demo地址"><span class="nav-number">7.</span> <span class="nav-text">完整代码&amp;demo地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">8.</span> <span class="nav-text">结语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。"><span class="nav-number">8.1.</span> <span class="nav-text">希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料："><span class="nav-number">8.2.</span> <span class="nav-text">参考资料：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytevxRRN';
+      var conf = '75faf3cb54138bb69e86ad05ff147b5d';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

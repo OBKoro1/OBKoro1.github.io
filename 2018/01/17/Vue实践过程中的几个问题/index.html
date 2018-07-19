@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Vue,实践,Vue-router,定时器," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="前言本篇是我在使用vue过程中，遇到的几个小问题和之前不了解的东西，记录下来，希望能够帮助各位踩坑。如果喜欢的话可以点波赞，或者关注一下，希望本文可以帮到大家。  本文首发于我的个人blog：obkoro1.com  本篇记录个人遇到的问题如下: 路由变化页面数据不刷新问题 setTimeout/setInterval this指向改变，无法用this访问VUe实例 setInterval路由跳转">
+<meta name="keywords" content="Vue,实践,Vue-router,定时器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue实践过程中的几个问题">
+<meta property="og:url" content="http://yoursite.com/2018/01/17/Vue实践过程中的几个问题/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="前言本篇是我在使用vue过程中，遇到的几个小问题和之前不了解的东西，记录下来，希望能够帮助各位踩坑。如果喜欢的话可以点波赞，或者关注一下，希望本文可以帮到大家。  本文首发于我的个人blog：obkoro1.com  本篇记录个人遇到的问题如下: 路由变化页面数据不刷新问题 setTimeout/setInterval this指向改变，无法用this访问VUe实例 setInterval路由跳转">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/17/160ffd6c2dcf70e1?w=948&h=716&f=png&s=64938">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/17/160fff0ec0147156?w=1578&h=811&f=png&s=174542">
+<meta property="og:updated_time" content="2018-01-16T18:10:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue实践过程中的几个问题">
+<meta name="twitter:description" content="前言本篇是我在使用vue过程中，遇到的几个小问题和之前不了解的东西，记录下来，希望能够帮助各位踩坑。如果喜欢的话可以点波赞，或者关注一下，希望本文可以帮到大家。  本文首发于我的个人blog：obkoro1.com  本篇记录个人遇到的问题如下: 路由变化页面数据不刷新问题 setTimeout/setInterval this指向改变，无法用this访问VUe实例 setInterval路由跳转">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/1/17/160ffd6c2dcf70e1?w=948&h=716&f=png&s=64938">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/17/Vue实践过程中的几个问题/"/>
+
+
+
+
+
+  <title>Vue实践过程中的几个问题 | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类列表">
+          <a href="/Summary/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/17/Vue实践过程中的几个问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue实践过程中的几个问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-17T02:00:12+08:00">
+                2018-01-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/01/17/Vue实践过程中的几个问题/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/01/17/Vue实践过程中的几个问题/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2018/01/17/Vue实践过程中的几个问题/" class="leancloud_visitors" data-flag-title="Vue实践过程中的几个问题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇是我在使用vue过程中，遇到的几个小问题和之前不了解的东西，记录下来，希望能够帮助各位踩坑。如果喜欢的话可以点波赞，或者关注一下，希望本文可以帮到大家。</p>
+<blockquote>
+<p>本文首发于我的个人blog：<a href="http://obkoro1.com/" target="_blank" rel="noopener">obkoro1.com</a></p>
+</blockquote>
+<h2 id="本篇记录个人遇到的问题如下"><a href="#本篇记录个人遇到的问题如下" class="headerlink" title="本篇记录个人遇到的问题如下:"></a>本篇记录个人遇到的问题如下:</h2><ol>
+<li>路由变化页面数据不刷新问题</li>
+<li>setTimeout/setInterval this指向改变，无法用this访问VUe实例</li>
+<li>setInterval路由跳转继续运行并没有销毁</li>
+<li>vue 滚动行为(浏览器回退记忆位置)用法</li>
+<li>vue路由拦截浏览器后退实现草稿保存类似需求</li>
+<li>v-once 只渲染元素和组件一次，优化更新渲染性能</li>
+<li>vue框架<a href="https://cn.vuejs.org/v2/style-guide/" target="_blank" rel="noopener">风格指南</a>推荐</li>
+</ol>
+<h2 id="路由变化页面数据不刷新问题"><a href="#路由变化页面数据不刷新问题" class="headerlink" title="路由变化页面数据不刷新问题"></a>路由变化页面数据不刷新问题</h2><blockquote>
+<p>场景：比如文章详情数据，依赖路由的<code>params</code>参数获取的(ajax写在created生命周期里面)，因为路由懒加载的关系，退出页面再进入另一个文章页面并不会运行created组件生命周期，导致文章数据还是上一个文章的数据。</p>
+</blockquote>
+<h3 id="解决方法：watch监听路由是否变化"><a href="#解决方法：watch监听路由是否变化" class="headerlink" title="解决方法：watch监听路由是否变化"></a>解决方法：watch监听路由是否变化</h3><pre><code> watch: {
+  &apos;$route&apos; (to, from) { //监听路由是否变化
+    if(this.$route.params.articleId){//是否有文章id
+      //获取文章数据
+    }
+  }
+}
+</code></pre><h2 id="setTimeout-setInterval-this指向改变，无法用this访问VUe实例"><a href="#setTimeout-setInterval-this指向改变，无法用this访问VUe实例" class="headerlink" title="setTimeout/setInterval this指向改变，无法用this访问VUe实例"></a>setTimeout/setInterval this指向改变，无法用this访问VUe实例</h2><h3 id="场景："><a href="#场景：" class="headerlink" title="场景："></a>场景：</h3><pre><code>mounted(){ 
+      setTimeout(function () { //setInterval同理 
+        console.log(this);//此时this指向Window对象
+      },1000);
+  }
+</code></pre><h3 id="解决方法：使用箭头函数或者"><a href="#解决方法：使用箭头函数或者" class="headerlink" title="解决方法：使用箭头函数或者"></a>解决方法：使用箭头函数或者</h3><pre><code>//箭头函数访问this实例 因为箭头函数本身没有绑定this
+ setTimeout(() =&gt; { 
+   console.log(this);
+}, 500);
+//使用变量访问this实例
+let self=this;
+    setTimeout(function () {  
+      console.log(self);//使用self变量访问this实例
+    },1000);
+</code></pre><h2 id="setInterval路由跳转继续运行并没有销毁"><a href="#setInterval路由跳转继续运行并没有销毁" class="headerlink" title="setInterval路由跳转继续运行并没有销毁"></a>setInterval路由跳转继续运行并没有销毁</h2><h3 id="场景：-1"><a href="#场景：-1" class="headerlink" title="场景："></a>场景：</h3><p>比如一些弹幕，走马灯文字，这类需要定时调用的，路由跳转之后，因为组件已经销毁了，但是setInterval还没有销毁，还在继续后台调用，控制台会不断报错，如果运算量大的话，无法及时清除，会导致严重的页面卡顿。</p>
+<h3 id="解决办法：在组件生命周期beforeDestroy停止setInterval"><a href="#解决办法：在组件生命周期beforeDestroy停止setInterval" class="headerlink" title="解决办法：在组件生命周期beforeDestroy停止setInterval"></a>解决办法：在组件生命周期beforeDestroy停止setInterval</h3><p>组件销毁前执行的钩子函数，跟其他生命周期钩子函数的用法相同。</p>
+<pre><code>beforeDestroy(){
+     //我通常是把setInterval()定时器赋值给this实例，然后就可以像下面这么暂停。
+    clearInterval(this.intervalid);
+},
+</code></pre><h2 id="vue-滚动行为-浏览器回退记忆位置-用法"><a href="#vue-滚动行为-浏览器回退记忆位置-用法" class="headerlink" title="vue 滚动行为(浏览器回退记忆位置)用法"></a>vue 滚动行为(浏览器回退记忆位置)用法</h2><p>这个我当时做的时候以为很难，后来做好了才发现就是一个设置而已（前提是要开启路由的History 模式），下面做一个简单的分享。</p>
+<h3 id="路由设置"><a href="#路由设置" class="headerlink" title="路由设置"></a>路由设置</h3><ol>
+<li>要使用这一功能，首先需要开启vue-router的 <a href="https://router.vuejs.org/zh-cn/essentials/history-mode.html" target="_blank" rel="noopener">history模式</a></li>
+</ol>
+<p>如果之前一直使用的是<code>hash</code>模式(默认模式)，项目已经开发了一段时间，然后转history模式很可能会遇到：<a href="https://juejin.im/post/5a3f629cf265da430d5839ed" target="_blank" rel="noopener">这些问题</a></p>
+<ol start="2">
+<li><p>滚动行为具体设置如下：</p>
+<pre><code>const router = new VueRouter({
+  mode: &apos;history&apos;,
+scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) { //如果savedPosition存在，滚动条会自动跳到记录的值的地方
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }//savedPosition也是一个记录x轴和y轴位置的对象
+     }
+    }，
+  routes: [...]
+})
+</code></pre></li>
+</ol>
+<p><a href="https://router.vuejs.org/zh-cn/advanced/scroll-behavior.html" target="_blank" rel="noopener">vue滚动行为文档</a>，可以进到这里看看更详细的信息。</p>
+<h2 id="vue路由拦截浏览器后退实现草稿保存类似需求"><a href="#vue路由拦截浏览器后退实现草稿保存类似需求" class="headerlink" title="vue路由拦截浏览器后退实现草稿保存类似需求"></a>vue路由拦截浏览器后退实现草稿保存类似需求</h2><h3 id="场景：-2"><a href="#场景：-2" class="headerlink" title="场景："></a>场景：</h3><p>为了防止用户突然离开，没有保存已输入的信息。</p>
+<h3 id="用法："><a href="#用法：" class="headerlink" title="用法："></a>用法：</h3><pre><code>//在路由组件中：
+mounted(){
+},
+beforeRouteLeave (to, from, next) {
+  if(用户已经输入信息){
+    //出现弹窗提醒保存草稿，或者自动后台为其保存
+
+  }else{
+    next(true);//用户离开
+  }
+</code></pre><p>类似的还有<code>beforeEach</code>、<code>beforeRouteUpdate</code>，也分为全局钩子和组件钩子，见<a href="https://router.vuejs.org/zh-cn/advanced/navigation-guards.html" target="_blank" rel="noopener">路由文档</a>。</p>
+<h2 id="v-once-只渲染元素和组件一次，优化更新渲染性能"><a href="#v-once-只渲染元素和组件一次，优化更新渲染性能" class="headerlink" title="v-once 只渲染元素和组件一次，优化更新渲染性能"></a>v-once 只渲染元素和组件一次，优化更新渲染性能</h2><p>觉得<a href="https://cn.vuejs.org/v2/api/#v-cloak" target="_blank" rel="noopener">v-once</a>这个api蛮6的，应该很多小伙伴都没有注意到这个api。</p>
+<h3 id="文档介绍："><a href="#文档介绍：" class="headerlink" title="文档介绍："></a>文档介绍：</h3><p><img src="https://user-gold-cdn.xitu.io/2018/1/17/160ffd6c2dcf70e1?w=948&amp;h=716&amp;f=png&amp;s=64938" alt="v-once文档介绍"></p>
+<p>这个api在我看来主要用于那些一次性渲染，并且不会再有操作更改这些渲染的值，这样就可以优化双向绑定的更新性能。</p>
+<h3 id="文档推荐：对低开销的静态组件使用-v-once"><a href="#文档推荐：对低开销的静态组件使用-v-once" class="headerlink" title="文档推荐：对低开销的静态组件使用 v-once"></a><a href="https://cn.vuejs.org/v2/guide/components.html#对低开销的静态组件使用-v-once" target="_blank" rel="noopener">文档</a>推荐：对低开销的静态组件使用 v-once</h3><p>尽管在 Vue 中渲染 HTML 很快，不过当组件中包含大量静态内容时，可以考虑使用 v-once 将渲染结果缓存起来，就像这样：</p>
+<pre><code>Vue.component(&apos;terms-of-service&apos;, {
+  template: &apos;\
+    &lt;div v-once&gt;\
+      &lt;h1&gt;Terms of Service&lt;/h1&gt;\
+      ...很多静态内容...\
+    &lt;/div&gt;\
+  &apos;
+})
+</code></pre><h2 id="vue风格指南推荐："><a href="#vue风格指南推荐：" class="headerlink" title="vue风格指南推荐："></a>vue风格指南推荐：</h2><p>写到这里想到vue框架还有一个<a href="https://cn.vuejs.org/v2/style-guide/" target="_blank" rel="noopener">风格指南</a>推荐，如下图所示，大家也可以学习一波。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/17/160fff0ec0147156?w=1578&amp;h=811&amp;f=png&amp;s=174542" alt="vue风格指南"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>上面就是我分享的几个小问题，希望大家看了能够有所收获！另：明年准备去上海，如果小伙伴的公司有坑，可以联系一下我。</p>
+<p><strong>最后</strong>：如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！本人写文章本着交流记录的心态，写的不好之处，不撕逼，但是欢迎指点。然后就是希望看完的朋友点个<strong>喜欢</strong>，也可以<strong>关注</strong>一下我。<br><strong><a href="http://obkoro1.com/" target="_blank" rel="noopener">个人blog</a></strong> and <strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a></strong>  </p>
+<p>以上2018.1.17</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+          
+            <a href="/tags/实践/" rel="tag"><i class="fa fa-tag"></i> 实践</a>
+          
+            <a href="/tags/Vue-router/" rel="tag"><i class="fa fa-tag"></i> Vue-router</a>
+          
+            <a href="/tags/定时器/" rel="tag"><i class="fa fa-tag"></i> 定时器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/09/【读书笔记】《高性能JavaScript》/" rel="next" title="【读书笔记】《高性能JavaScript》">
+                <i class="fa fa-chevron-left"></i> 【读书笔记】《高性能JavaScript》
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/18/前端笔试题面试题记录（上）/" rel="prev" title="前端笔试题面试题记录（上）">
+                前端笔试题面试题记录（上） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本篇记录个人遇到的问题如下"><span class="nav-number">2.</span> <span class="nav-text">本篇记录个人遇到的问题如下:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由变化页面数据不刷新问题"><span class="nav-number">3.</span> <span class="nav-text">路由变化页面数据不刷新问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法：watch监听路由是否变化"><span class="nav-number">3.1.</span> <span class="nav-text">解决方法：watch监听路由是否变化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setTimeout-setInterval-this指向改变，无法用this访问VUe实例"><span class="nav-number">4.</span> <span class="nav-text">setTimeout/setInterval this指向改变，无法用this访问VUe实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景："><span class="nav-number">4.1.</span> <span class="nav-text">场景：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法：使用箭头函数或者"><span class="nav-number">4.2.</span> <span class="nav-text">解决方法：使用箭头函数或者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setInterval路由跳转继续运行并没有销毁"><span class="nav-number">5.</span> <span class="nav-text">setInterval路由跳转继续运行并没有销毁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景：-1"><span class="nav-number">5.1.</span> <span class="nav-text">场景：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法：在组件生命周期beforeDestroy停止setInterval"><span class="nav-number">5.2.</span> <span class="nav-text">解决办法：在组件生命周期beforeDestroy停止setInterval</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-滚动行为-浏览器回退记忆位置-用法"><span class="nav-number">6.</span> <span class="nav-text">vue 滚动行为(浏览器回退记忆位置)用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由设置"><span class="nav-number">6.1.</span> <span class="nav-text">路由设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue路由拦截浏览器后退实现草稿保存类似需求"><span class="nav-number">7.</span> <span class="nav-text">vue路由拦截浏览器后退实现草稿保存类似需求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景：-2"><span class="nav-number">7.1.</span> <span class="nav-text">场景：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用法："><span class="nav-number">7.2.</span> <span class="nav-text">用法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v-once-只渲染元素和组件一次，优化更新渲染性能"><span class="nav-number">8.</span> <span class="nav-text">v-once 只渲染元素和组件一次，优化更新渲染性能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文档介绍："><span class="nav-number">8.1.</span> <span class="nav-text">文档介绍：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文档推荐：对低开销的静态组件使用-v-once"><span class="nav-number">8.2.</span> <span class="nav-text">文档推荐：对低开销的静态组件使用 v-once</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue风格指南推荐："><span class="nav-number">9.</span> <span class="nav-text">vue风格指南推荐：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">10.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytevxRRN';
+      var conf = '75faf3cb54138bb69e86ad05ff147b5d';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

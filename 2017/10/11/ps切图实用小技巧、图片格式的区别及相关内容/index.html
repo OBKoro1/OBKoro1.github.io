@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ps切图," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="写在前面之前写了两篇前端图片相关的内容（前端ps切图方法，图文详细,css sprite雪碧图制作，使用以及相关，图文gif），本文是面向前端小白的，搜集整理的一些切图技巧，及其相关内容。 关于版本：推荐pscc2017版，一些老版本很多新功能没有，会影响到效率的。（目前2017/4/11） 基本设置先要调整工作区域的布局。 1.选择“窗口”——把“信息”，“图层”，“历史记录”，“颜色”面板打开">
+<meta name="keywords" content="ps切图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ps切图实用小技巧、图片格式的区别及相关内容">
+<meta property="og:url" content="http://yoursite.com/2017/10/11/ps切图实用小技巧、图片格式的区别及相关内容/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="写在前面之前写了两篇前端图片相关的内容（前端ps切图方法，图文详细,css sprite雪碧图制作，使用以及相关，图文gif），本文是面向前端小白的，搜集整理的一些切图技巧，及其相关内容。 关于版本：推荐pscc2017版，一些老版本很多新功能没有，会影响到效率的。（目前2017/4/11） 基本设置先要调整工作区域的布局。 1.选择“窗口”——把“信息”，“图层”，“历史记录”，“颜色”面板打开">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/89cef91895c00ccbd2ea">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/c85a209bf817f02ac39e">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/4273c80a70dccbb51ba6">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/a9ae65266bcd6793f1e1">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/7f794fe00e8cb5b15524.gif">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/0e589c18b31e88eb8941">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/950afe0f35662c716790">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/787ca96c614a53ba2517">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/aa11e9ec142477e27e88">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/37106a330c767e769857">
+<meta property="og:image" content="https://dn-mhke0kuv.qbox.me/92e3ad02c371640310cd">
+<meta property="og:updated_time" content="2017-10-11T14:25:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ps切图实用小技巧、图片格式的区别及相关内容">
+<meta name="twitter:description" content="写在前面之前写了两篇前端图片相关的内容（前端ps切图方法，图文详细,css sprite雪碧图制作，使用以及相关，图文gif），本文是面向前端小白的，搜集整理的一些切图技巧，及其相关内容。 关于版本：推荐pscc2017版，一些老版本很多新功能没有，会影响到效率的。（目前2017/4/11） 基本设置先要调整工作区域的布局。 1.选择“窗口”——把“信息”，“图层”，“历史记录”，“颜色”面板打开">
+<meta name="twitter:image" content="https://dn-mhke0kuv.qbox.me/89cef91895c00ccbd2ea">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/11/ps切图实用小技巧、图片格式的区别及相关内容/"/>
+
+
+
+
+
+  <title>ps切图实用小技巧、图片格式的区别及相关内容 | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类列表">
+          <a href="/Summary/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/11/ps切图实用小技巧、图片格式的区别及相关内容/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ps切图实用小技巧、图片格式的区别及相关内容</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T22:24:32+08:00">
+                2017-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具类/" itemprop="url" rel="index">
+                    <span itemprop="name">工具类</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2017/10/11/ps切图实用小技巧、图片格式的区别及相关内容/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/10/11/ps切图实用小技巧、图片格式的区别及相关内容/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2017/10/11/ps切图实用小技巧、图片格式的区别及相关内容/" class="leancloud_visitors" data-flag-title="ps切图实用小技巧、图片格式的区别及相关内容">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>之前写了两篇前端图片相关的内容（<a href="https://juejin.im/post/58e9deacb123db1ad05fab2f" target="_blank" rel="noopener">前端ps切图方法，图文详细</a>,<a href="https://juejin.im/post/58eb062861ff4b006b576d9c" target="_blank" rel="noopener">css sprite雪碧图制作，使用以及相关，图文gif</a>），本文是面向前端小白的，搜集整理的一些切图技巧，及其相关内容。</p>
+<h3 id="关于版本："><a href="#关于版本：" class="headerlink" title="关于版本："></a>关于版本：</h3><p>推荐pscc2017版，一些老版本很多新功能没有，会影响到效率的。（目前2017/4/11）</p>
+<h3 id="基本设置"><a href="#基本设置" class="headerlink" title="基本设置"></a>基本设置</h3><p>先要调整<strong>工作区域</strong>的布局。</p>
+<p>1.选择“窗口”——把“信息”，“图层”，“历史记录”，“颜色”面板打开，其他的可以先关闭了，在切图的工作中其他的基本用不到，这个很简单的，<strong>打几个勾</strong>就可以了，如下图所示：</p>
+<p><img src="https://dn-mhke0kuv.qbox.me/89cef91895c00ccbd2ea" alt=""></p>
+<p><img src="https://dn-mhke0kuv.qbox.me/c85a209bf817f02ac39e" alt="工作区的内容"></p>
+<p>2.调整好面板之后，选择“窗口”——“工作区”——“新建工作区”，将当前的工作布局保存起来，并命个名，之后下次打开的时候就会直接出现你调整好的工作布局，否则的话你每次重新打开ps的时候都要重新设置。</p>
+<p>ps：就算有别人弄乱了你的面板也可以直接通过“窗口”——“工作区”——选择你之前保存的工作布局。</p>
+<p>设置<strong>标尺坐标</strong></p>
+<p><img src="https://dn-mhke0kuv.qbox.me/4273c80a70dccbb51ba6" alt=""></p>
+<p><img src="https://dn-mhke0kuv.qbox.me/a9ae65266bcd6793f1e1" alt=""></p>
+<p>操作gif：</p>
+<p><img src="https://dn-mhke0kuv.qbox.me/7f794fe00e8cb5b15524.gif" alt=""></p>
+<p>还有其他的一些设置：</p>
+<p>文件-新建–：初始化预设设置1920x2000，72分辨率，8位色图，背景透明色  然后保存起来。后续可以选择新建模版</p>
+<p>视图/显示/智能参考线以及视图/字符，这两个都要选上；</p>
+<p>ps界面中有菜单栏、属性栏、工具栏、面板、工作区：</p>
+<h3 id="测量-、取色"><a href="#测量-、取色" class="headerlink" title="测量 、取色"></a>测量 、取色</h3><p>哪些要测量？<br>标签的宽度、高度、内边距、边框、定位、文字大小、行高、背景图位置等等，凡是需要数值型，都要进行测量。</p>
+<p>使用什么方式：下面弄了一个矩形选择框的例子，如果想要更精确的话，直接使用标尺工具也可以。</p>
+<p><img src="https://dn-mhke0kuv.qbox.me/0e589c18b31e88eb8941" alt=""></p>
+<h3 id="测量宽高的两种方式："><a href="#测量宽高的两种方式：" class="headerlink" title="测量宽高的两种方式："></a>测量宽高的两种方式：</h3><p>标尺测量的方法：<br><img src="https://dn-mhke0kuv.qbox.me/950afe0f35662c716790" alt=""><br>矩形选择框测量的方法：<br><img src="https://dn-mhke0kuv.qbox.me/787ca96c614a53ba2517" alt=""></p>
+<h3 id="颜色取色技巧："><a href="#颜色取色技巧：" class="headerlink" title="颜色取色技巧："></a>颜色取色技巧：</h3><p>QQ截图的方式：<br>截图的时候，鼠标移动到哪里，下面就有一个rgb。（在ps中也是一样，鼠标移动信息栏就会有对应的rgb）<br><img src="https://dn-mhke0kuv.qbox.me/aa11e9ec142477e27e88" alt=""><br>ps拾色器获得 ：</p>
+<p><img src="https://dn-mhke0kuv.qbox.me/37106a330c767e769857" alt=""></p>
+<p><img src="https://dn-mhke0kuv.qbox.me/92e3ad02c371640310cd" alt=""></p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>要把画布尽量放大，来减少我们测量的误差。</p>
+<h2 id="关于png、jpg、gif三种图片格式的区别："><a href="#关于png、jpg、gif三种图片格式的区别：" class="headerlink" title="关于png、jpg、gif三种图片格式的区别："></a>关于png、jpg、gif三种图片格式的区别：</h2><h3 id="JPG的特性"><a href="#JPG的特性" class="headerlink" title="JPG的特性"></a>JPG的特性</h3><p>1、支持摄影图像或写实图像的高级压缩，并且可利用压缩比例控制图像文件大小。<br>2、有损压缩会使图像数据质量下降，并且在编辑和重新保存JPG格式图像时，这种下降损失会累积。<br>3、JPG不适用于所含颜色很少、具有大块颜色相近的区域或亮度差异十分明显的较简单的图片。</p>
+<h3 id="PNG的特性"><a href="#PNG的特性" class="headerlink" title="PNG的特性"></a>PNG的特性</h3><p>1、能在保证最不失真的情况下尽可能压缩图像文件的大小。<br>2、PNG用来存储灰度图像时，灰度图像的深度可多到16位，存储彩色图像时，彩色图像的深度可多到48位，并且还可存储多到16位的α通道数据。<br>3、对于需要高保真的较复杂的图像，PNG虽然能无损压缩，但图片文件较大，不适合应用在Web页面上。</p>
+<h2 id="什么时候应该使用PNG"><a href="#什么时候应该使用PNG" class="headerlink" title="什么时候应该使用PNG"></a>什么时候应该使用PNG</h2><p>具备以下条件的图像更适合用<strong>PNG8格式</strong>进行存储：</p>
+<p>1、图像上颜色较少，并且主要以纯色或者平滑的渐变色进行填充。<br>2、具备较大亮度差异以及强烈对比的简单图像（如“立刻购买”按钮中的背景和文字）。</p>
+<p>对于写实的摄影图像或是颜色层次非常丰富的图像采用<strong>JPG格式</strong>的图片格式保存一般能达到最佳的压缩效果。</p>
+<h4 id="这篇文章写得非常详细，有兴趣的要看一下：png、jpg、gif三种图片格式的区别"><a href="#这篇文章写得非常详细，有兴趣的要看一下：png、jpg、gif三种图片格式的区别" class="headerlink" title="这篇文章写得非常详细，有兴趣的要看一下：png、jpg、gif三种图片格式的区别"></a>这篇文章写得非常详细，有兴趣的要看一下：<a href="http://www.cnblogs.com/Fran-Lily/p/3792641.html" target="_blank" rel="noopener">png、jpg、gif三种图片格式的区别</a></h4><h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><p>1.快速选中图层用ctrl+鼠标右键<br>2.安住空格键鼠标变成一只手拖拽图片<br>3.alt+鼠标滚轮可以<strong>放大或者缩小区域</strong><br>4.ctrl+h隐藏所有的参考线</p>
+<h4 id="5-h-鼠标移动文件，t文字工具，i吸管工具，移动工具，任何时候按v，就可以回到移动工具"><a href="#5-h-鼠标移动文件，t文字工具，i吸管工具，移动工具，任何时候按v，就可以回到移动工具" class="headerlink" title="5.h,鼠标移动文件，t文字工具，i吸管工具，移动工具，任何时候按v，就可以回到移动工具"></a>5.h,鼠标移动文件，t文字工具，i吸管工具，移动工具，任何时候按v，就可以回到移动工具</h4><p>6.导出切片：alt+shift+ctrl+s（文件-存储为web所用格式）</p>
+<h4 id="踩坑经历："><a href="#踩坑经历：" class="headerlink" title="踩坑经历："></a>踩坑经历：</h4><p>自动化切图，文件–脚本–图层保存为文件（这个时候要注意之前的保存为web格式文件时是<strong>保存了所有切片</strong>，而不是仅用户切片，不然会导致一直搜索过滤图层，半天没反应，而且一直谭警告窗，要一直点）<br>意思就是保存图层的时候要保存自己选中的切片。</p>
+<p>快捷键：<a href="https://zhidao.baidu.com/question/522391139.html" target="_blank" rel="noopener">https://zhidao.baidu.com/question/522391139.html</a></p>
+<h2 id="压缩图片"><a href="#压缩图片" class="headerlink" title="压缩图片"></a>压缩图片</h2><p>ps切出来的图片一般文件都比较大：<br>这里有一个<strong>压缩图片</strong>很神奇的网站（有墙，攻城狮应该都会科学上网）：</p>
+<p><a href="https://tinypng.com/" target="_blank" rel="noopener">https://tinypng.com/</a></p>
+<h2 id="一般网站文件目录"><a href="#一般网站文件目录" class="headerlink" title="一般网站文件目录"></a>一般网站文件目录</h2><p>PSD切图（项目文件目录）<br>project：<br>-admin(后台)<br>-static（所有资源）<br>-css（所有子文件都可以分子文件夹，方便管理，层级不建议太多）common.css/reset.css/yemian.css<br>-images（可以按页面主题来）<br>-js(预定义的，引入的，common.js)<br>-font<br>-pulgs<br>-前台页面<br>-其他单独文件</p>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="http://blog.csdn.net/u013778905/article/details/52268304" target="_blank" rel="noopener">写给前端小白的切图技巧</a><br><a href="http://www.jianshu.com/p/69b74b84e687" target="_blank" rel="noopener">开始前端开发（PhotoShop切图）</a><br><a href="http://www.cnblogs.com/Fran-Lily/p/3792641.html" target="_blank" rel="noopener">png、jpg、gif三种图片格式的区别</a></p>
+<p><strong>最后：</strong>希望看完的朋友点个喜欢，也可以关注一下我，现在这阶段基本上每个月都不会少于十五篇文章（看到干货我也会进行分享）。码字不易，感谢支持，感激不尽！<br><strong>ps</strong>：目前待业，坐标北京，求推荐工作。然后希望我写哪方面的文章可以在底下评论，或者是私信我，虽然写的不好，但我就当这是记录自己成长的一种方式咯。（前提是我会了，如果不会我也会记下来，等会了的时候再更出来。）<br><a href="http://www.jianshu.com/u/8d1dd8c80f06" target="_blank" rel="noopener"></a><strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a>  ，</strong><a href="http://www.jianshu.com/u/8d1dd8c80f06" target="_blank" rel="noopener"><strong>简书主页链接</strong></a>，<strong><a href="http://blog.csdn.net/OBKoro1?skin=dark1" target="_blank" rel="noopener">csdn博客主页链接</a> ，<a href="https://github.com/OBKoro1" target="_blank" rel="noopener">github</a> 。</strong></p>
+<p>以上。2017.4.11</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ps切图/" rel="tag"><i class="fa fa-tag"></i> ps切图</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/11/css-sprite雪碧图制作，使用以及相关，图文gif/" rel="next" title="css sprite雪碧图制作，使用以及相关，图文gif">
+                <i class="fa fa-chevron-left"></i> css sprite雪碧图制作，使用以及相关，图文gif
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/11/你知道渐进增强和优雅降级吗？-css3兼容性写法/" rel="prev" title="你知道渐进增强和优雅降级吗？[css3兼容性写法]">
+                你知道渐进增强和优雅降级吗？[css3兼容性写法] <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于版本："><span class="nav-number">1.1.</span> <span class="nav-text">关于版本：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本设置"><span class="nav-number">1.2.</span> <span class="nav-text">基本设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测量-、取色"><span class="nav-number">1.3.</span> <span class="nav-text">测量 、取色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测量宽高的两种方式："><span class="nav-number">1.4.</span> <span class="nav-text">测量宽高的两种方式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#颜色取色技巧："><span class="nav-number">1.5.</span> <span class="nav-text">颜色取色技巧：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">1.6.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于png、jpg、gif三种图片格式的区别："><span class="nav-number">2.</span> <span class="nav-text">关于png、jpg、gif三种图片格式的区别：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JPG的特性"><span class="nav-number">2.1.</span> <span class="nav-text">JPG的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PNG的特性"><span class="nav-number">2.2.</span> <span class="nav-text">PNG的特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么时候应该使用PNG"><span class="nav-number">3.</span> <span class="nav-text">什么时候应该使用PNG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#这篇文章写得非常详细，有兴趣的要看一下：png、jpg、gif三种图片格式的区别"><span class="nav-number">3.0.1.</span> <span class="nav-text">这篇文章写得非常详细，有兴趣的要看一下：png、jpg、gif三种图片格式的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快捷键"><span class="nav-number">4.</span> <span class="nav-text">快捷键</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-h-鼠标移动文件，t文字工具，i吸管工具，移动工具，任何时候按v，就可以回到移动工具"><span class="nav-number">4.0.1.</span> <span class="nav-text">5.h,鼠标移动文件，t文字工具，i吸管工具，移动工具，任何时候按v，就可以回到移动工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#踩坑经历："><span class="nav-number">4.0.2.</span> <span class="nav-text">踩坑经历：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩图片"><span class="nav-number">5.</span> <span class="nav-text">压缩图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一般网站文件目录"><span class="nav-number">6.</span> <span class="nav-text">一般网站文件目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考："><span class="nav-number">6.1.</span> <span class="nav-text">参考：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytevxRRN';
+      var conf = '75faf3cb54138bb69e86ad05ff147b5d';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

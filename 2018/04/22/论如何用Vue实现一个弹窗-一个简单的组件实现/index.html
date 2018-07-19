@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Vue,js,css,组件," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="前言最近在使用element-ui框架，用到了Dialog对话框组件，大致实现的效果，跟我之前自己在移动端项目里面弄的一个弹窗组件差不太多。然后就想着把这种弹窗组件的实现方式与大家分享一下，下面本文会带着大家手摸手实现一个弹窗组件。 本文主要内容会涉及到弹窗遮罩的实现，slot插槽的使用方式，props、$emit传参，具体组件代码也传上去了。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本">
+<meta name="keywords" content="Vue,js,css,组件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论如何用Vue实现一个弹窗-一个简单的组件实现">
+<meta property="og:url" content="http://yoursite.com/2018/04/22/论如何用Vue实现一个弹窗-一个简单的组件实现/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="前言最近在使用element-ui框架，用到了Dialog对话框组件，大致实现的效果，跟我之前自己在移动端项目里面弄的一个弹窗组件差不太多。然后就想着把这种弹窗组件的实现方式与大家分享一下，下面本文会带着大家手摸手实现一个弹窗组件。 本文主要内容会涉及到弹窗遮罩的实现，slot插槽的使用方式，props、$emit传参，具体组件代码也传上去了。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/21/162e6f9251c7c18f?w=650&h=1141&f=png&s=374719">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/21/162e7a7af2e0effa?w=402&h=728&f=png&s=140506">
+<meta property="og:updated_time" content="2018-04-22T16:29:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="论如何用Vue实现一个弹窗-一个简单的组件实现">
+<meta name="twitter:description" content="前言最近在使用element-ui框架，用到了Dialog对话框组件，大致实现的效果，跟我之前自己在移动端项目里面弄的一个弹窗组件差不太多。然后就想着把这种弹窗组件的实现方式与大家分享一下，下面本文会带着大家手摸手实现一个弹窗组件。 本文主要内容会涉及到弹窗遮罩的实现，slot插槽的使用方式，props、$emit传参，具体组件代码也传上去了。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/4/21/162e6f9251c7c18f?w=650&h=1141&f=png&s=374719">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/22/论如何用Vue实现一个弹窗-一个简单的组件实现/"/>
+
+
+
+
+
+  <title>论如何用Vue实现一个弹窗-一个简单的组件实现 | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类列表">
+          <a href="/Summary/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/22/论如何用Vue实现一个弹窗-一个简单的组件实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">论如何用Vue实现一个弹窗-一个简单的组件实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-22T16:14:09+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/04/22/论如何用Vue实现一个弹窗-一个简单的组件实现/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/04/22/论如何用Vue实现一个弹窗-一个简单的组件实现/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2018/04/22/论如何用Vue实现一个弹窗-一个简单的组件实现/" class="leancloud_visitors" data-flag-title="论如何用Vue实现一个弹窗-一个简单的组件实现">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在使用element-ui框架，用到了Dialog对话框组件，大致实现的效果，跟我之前自己在移动端项目里面弄的一个弹窗组件差不太多。然后就想着把这种弹窗组件的实现方式与大家分享一下，下面本文会带着大家手摸手实现一个弹窗组件。</p>
+<p>本文主要内容会涉及到弹窗遮罩的实现，<code>slot</code>插槽的使用方式，<code>props</code>、<code>$emit</code>传参，具体组件代码也传上去了。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。</p>
+<blockquote>
+<p>个人博客了解一下：<a href="http://obkoro1.com/" target="_blank" rel="noopener">obkoro1.com</a></p>
+</blockquote>
+<hr>
+<h3 id="组件最后实现的效果"><a href="#组件最后实现的效果" class="headerlink" title="组件最后实现的效果"></a>组件最后实现的效果</h3><p><img src="https://user-gold-cdn.xitu.io/2018/4/21/162e6f9251c7c18f?w=650&amp;h=1141&amp;f=png&amp;s=374719" alt=""></p>
+<h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><ol>
+<li>先搭建组件的html和css样式，遮罩层和内容层。</li>
+<li>定制弹窗内容：弹窗组件通过<code>slot</code>插槽接受从父组件那里传过来弹窗内容。</li>
+<li>定制弹窗样式：弹窗组件通过<code>props</code>接收从父组件传过来的弹窗宽度，上下左右的位置。</li>
+<li>组件开关：通过父组件传进来的<code>props</code>控制组件的显示与隐藏，子组件关闭时通过事件<code>$emit</code>触发父组件改变值。</li>
+</ol>
+<hr>
+<h3 id="1-搭建组件的html和css样式。"><a href="#1-搭建组件的html和css样式。" class="headerlink" title="1.搭建组件的html和css样式。"></a>1.搭建组件的html和css样式。</h3><p>html结构：一层遮罩层，一层内容层，内容层里面又有一个头部title和主体内容和一个关闭按钮。</p>
+<p>下面是组件中的html结构，里面有一些后面才要加进去的东西，如果看不懂的话可以先跳过，</p>
+<pre><code> &lt;template&gt;
+  &lt;div class=&quot;dialog&quot;&gt;
+      &lt;!--外层的遮罩 点击事件用来关闭弹窗，isShow控制弹窗显示 隐藏的props--&gt;
+      &lt;div class=&quot;dialog-cover back&quot;  v-if=&quot;isShow&quot;  @click=&quot;closeMyself&quot;&gt;&lt;/div&gt;
+      &lt;!-- transition 这里可以加一些简单的动画效果 --&gt;
+      &lt;transition name=&quot;drop&quot;&gt;
+         &lt;!--style 通过props 控制内容的样式  --&gt;
+        &lt;div class=&quot;dialog-content&quot; :style=&quot;{top:topDistance+&apos;%&apos;,width:widNum+&apos;%&apos;,left:leftSite+&apos;%&apos;}&quot;  v-if=&quot;isShow&quot;&gt;
+          &lt;div class=&quot;dialog_head back&quot;&gt;
+             &lt;!--弹窗头部 title--&gt;
+              &lt;slot name=&quot;header&quot;&gt;提示信息&lt;/slot&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;dialog_main&quot; :style=&quot;{paddingTop:pdt+&apos;px&apos;,paddingBottom:pdb+&apos;px&apos;}&quot;&gt;
+            &lt;!--弹窗的内容--&gt;
+            &lt;slot name=&quot;main&quot;&gt;弹窗内容&lt;/slot&gt;
+          &lt;/div&gt;
+          &lt;!--弹窗关闭按钮--&gt;
+          &lt;div  class=&quot;foot_close&quot; @click=&quot;closeMyself&quot;&gt;
+              &lt;div class=&quot;close_img back&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/transition&gt;
+  &lt;/div&gt;
+&lt;/template&gt; 
+</code></pre><p>下面是组件中的主要的css样式，里面都做了充分的注释，主要通过<code>z-index</code>和<code>background</code>达到遮罩的效果，具体内容的css可以根据自己的需求来设置。</p>
+<pre><code>&lt;style lang=&quot;scss&quot; scoped&gt;
+ // 最外层 设置position定位 
+  .dialog {
+    position: relative;
+    color: #2e2c2d;
+    font-size: 16px;
+  }
+  // 遮罩 设置背景层，z-index值要足够大确保能覆盖，高度 宽度设置满 做到全屏遮罩
+  .dialog-cover {
+    background: rgba(0,0,0, 0.8);
+    position: fixed;
+    z-index: 200;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  // 内容层 z-index要比遮罩大，否则会被遮盖，
+  .dialog-content{
+    position: fixed;
+    top: 35%;
+    // 移动端使用felx布局 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 300;
+ }
+&lt;/style&gt;
+</code></pre><hr>
+<h3 id="2-通过slot定制弹窗内容"><a href="#2-通过slot定制弹窗内容" class="headerlink" title="2. 通过slot定制弹窗内容"></a>2. 通过<code>slot</code>定制弹窗内容</h3><p>这一步，只要理解了<code>slot</code>的作用以及用法，就没有问题了。</p>
+<h4 id="单个插槽："><a href="#单个插槽：" class="headerlink" title="单个插槽："></a>单个插槽：</h4><pre><code>&lt;slot&gt;这是在没有slot传进来的时候，才显示的弹窗内容&lt;/slot&gt;
+</code></pre><p> 上面是单个插槽也叫默认插槽，在父组件中使用插槽的正确姿势：</p>
+<pre><code> &lt;my-component&gt;
+ &lt;!--在my-component里面的所有内容片段都将插入到slot所在的DOM位置，并且会替换掉slot标签--&gt;
+ &lt;!--这两个p标签，将替换整个slot标签里面的内容--&gt;
+  &lt;p&gt;这是一些初始内容&lt;/p&gt;
+  &lt;p&gt;这是更多的初始内容&lt;/p&gt;
+&lt;/my-component&gt;
+</code></pre><p>ps:如果子组件里面包含<code>slot</code>插槽，那么上面的p标签的内容将会被丢弃。</p>
+<h4 id="具名插槽："><a href="#具名插槽：" class="headerlink" title="具名插槽："></a>具名插槽：</h4><p> 所谓的具名插槽，即为<code>slot</code>标签赋一个<code>name</code>属性，具名插槽可以父组件中不同的内容片段放到子组件的不同地方，具名插槽还是可以拥有一个默认插槽。下面可以看一下弹窗组件插槽的使用方式：</p>
+<pre><code>&lt;div class=&quot;dialog_head back &quot;&gt;
+  &lt;!--弹窗头部 title--&gt;
+  &lt;slot name=&quot;header&quot;&gt;提示信息&lt;/slot&gt;
+ &lt;/div&gt;
+ &lt;div class=&quot;dialog_main &quot; :style=&quot;{paddingTop:pdt+&apos;px&apos;,paddingBottom:pdb+&apos;px&apos;}&quot;&gt;
+    &lt;!--弹窗的内容--&gt;
+    &lt;slot name=&quot;main&quot;&gt;弹窗内容&lt;/slot&gt;
+ &lt;/div&gt;
+</code></pre><p>在父组件中的使用方式：</p>
+<ol>
+<li>将弹窗组件引入要使用的组件中，并通过<code>components</code>注册成为组件。</li>
+<li><p>父组件中弹窗组件插槽的使用方法如下。</p>
+<pre><code>&lt;dialogComponent&gt;
+
+    &lt;div slot=&quot;header&quot;&gt;插入到name为header的slot标签里面&lt;/div&gt;
+     &lt;div class=&quot;dialog_publish_main&quot; slot=&quot;main&quot;&gt;
+        这里是内容插入到子组件的slot的name为main里面，可以在父组件中添加class定义样式，事件类型等各种操作
+     &lt;/div&gt;
+&lt;/dialogComponent&gt;
+</code></pre></li>
+</ol>
+<p>关于组件中用到的插槽的介绍就到这里了，插槽在弹窗组件中的应用是一个典型的栗子，可以看到插槽作用相当强大，而插槽本身的使用并不难，同学们爱上插槽了没有？</p>
+<hr>
+<h3 id="3-通过props控制弹窗显隐-amp-amp-定制弹窗style"><a href="#3-通过props控制弹窗显隐-amp-amp-定制弹窗style" class="headerlink" title="3.通过props控制弹窗显隐&amp;&amp;定制弹窗style"></a>3.通过<code>props</code>控制弹窗显隐&amp;&amp;定制弹窗style</h3><p> <code>psops</code>是Vue中父组件向子组件传递数据的一种方式，不熟悉的小伙伴们可以看一下<a href="https://cn.vuejs.org/v2/guide/components.html#Prop" target="_blank" rel="noopener">props文档</a>。</p>
+<p>  因为弹窗组件都是引到别的组件里面去用的，为了适合不同组件场景中的弹窗，所以弹窗组件必须具备一定的可定制性，否则这样的组件将毫无意义,下面介绍一下props的使用方式，以弹窗组件为例：</p>
+<ol>
+<li>首先需要在被传入的组件中定义props的一些特性，验证之类的。</li>
+<li><p>然后在父组件中绑定props数据。</p>
+<pre><code> &lt;script&gt;
+export default {
+  props: {
+    isShow: { 
+    //弹窗组件是否显示 默认不显示
+      type: Boolean,
+      default: false,
+      required:true, //必须
+    },
+    //下面这些属性会绑定到div上面 详情参照上面的html结构
+    // 如： :style=&quot;{top:topDistance+&apos;%&apos;,width:widNum+&apos;%&apos;}&quot;
+    widNum:{ 
+    //内容宽度
+      type: Number,
+      default:86.5
+    },
+    leftSite:{
+      // 左定位
+      type: Number,
+      default:6.5
+    },
+    topDistance: {
+        //top上边距
+      type: Number,
+      default:35
+    },
+    pdt:{
+      //上padding
+      type: Number,
+      default:22
+    },
+    pdb:{
+      //下padding
+      type: Number,
+      default:47
+    }
+  },
+}
+&lt;/script&gt;
+</code></pre></li>
+</ol>
+<p>父组件中使用方式：</p>
+<pre><code>&lt;dialogComponent :is-show=&quot;status.isShowPublish&quot; :top-distance=&quot;status.topNum&quot;&gt;
+&lt;/dialogComponent&gt;
+</code></pre><p> ps：props传递数据不是双向绑定的，而是<strong>单向数据流</strong>，父组件的数据变化时，也会传递到子组件中，这就意外着我们不应该在子组件中修改props。所以我们在关闭弹窗的时候就<strong>需要通过<code>$emit</code>来修改父组件的数据</strong>，然后数据会自动传到子组件中。</p>
+<p>现在基本上弹窗组件都已实现的差不多了，还差一个弹窗的关闭事件，这里就涉及到子组件往父组件传参了。</p>
+<h3 id="4-emit触发父组件事件修改数据，关闭弹窗"><a href="#4-emit触发父组件事件修改数据，关闭弹窗" class="headerlink" title="4.$emit触发父组件事件修改数据，关闭弹窗"></a>4.<code>$emit</code>触发父组件事件修改数据，关闭弹窗</h3><p>Vue中在子组件往父组件传参，很多都是通过<code>$emit</code>来触发父组件的事件来修改数据。</p>
+<p>在子组件中，在点击关闭，或者遮罩层的时候触发下面这个方法：</p>
+<pre><code>methods: {
+    closeMyself() {
+      this.$emit(&quot;on-close&quot;); 
+      //如果需要传参的话，可以在&quot;on-close&quot;后面再加参数，然后在父组件的函数里接收就可以了。
+    }
+  } 
+</code></pre><p>父组件中的写法：</p>
+<pre><code>  &lt;dialogComponent :is-show=&quot;status.isShowPublish&quot; :top-distance=&quot;status.topNum&quot;  @on-close=&quot;closeDialog&quot;&gt; 
+  &lt;/dialogComponent&gt;
+  //&quot;on-close是监听子组件的时间有没有触发，触发的时候执行closeDialog函数
+methods:{
+  closeDialog(){
+    // this.status.isShowPublish=false;
+    //把绑定的弹窗数组 设为false即可关闭弹窗
+  },
+}
+</code></pre><hr>
+<p>可以用弹窗组件实现下列这种信息展示，或者事件交互：</p>
+<p> <img src="https://user-gold-cdn.xitu.io/2018/4/21/162e7a7af2e0effa?w=402&amp;h=728&amp;f=png&amp;s=140506" alt=""></p>
+<h3 id="弹窗组件代码"><a href="#弹窗组件代码" class="headerlink" title="弹窗组件代码"></a><a href="https://github.com/OBKoro1/simpleDemo/blob/master/dialogComponent.vue" target="_blank" rel="noopener">弹窗组件代码</a></h3><p>上面是把弹窗的每个步骤拆分开来，一步步解析的，每一步都说的比较清楚了，具体连起来的话，可以看看<a href="https://github.com/OBKoro1/simpleDemo/blob/master/dialogComponent.vue" target="_blank" rel="noopener">代码</a>，再结合文章就能理的很清楚了。</p>
+<h2 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h2><p>这个弹窗组件，实现起来一点都不难，我这里主要是提供了一个实现方式，当项目中有需要的话，大家也可以自己撸一个出来，以上就是本文的内容了，希望同学们看完能有所收获。</p>
+<h3 id="希望看完的朋友可以点个喜欢，也可以关注一下我，您的支持是对我最大的鼓励。"><a href="#希望看完的朋友可以点个喜欢，也可以关注一下我，您的支持是对我最大的鼓励。" class="headerlink" title="希望看完的朋友可以点个喜欢，也可以关注一下我，您的支持是对我最大的鼓励。"></a>希望看完的朋友可以点个喜欢，也可以关注一下我，您的支持是对我最大的鼓励。</h3><p><strong>最后</strong>：如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！本人写文章本着交流记录的心态，写的不好之处，不撕逼，但是欢迎指点。</p>
+<p><strong><a href="http://obkoro1.com/" target="_blank" rel="noopener">个人blog</a></strong> and <strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a></strong>  </p>
+<p> 以上2018.4.21</p>
+<h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><p><a href="https://cn.vuejs.org/v2/guide/components.html#%E4%BD%BF%E7%94%A8%E6%8F%92%E6%A7%BD%E5%88%86%E5%8F%91%E5%86%85%E5%AE%B9" target="_blank" rel="noopener">Vue文档-插槽</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/css/" rel="tag"><i class="fa fa-tag"></i> css</a>
+          
+            <a href="/tags/组件/" rel="tag"><i class="fa fa-tag"></i> 组件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/07/前端笔试题面试题记录（下）/" rel="next" title="前端笔试题面试题记录（下）">
+                <i class="fa fa-chevron-left"></i> 前端笔试题面试题记录（下）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/30/前端将数据转化为弹幕效果的实现方式/" rel="prev" title="前端将数据转化为弹幕效果的实现方式">
+                前端将数据转化为弹幕效果的实现方式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#组件最后实现的效果"><span class="nav-number">1.1.</span> <span class="nav-text">组件最后实现的效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现步骤"><span class="nav-number">2.</span> <span class="nav-text">实现步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-搭建组件的html和css样式。"><span class="nav-number">2.1.</span> <span class="nav-text">1.搭建组件的html和css样式。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-通过slot定制弹窗内容"><span class="nav-number">2.2.</span> <span class="nav-text">2. 通过slot定制弹窗内容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单个插槽："><span class="nav-number">2.2.1.</span> <span class="nav-text">单个插槽：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具名插槽："><span class="nav-number">2.2.2.</span> <span class="nav-text">具名插槽：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-通过props控制弹窗显隐-amp-amp-定制弹窗style"><span class="nav-number">2.3.</span> <span class="nav-text">3.通过props控制弹窗显隐&amp;&amp;定制弹窗style</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-emit触发父组件事件修改数据，关闭弹窗"><span class="nav-number">2.4.</span> <span class="nav-text">4.$emit触发父组件事件修改数据，关闭弹窗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弹窗组件代码"><span class="nav-number">2.5.</span> <span class="nav-text">弹窗组件代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结："><span class="nav-number">3.</span> <span class="nav-text">小结：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#希望看完的朋友可以点个喜欢，也可以关注一下我，您的支持是对我最大的鼓励。"><span class="nav-number">3.1.</span> <span class="nav-text">希望看完的朋友可以点个喜欢，也可以关注一下我，您的支持是对我最大的鼓励。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料："><span class="nav-number">3.2.</span> <span class="nav-text">参考资料：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytevxRRN';
+      var conf = '75faf3cb54138bb69e86ad05ff147b5d';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

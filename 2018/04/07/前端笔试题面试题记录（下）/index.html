@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="js,css,html,面试," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="前言接上篇前端笔试题面试题记录（上）。趁清明小长假，把上篇剩下的部分也写一下，因为最近比较忙这篇已经拖了很久了。现在刚刚开始银四了，应该还是有些小伙伴在找工作，时间还不算太晚，希望本篇可以帮到这些小伙伴。  个人博客了解一下：obkoro1.com   本文主要目录如下：  面试题QA 面试遇到的一些小问题 Vue系列问题   面试题QAQ：了解ES6的let和const变量声明吗？跟ES5的va">
+<meta name="keywords" content="js,css,html,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端笔试题面试题记录（下）">
+<meta property="og:url" content="http://yoursite.com/2018/04/07/前端笔试题面试题记录（下）/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="前言接上篇前端笔试题面试题记录（上）。趁清明小长假，把上篇剩下的部分也写一下，因为最近比较忙这篇已经拖了很久了。现在刚刚开始银四了，应该还是有些小伙伴在找工作，时间还不算太晚，希望本篇可以帮到这些小伙伴。  个人博客了解一下：obkoro1.com   本文主要目录如下：  面试题QA 面试遇到的一些小问题 Vue系列问题   面试题QAQ：了解ES6的let和const变量声明吗？跟ES5的va">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/6/162999e3d2712c52?w=766&h=737&f=png&s=79078">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/9/1603ae858f7da6cd?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:updated_time" content="2018-04-09T14:51:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端笔试题面试题记录（下）">
+<meta name="twitter:description" content="前言接上篇前端笔试题面试题记录（上）。趁清明小长假，把上篇剩下的部分也写一下，因为最近比较忙这篇已经拖了很久了。现在刚刚开始银四了，应该还是有些小伙伴在找工作，时间还不算太晚，希望本篇可以帮到这些小伙伴。  个人博客了解一下：obkoro1.com   本文主要目录如下：  面试题QA 面试遇到的一些小问题 Vue系列问题   面试题QAQ：了解ES6的let和const变量声明吗？跟ES5的va">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/4/6/162999e3d2712c52?w=766&h=737&f=png&s=79078">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/07/前端笔试题面试题记录（下）/"/>
+
+
+
+
+
+  <title>前端笔试题面试题记录（下） | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类列表">
+          <a href="/Summary/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            分类列表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/07/前端笔试题面试题记录（下）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端笔试题面试题记录（下）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-07T21:37:50+08:00">
+                2018-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试题/" itemprop="url" rel="index">
+                    <span itemprop="name">面试题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/04/07/前端笔试题面试题记录（下）/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/04/07/前端笔试题面试题记录（下）/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2018/04/07/前端笔试题面试题记录（下）/" class="leancloud_visitors" data-flag-title="前端笔试题面试题记录（下）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                   字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>接上篇<a href="https://juejin.im/post/5aad40e4f265da237f1e12ed" target="_blank" rel="noopener">前端笔试题面试题记录（上）</a>。趁清明小长假，把上篇剩下的部分也写一下，因为最近比较忙这篇已经拖了很久了。现在刚刚开始银四了，应该还是有些小伙伴在找工作，时间还不算太晚，希望本篇可以帮到这些小伙伴。</p>
+<blockquote>
+<p>个人博客了解一下：<a href="http://obkoro1.com/" target="_blank" rel="noopener">obkoro1.com</a></p>
+</blockquote>
+<hr>
+<p>本文主要目录如下：</p>
+<ul>
+<li>面试题QA</li>
+<li>面试遇到的一些小问题</li>
+<li>Vue系列问题</li>
+</ul>
+<hr>
+<h2 id="面试题QA"><a href="#面试题QA" class="headerlink" title="面试题QA"></a>面试题QA</h2><h3 id="Q：了解ES6的let和const变量声明吗？跟ES5的var有哪些区别？"><a href="#Q：了解ES6的let和const变量声明吗？跟ES5的var有哪些区别？" class="headerlink" title="Q：了解ES6的let和const变量声明吗？跟ES5的var有哪些区别？"></a>Q：了解ES6的let和const变量声明吗？跟ES5的var有哪些区别？</h3><h4 id="let"><a href="#let" class="headerlink" title="let"></a>let</h4><ul>
+<li><p>在同一个作用域里面：var可以重复声明变量，<strong>let不能重复声明同一个变量</strong>。</p>
+<p>  es5是函数作用域，即一个函数里面才是一个作用域，es6是块级作用域（花括号’{这里面是一个作用域}’），如：if、for花括号里面都是一个作用域。</p>
+</li>
+<li>var有变量提升，可以在变量声明之前使用，<strong>let不存在变量提升，在变量之前使用会报错</strong>。</li>
+<li><strong>let 有暂时性死区</strong>，<a href="http://es6.ruanyifeng.com/#docs/let" target="_blank" rel="noopener">阮一峰大佬es6入门文档</a>解释如下：<br><img src="https://user-gold-cdn.xitu.io/2018/4/6/162999e3d2712c52?w=766&amp;h=737&amp;f=png&amp;s=79078" alt="引用阮一峰大佬解释以及栗子"></li>
+</ul>
+<h4 id="const"><a href="#const" class="headerlink" title="const"></a>const</h4><ul>
+<li>const的很多特性跟let的特性一样，都有：不可重复声明，不存在变量提升，有暂时性死区，都是块级作用域。</li>
+<li><p>还有一些跟let命令不一样的地方：const必须在声明的时候赋值，不然就会报错。const声明的常量不能更改。</p>
+<p>  这里的常量指的是：数值、字符串、布尔值，对于引用类型（数组和对象），const只能保证指针是固定的，至于数组和对象内部有没有改变就是const不能控制的地方</p>
+</li>
+</ul>
+<hr>
+<h3 id="Q：Css的优先级。"><a href="#Q：Css的优先级。" class="headerlink" title="Q：Css的优先级。"></a>Q：Css的优先级。</h3><p>这类也通常出现在笔试题中，具体的题目记不太清了。</p>
+<pre><code>权重优先级：
+!important&gt;style(1000)&gt;id(100)&gt;class(10)
+!important是优先级最高的不管权重多少，始终采取important。
+如果两个选择器作用在同一元素上，计算权重值，相加。权重高者属性生效。
+（笔试题就出现过层叠的class id选择器，作用在同一个标签上，然后问最后哪个css属性生效）
+</code></pre><p>找到一篇很好的写css权重的文章，有兴趣的可以看一下。<a href="https://www.w3cplus.com/css/css-specificity-things-you-should-know.html" target="_blank" rel="noopener">你应该知道的一些事情——CSS权重</a></p>
+<hr>
+<h3 id="Q：继承函数对象的实例方法、原型的继承。"><a href="#Q：继承函数对象的实例方法、原型的继承。" class="headerlink" title="Q：继承函数对象的实例方法、原型的继承。"></a>Q：继承函数对象的实例方法、原型的继承。</h3><p>函数对象的继承，在面试的时候，一般出现在笔试题那边，也碰到过几次，下面给出一个答案。</p>
+<pre><code>function father(name){//父函数
+  this.name=name|&apos;koro1&apos;;
+  this.code=function(){ //父类的实例方法
+    console.log(this.name+&apos;coding&apos;);
+  }
+};
+father.prototype.add=function(food){ //父类的原型方法
+  console.log(this.name+&apos;eat&apos;+food);
+}
+function son(name){ //子函数
+  father.call(this); //将this绑定到子类，绑定父类的实例方法code（原型方法add还未绑定）
+  this.name=name|| &apos;OBKoro1&apos;;
+}
+son.prototype = new father();//把父类的原型方法绑定到子类，实现继承
+var sonVar= new son(&apos;faker&apos;);//这里也可以传参name
+son.prototype.constructor = son;//修复构造函数的指向
+console.log(sonVar.code());
+console.log(sonVar.add());//可以调用父类的方法了
+</code></pre><hr>
+<h3 id="Q-通过reduce函数来实现简单的数组求和，示例数组-3-4-8-0-9"><a href="#Q-通过reduce函数来实现简单的数组求和，示例数组-3-4-8-0-9" class="headerlink" title="Q:通过reduce函数来实现简单的数组求和，示例数组[3,4,8,0,9];"></a>Q:通过<code>reduce</code>函数来实现简单的数组求和，示例数组<code>[3,4,8,0,9]</code>;</h3><p>这是一个简单的笔试题，下面写了两种方法，一种是常见遍历的方法，还有一种是使用<code>eval()</code>方法。</p>
+<pre><code>let reduce=(arr)=&gt;{ //第一种常规遍历。
+    let num=0; 
+    for(let [index,value] of arr.entries()){
+        num+=value;
+    }
+    return num;
+}
+let reduce=(arr)=&gt;eval(arr.join(&quot;+&quot;)); //第二种 
+//join() 方法把数组元素放入字符串 上面的栗子： arr.join(&quot;+&quot;)得到字符串:&apos;3+4+8+0+9&apos;;
+// eval() 函数计算字符串 ,并执行其中的的 JavaScript 代码
+//经提醒：原来有一个reduce()数组求和的方法，把这个方法加上去
+let result=[3,4,8,0,9].reduce((total,value)=&gt;{ //这两个参数是默认参数不用设置的
+    return total+value
+});
+</code></pre><hr>
+<h3 id="Q：call-和apply-有什么区别？"><a href="#Q：call-和apply-有什么区别？" class="headerlink" title="Q：call()和apply()有什么区别？"></a>Q：call()和apply()有什么区别？</h3><p>call()和apply()第一个参数将用作函数内 this 的值,用于改变函数的this指向。call和apply的区别在于call()方法接受逗号分隔的参数作为后面的参数，apply()接受一个参数数组作为后面的参数。</p>
+<pre><code>从别的博客那边看到一个简单的记忆方法：从call中的 C 联想到逗号分隔（comma-separated），从apply中的 A 联想到数组（array）。
+</code></pre><h3 id="Q：position有哪些值？有什么作用？"><a href="#Q：position有哪些值？有什么作用？" class="headerlink" title="Q：position有哪些值？有什么作用？"></a>Q：position有哪些值？有什么作用？</h3><ul>
+<li>static。默认值，不脱离文档流，top，right，bottom，left等属性不生效。</li>
+<li>relative。不脱离文档流，依据自身位置进行偏离，当子元素设置absolute，将依据它进行偏离。</li>
+<li>absolute。脱离文档流，依据top，right，bottom，left等属性在正常文档流中偏移位置。</li>
+<li>fixed。通过浏览器窗口进行定位，出现滚动条的时候，不会随之滚动。</li>
+</ul>
+<hr>
+<h3 id="Q-如何实现一个闭包？闭包的作用有哪些？"><a href="#Q-如何实现一个闭包？闭包的作用有哪些？" class="headerlink" title="Q:如何实现一个闭包？闭包的作用有哪些？"></a>Q:如何实现一个闭包？闭包的作用有哪些？</h3><p>在一个函数里面嵌套另一个函数，被嵌套的那个函数的作用域是一个闭包。</p>
+<p>作用：创建私有变量，减少全局变量，防止变量名污染。可以操作外部作用域的变量，变量不会被浏览器回收，保存变量的值。</p>
+<hr>
+<h3 id="Q-请从2017-05-15T09-10-23-Europe-Paris提取出结果-quot-2017-quot-quot-05-quot-quot-15-quot-quot-09-quot-quot-10-quot-quot-23-quot"><a href="#Q-请从2017-05-15T09-10-23-Europe-Paris提取出结果-quot-2017-quot-quot-05-quot-quot-15-quot-quot-09-quot-quot-10-quot-quot-23-quot" class="headerlink" title="Q:请从2017-05-15T09:10:23 Europe/Paris提取出结果[&quot;2017&quot;,&quot;05&quot;,&quot;15&quot;,&quot;09&quot;,&quot;10&quot;,&quot;23&quot;]"></a>Q:请从<code>2017-05-15T09:10:23 Europe/Paris</code>提取出结果<code>[&quot;2017&quot;,&quot;05&quot;,&quot;15&quot;,&quot;09&quot;,&quot;10&quot;,&quot;23&quot;]</code></h3><p>这是一道笔试题，正则相关的，看他们要的内容就可以知道，要把所有的数字都提取出来，可以写一个只获取数字的正则表达式。</p>
+<pre><code>let str = &apos;2017-05-15T09:10:23 Europe/Paris&apos;;
+let arr = str.match(  /\d{1,}/g); 
+//match会返回一个数组，
+// \d 查找数字  
+// {1,} 表示至少重复几次 
+// /g表示全局搜索
+</code></pre><hr>
+<h3 id="Q-请描述一下Promise的使用场景，’Promise’它所解决的问题以及现在对于异步操作的解决方案。"><a href="#Q-请描述一下Promise的使用场景，’Promise’它所解决的问题以及现在对于异步操作的解决方案。" class="headerlink" title="Q:请描述一下Promise的使用场景，’Promise’它所解决的问题以及现在对于异步操作的解决方案。"></a>Q:请描述一下<code>Promise</code>的使用场景，’Promise’它所解决的问题以及现在对于异步操作的解决方案。</h3><p>这是一道笔试题，这是我当时的回答。</p>
+<p>Promise的使用场景：ajax请求，回调函数，复杂操作判断。</p>
+<p>Promise是ES6为了解决异步编程所诞生的。</p>
+<p>异步操作解决方案：<code>Promise</code>、<code>Generator</code>、定时器（不知道算不算）、还有ES7的<code>async</code></p>
+<hr>
+<h2 id="面试遇到的一些小问题："><a href="#面试遇到的一些小问题：" class="headerlink" title="面试遇到的一些小问题："></a>面试遇到的一些小问题：</h2><p>这里主要是面试中遇到的一些小的问题，一两句话就可以说清的东西，大家可以稍微看一看。</p>
+<h4 id="函数参数变量提升"><a href="#函数参数变量提升" class="headerlink" title="函数参数变量提升"></a>函数参数变量提升</h4><pre><code>    function aa(val){  //函数参数的变量也会提升
+    console.log(val);//&apos;函数传参&apos;
+     var val=&apos;变量声明&apos;;
+     console.log(val);//&apos;变量声明&apos;
+}
+    aa(&apos;函数传参&apos;);  
+</code></pre><h4 id="js有哪些方法定义对象？"><a href="#js有哪些方法定义对象？" class="headerlink" title="js有哪些方法定义对象？"></a>js有哪些方法定义对象？</h4><pre><code>var obj=new Object();//new 一个对象
+var obj={name:&quot;OBKoro1&quot;} //对象字面量写法
+</code></pre><h4 id="字符串数字转换运算的问题"><a href="#字符串数字转换运算的问题" class="headerlink" title="字符串数字转换运算的问题"></a>字符串数字转换运算的问题</h4><pre><code>console.log(1+&apos;2&apos;+&apos;2&apos;); //122  
+console.log(+&apos;1&apos;+-&apos;2&apos;+&apos;2&apos;);//-12
+console.log(&apos;A&apos;+&apos;B&apos;+&apos;2&apos;);//AB2
+console.log(&apos;A&apos;-&apos;B&apos;+2);//NaN
+//两个都是数字才能相加，否则都是以字符串形式拼接。
+//相减只能两个都是数字，字符串也会转成数字，如果不能转换，值就为NaN
+</code></pre><h4 id="split-、join-的区别？"><a href="#split-、join-的区别？" class="headerlink" title="split()、join()的区别？"></a>split()、join()的区别？</h4><pre><code>split()是将字符分割成一个数组,join()将数组转为一个字符串
+</code></pre><h4 id="pop-push-unshift-shift-的作用？"><a href="#pop-push-unshift-shift-的作用？" class="headerlink" title="pop()push()unshift()shift()的作用？"></a>pop()push()unshift()shift()的作用？</h4><pre><code>pop()删除并返回数组的最后一个元素。
+push()可向数组的末尾添加一个或多个元素，并返回新的长度。
+unshift() 方法可向数组的开头添加一个或更多元素，并返回新的长度。
+shift() 方法用于把数组的第一个元素从其中删除，并返回第一个元素的值。
+</code></pre><h4 id="判断一个数是否是整数"><a href="#判断一个数是否是整数" class="headerlink" title="判断一个数是否是整数"></a>判断一个数是否是整数</h4><pre><code>function isIntefer(x){
+    return x%1===0; //返回布尔
+}
+</code></pre><h4 id="如何将字符串转为数字，如：12-3b？"><a href="#如何将字符串转为数字，如：12-3b？" class="headerlink" title="如何将字符串转为数字，如：12.3b？"></a>如何将字符串转为数字，如：<code>12.3b</code>？</h4><pre><code>var num=parseFloat(&apos;12.3b&apos;)
+</code></pre><h4 id="什么是外边距合并？"><a href="#什么是外边距合并？" class="headerlink" title="什么是外边距合并？"></a>什么是外边距合并？</h4><p>当两个垂直外边距相遇时，它们将形成一个外边距，合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。</p>
+<h4 id="Q-你常用的git-svn-命令行有哪些？行内元素有哪些，块状元素有哪些？css有哪些选择器？"><a href="#Q-你常用的git-svn-命令行有哪些？行内元素有哪些，块状元素有哪些？css有哪些选择器？" class="headerlink" title="Q:你常用的git/svn 命令行有哪些？行内元素有哪些，块状元素有哪些？css有哪些选择器？"></a>Q:你常用的git/svn 命令行有哪些？行内元素有哪些，块状元素有哪些？css有哪些选择器？</h4><pre><code>自行谷歌，类似的还有css3新增的属性，H5新增的属性之类的，有空的话，稍微背一背，都碰到过。
+</code></pre><hr>
+<h2 id="Vue系列问题："><a href="#Vue系列问题：" class="headerlink" title="Vue系列问题："></a>Vue系列问题：</h2><p>我在面试过程中很少被问到框架，很多是在笔试题中碰到的，在介绍自己项目的时候，有时候自己会解释这里用到了Vue的什么技术，这个时候面试官可能就会顺着问一问Vue，总的来说问的也不会太深。</p>
+<h3 id="以下是笔试真题："><a href="#以下是笔试真题：" class="headerlink" title="以下是笔试真题："></a>以下是笔试真题：</h3><ul>
+<li><p>vue-router怎么定义动态路由？怎么获取传过来的动态参数？</p>
+<pre><code>定义：path:&apos;a/:value&apos; 获取：this.$route.params.value。
+</code></pre></li>
+<li>说出至少4中vue当中的指令和它的用法。<a href="https://cn.vuejs.org/v2/api/#%E6%8C%87%E4%BB%A4" target="_blank" rel="noopener">vue文档显示13个指令</a></li>
+<li>vue如何绑定事件。<code>@click=&quot;事件名&quot;</code></li>
+<li><p>v-show和v-if指令的共同点和不同点？</p>
+<pre><code>1.v-if是删除/添加Dom标签，不占据文档位置,v-show切换css的display属性，控制显示隐藏，还会占据文档位置。
+2.v-if会删除dom标签所以v-if性能消耗会高一些，需要频繁切换的话，使用v-show会好一点。
+</code></pre></li>
+<li><p><code>&lt;keep-alive&gt;&lt;/keep-alice&gt;</code>的作用的是什么？</p>
+<pre><code>`&lt;keep-alive&gt;`是Vue的内置组件，能在组件切换过程中将状态保留在内存中，防止重复渲染DOM。
+</code></pre></li>
+<li><p>列举三个Vue常用的生命周期钩子函数？<a href="https://cn.vuejs.org/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E7%A4%BA" target="_blank" rel="noopener">Vue文档</a></p>
+</li>
+<li><p>分别写出webpack打包给服务器和本地开发预览的命令代码:</p>
+<pre><code>npm run build npm run dev  我都觉得很弱智。。
+</code></pre></li>
+<li><p>vue 父子组件是怎么进行传参的？</p>
+<pre><code>父组件传参给子组件通过props，子组件传参给父组件是用事件传递的。细节见文档。
+</code></pre></li>
+<li><p>v-model是用来做什么的，怎么使用。</p>
+<pre><code>用来为input输入框或者单选框、select选择框这类的东西做双向绑定的。
+使用栗子：&lt;input v-model=&quot;inputData&quot;/&gt;
+</code></pre></li>
+<li><p>Vuex的工作流程，以及它的作用，使用场景。</p>
+<p>  vuex的工作流程：<br>  <img src="https://user-gold-cdn.xitu.io/2017/12/9/1603ae858f7da6cd?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="vuex的工作流程"></p>
+<ol>
+<li><p>在vue组件里面，通过dispatch来触发actions提交修改数据的操作。</p>
+</li>
+<li><p>然后再通过actions的commit来触发mutations来修改数据。</p>
+</li>
+<li><p>mutations接收到commit的请求，就会自动通过Mutate来修改state（数据中心里面的数据状态）里面的数据。</p>
+</li>
+<li><p>最后由store触发每一个调用它的组件的更新</p>
+<p>Vuex的作用：项目数据状态的集中管理，复杂组件(如兄弟组件、远房亲戚组件)的数据通信问题。</p>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>vue的服务端渲染</li>
+<li><p>vue的双向绑定</p>
+<pre><code>两个问题都不会...
+</code></pre></li>
+</ul>
+<hr>
+<p>看完了？点赞支持一下呗，这儿还有一篇，有空可以看看哈：<a href="https://juejin.im/post/5aad40e4f265da237f1e12ed" target="_blank" rel="noopener">前端笔试题面试题记录（上）</a>。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>各位大佬们，找工作也是可以发现自己的薄弱点，然后加强它，白天的时候被某些问题给虐了，然后在晚上的时候，一定要把这些问题弄清楚，不要每次都被同样的问题给虐，这样就不好了。</p>
+<p><strong>最后</strong>：如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！本人写文章本着交流记录的心态，写的不好之处，不撕逼，但是欢迎指点。然后就是希望看完的朋友点个<strong>喜欢</strong>，也可以<strong>关注</strong>一下我。<br><strong><a href="http://obkoro1.com/" target="_blank" rel="noopener">个人blog</a></strong> and <strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a></strong>  </p>
+<p>以上2018.4.7</p>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="http://es6.ruanyifeng.com/#docs/let" target="_blank" rel="noopener">let 和 const 命令</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/css/" rel="tag"><i class="fa fa-tag"></i> css</a>
+          
+            <a href="/tags/html/" rel="tag"><i class="fa fa-tag"></i> html</a>
+          
+            <a href="/tags/面试/" rel="tag"><i class="fa fa-tag"></i> 面试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/18/前端笔试题面试题记录（上）/" rel="next" title="前端笔试题面试题记录（上）">
+                <i class="fa fa-chevron-left"></i> 前端笔试题面试题记录（上）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/22/论如何用Vue实现一个弹窗-一个简单的组件实现/" rel="prev" title="论如何用Vue实现一个弹窗-一个简单的组件实现">
+                论如何用Vue实现一个弹窗-一个简单的组件实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试题QA"><span class="nav-number">2.</span> <span class="nav-text">面试题QA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：了解ES6的let和const变量声明吗？跟ES5的var有哪些区别？"><span class="nav-number">2.1.</span> <span class="nav-text">Q：了解ES6的let和const变量声明吗？跟ES5的var有哪些区别？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#let"><span class="nav-number">2.1.1.</span> <span class="nav-text">let</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#const"><span class="nav-number">2.1.2.</span> <span class="nav-text">const</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：Css的优先级。"><span class="nav-number">2.2.</span> <span class="nav-text">Q：Css的优先级。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：继承函数对象的实例方法、原型的继承。"><span class="nav-number">2.3.</span> <span class="nav-text">Q：继承函数对象的实例方法、原型的继承。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-通过reduce函数来实现简单的数组求和，示例数组-3-4-8-0-9"><span class="nav-number">2.4.</span> <span class="nav-text">Q:通过reduce函数来实现简单的数组求和，示例数组[3,4,8,0,9];</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：call-和apply-有什么区别？"><span class="nav-number">2.5.</span> <span class="nav-text">Q：call()和apply()有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q：position有哪些值？有什么作用？"><span class="nav-number">2.6.</span> <span class="nav-text">Q：position有哪些值？有什么作用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-如何实现一个闭包？闭包的作用有哪些？"><span class="nav-number">2.7.</span> <span class="nav-text">Q:如何实现一个闭包？闭包的作用有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-请从2017-05-15T09-10-23-Europe-Paris提取出结果-quot-2017-quot-quot-05-quot-quot-15-quot-quot-09-quot-quot-10-quot-quot-23-quot"><span class="nav-number">2.8.</span> <span class="nav-text">Q:请从2017-05-15T09:10:23 Europe/Paris提取出结果[&quot;2017&quot;,&quot;05&quot;,&quot;15&quot;,&quot;09&quot;,&quot;10&quot;,&quot;23&quot;]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-请描述一下Promise的使用场景，’Promise’它所解决的问题以及现在对于异步操作的解决方案。"><span class="nav-number">2.9.</span> <span class="nav-text">Q:请描述一下Promise的使用场景，’Promise’它所解决的问题以及现在对于异步操作的解决方案。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试遇到的一些小问题："><span class="nav-number">3.</span> <span class="nav-text">面试遇到的一些小问题：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数参数变量提升"><span class="nav-number">3.0.1.</span> <span class="nav-text">函数参数变量提升</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js有哪些方法定义对象？"><span class="nav-number">3.0.2.</span> <span class="nav-text">js有哪些方法定义对象？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串数字转换运算的问题"><span class="nav-number">3.0.3.</span> <span class="nav-text">字符串数字转换运算的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#split-、join-的区别？"><span class="nav-number">3.0.4.</span> <span class="nav-text">split()、join()的区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pop-push-unshift-shift-的作用？"><span class="nav-number">3.0.5.</span> <span class="nav-text">pop()push()unshift()shift()的作用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断一个数是否是整数"><span class="nav-number">3.0.6.</span> <span class="nav-text">判断一个数是否是整数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何将字符串转为数字，如：12-3b？"><span class="nav-number">3.0.7.</span> <span class="nav-text">如何将字符串转为数字，如：12.3b？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是外边距合并？"><span class="nav-number">3.0.8.</span> <span class="nav-text">什么是外边距合并？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-你常用的git-svn-命令行有哪些？行内元素有哪些，块状元素有哪些？css有哪些选择器？"><span class="nav-number">3.0.9.</span> <span class="nav-text">Q:你常用的git/svn 命令行有哪些？行内元素有哪些，块状元素有哪些？css有哪些选择器？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue系列问题："><span class="nav-number">4.</span> <span class="nav-text">Vue系列问题：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#以下是笔试真题："><span class="nav-number">4.1.</span> <span class="nav-text">以下是笔试真题：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接："><span class="nav-number">5.1.</span> <span class="nav-text">参考链接：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytevxRRN';
+      var conf = '75faf3cb54138bb69e86ad05ff147b5d';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
