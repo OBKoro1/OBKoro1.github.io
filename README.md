@@ -56,7 +56,7 @@
 
 ## Vue
 
-### [Vue的钩子函数[路由导航守卫、keep-alive、生命周期钩子]](http://obkoro1.com)
+### [Vue的钩子函数[路由导航守卫、keep-alive、生命周期钩子]](http://obkoro1.com/2018/07/21/Vue%E7%9A%84%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0-%E8%B7%AF%E7%94%B1%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB%E3%80%81keep-alive%E3%80%81%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90/)
 
 ### [160行代码仿Vue实现极简双向绑定[详细注释]](http://obkoro1.com/2018/06/24/160%E8%A1%8C%E4%BB%A3%E7%A0%81%E4%BB%BFVue%E5%AE%9E%E7%8E%B0%E6%9E%81%E7%AE%80%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A-%E8%AF%A6%E7%BB%86%E6%B3%A8%E9%87%8A/)
 
