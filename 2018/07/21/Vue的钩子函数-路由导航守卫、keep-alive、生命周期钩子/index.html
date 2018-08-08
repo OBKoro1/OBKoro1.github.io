@@ -82,7 +82,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fthmrmtswmj30dw08t0v6.jpg">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/7/21/164bbf610b61f3cd?w=1200&h=2800&f=jpeg&s=946212">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317">
-<meta property="og:updated_time" content="2018-07-21T09:58:09.552Z">
+<meta property="og:updated_time" content="2018-07-23T03:56:08.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue的钩子函数[路由导航守卫、keep-alive、生命周期钩子]">
 <meta name="twitter:description" content="前言说到Vue的钩子函数，可能很多人只停留在一些很简单常用的钩子(created,mounted)，而且对于里面的区别，什么时候该用什么钩子，并没有仔细的去研究过，且Vue的生命周期在面试中也算是比较高频的考点，那么该如何回答这类问题，让人有眼前一亮的感觉呢…">
@@ -611,7 +611,7 @@ router.afterEach((to, from) =&gt; {
 <p>使用<code>keep-alive</code>可以将所有路径匹配到的路由组件都缓存起来，包括路由组件里面的组件，<code>keep-alive</code>大多数使用场景就是这种。</p>
 <pre><code>&lt;keep-alive&gt;
     &lt;router-view&gt;&lt;/router-view&gt;
-&lt;/keeo-alive&gt;
+&lt;/keep-alive&gt;
 </code></pre><h3 id="生命周期钩子："><a href="#生命周期钩子：" class="headerlink" title="生命周期钩子："></a>生命周期钩子：</h3><p>这篇既然是Vue钩子函数的专场，那肯定要扣题呀~</p>
 <p>在被<code>keep-alive</code>包含的组件/路由中，会多出两个生命周期的钩子:<code>activated</code> 与 <code>deactivated</code>。</p>
 <blockquote>
@@ -700,7 +700,7 @@ new Router({
 </code></pre><p><strong>但更多场景中，我们会使用<code>keep-alive</code>来缓存路由</strong>：</p>
 <pre><code>&lt;keep-alive include=&apos;a&apos;&gt;
     &lt;router-view&gt;&lt;/router-view&gt;
-&lt;/keeo-alive&gt;
+&lt;/keep-alive&gt;
 </code></pre><p><strong>匹配规则：</strong></p>
 <ol>
 <li><strong>首先匹配组件的name选项</strong>，如果<code>name</code>选项不可用。</li>
@@ -842,6 +842,10 @@ new Router({
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/08/08/前端er怎样操作剪切复制以及禁止复制-破解等/" rel="prev" title="前端er怎样操作剪切复制以及禁止复制+破解等">
+                前端er怎样操作剪切复制以及禁止复制+破解等 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -922,7 +926,7 @@ new Router({
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">65</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -933,7 +937,7 @@ new Router({
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -944,7 +948,7 @@ new Router({
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

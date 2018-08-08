@@ -1,6 +1,6 @@
 # 分类列表
 
-渐渐的积累了一些文章，抽空把文章分类了一下，目前分为**js、Vue、css、综合**四类,还有一些比较早期的文章，感觉比较low就没有加上去，在[掘金](https://juejin.im/user/58714f0eb123db4a2eb95372/posts)上面的文章是比较全的，如果想看的小伙伴可以去那边看一下~
+渐渐的积累了一些文章，抽空把文章分类了一下，还有一些比较早期的文章，感觉比较low就没有加上去，在[掘金](https://juejin.im/user/58714f0eb123db4a2eb95372/posts)上面的文章是比较全的，如果想看的小伙伴可以去那边看一下~
 
 如果我的文章解决了你的问题或者是觉得还不错的话，路过的大佬们给个 [star](https://github.com/OBKoro1/OBKoro1.github.io) ⭐️ 鼓励一下吧~
 
@@ -16,7 +16,15 @@
 
 ---
 
+## [算法 求Star](https://github.com/OBKoro1/Brush_algorithm)
+
+### [查找斐波纳契数列中第N个数](https://github.com/OBKoro1/Brush_algorithm/blob/master/readme/%E6%9F%A5%E6%89%BE%E6%96%90%E6%B3%A2%E7%BA%B3%E5%A5%91%E6%95%B0%E5%88%97%E4%B8%AD%E7%AC%ACN%E4%B8%AA%E6%95%B0.md)
+
+---
+
 ## JavaScript
+
+### [前端er怎样操作剪切复制以及禁止复制+破解等](http://obkoro1.com)
 
 ### [JS高程中的垃圾回收机制与常见内存泄露的解决方法](http://obkoro1.com/2018/07/08/JS%E9%AB%98%E7%A8%8B%E4%B8%AD%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E4%B8%8E%E5%B8%B8%E8%A7%81%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/)
 
