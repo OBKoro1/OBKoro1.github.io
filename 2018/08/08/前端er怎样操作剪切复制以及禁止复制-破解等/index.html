@@ -83,7 +83,7 @@
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/8/16518cf40dd44b7c?w=1917&h=363&f=png&s=145894">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/8/16518d4625634931?w=861&h=305&f=png&s=195959">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317">
-<meta property="og:updated_time" content="2018-08-08T10:37:12.373Z">
+<meta property="og:updated_time" content="2018-08-09T03:03:06.904Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端er怎样操作剪切复制以及禁止复制+破解等">
 <meta name="twitter:description" content="前言有时候我们经常会碰到这些场景：玩掘金、知乎的时候复制一段文字，总是会在内容后面加上一些版权信息，以及像小说网站等都有禁止选中，禁止复制这种功能，还有点击自动复制账号的功能。 我也经常遇到这些场景，有时候会去想这后面到底是怎么做，周末趁着有空去研究了一下，然后发现这些都跟操作剪贴板有关系，并且都不难，了解一下基本都知道怎么做了，整理分享一波给大家。">
@@ -575,6 +575,12 @@ document.body.oncopy = event =&gt; {
         return window.clipboardData.setData(&quot;text&quot;, textFont);
     }
 }
+</code></pre><p>然后command+c、command+v，输出:</p>
+<pre><code>你复制的内容
+作者：OBKoro1
+链接：https://juejin.im/user/58714f0eb123db4a2eb95372/posts
+来源：掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 </code></pre><h3 id="实现类起点网的防复制功能"><a href="#实现类起点网的防复制功能" class="headerlink" title="实现类起点网的防复制功能:"></a>实现类起点网的防复制功能:</h3><ul>
 <li>禁止复制+剪切</li>
 <li>禁止右键，右键某些选项:全选，复制，粘贴等。</li>
@@ -643,9 +649,17 @@ body {
 <p>  这里只能用<code>input</code>或者<code>textarea</code>才能选择文本。</p>
 </li>
 <li><p>document.execCommand(“copy”)，执行浏览器的复制命令。</p>
-</li>
+<pre><code>function copyText() {
+  var text = document.getElementById(&quot;text&quot;).innerText; // 获取要复制的内容也可以传进来
+  var input = document.getElementById(&quot;input&quot;); // 获取隐藏input的dom
+  input.value = text; // 修改文本框的内容
+  input.select(); // 选中文本
+  document.execCommand(&quot;copy&quot;); // 执行浏览器复制命令
+  alert(&quot;复制成功&quot;);
+}
+</code></pre></li>
 </ul>
-<p>写了个<a href="https://codepen.io/OBKoro1/pen/mjjEGa" target="_blank" rel="noopener">点击复制内容</a>的demo，可以点进去看看。</p>
+<p><a href="https://codepen.io/OBKoro1/pen/mjjEGa" target="_blank" rel="noopener">点击复制内容</a>的demo在这里，可以点进去看看。</p>
 <hr>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>工作之余了解一下这些东西还是很有趣的，也可以扩宽你的知识面。</p>
 <p>事实上只要监听了这些事件，我们就可以对要剪切的内容进行各种各样的操作，比如:复制的时候更换文本，粘贴的时候查找有没有图片(上传图片)，或者文本的长度进行剪切等等，唯一限制你的</p>
@@ -810,7 +824,7 @@ body {
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">65</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
