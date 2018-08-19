@@ -83,7 +83,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl70vrkj3g30aw09iq3y.gif">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl7dygfovj30ka0augpd.jpg">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317">
-<meta property="og:updated_time" content="2018-06-24T09:25:20.000Z">
+<meta property="og:updated_time" content="2018-08-19T16:22:49.677Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="160行代码仿Vue实现极简双向绑定[详细注释]">
 <meta name="twitter:description" content="前言现在的前端面试不管你用的什么框架，总会问你这个框架的双向绑定机制，有的甚至要求你现场实现一个双向绑定出来，那对于没有好好研究过这方面知识的同学来说，当然是很难的，接下来本文用160行代码带你实现一个极简的双向绑定机制。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。 本文是在面试题：你能写一个Vue的双向数据绑定吗？的基础上仔细研究+改动，并添加了详细注释，而成的。">
@@ -476,7 +476,7 @@
 <hr>
 <h2 id="效果GIF："><a href="#效果GIF：" class="headerlink" title="效果GIF："></a>效果GIF：</h2><p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl70vrkj3g30aw09iq3y.gif" alt=""></p>
 <h2 id="demo地址："><a href="#demo地址：" class="headerlink" title="demo地址："></a>demo地址：</h2><p><strong>codepen:</strong><a href="https://codepen.io/OBKoro1/pen/qKKqQe?editors=0010" target="_blank" rel="noopener">仿Vue极简双向绑定</a></p>
-<p><strong>Github:</strong><a href="http://obkoro1.com/simpleDemo/myVue/index.html" target="_blank" rel="noopener">仿Vue极简双向绑定</a></p>
+<p><strong>Github:</strong><a href="http://obkoro1.com/simpleDemo/simpleDemo/myVue/index.html" target="_blank" rel="noopener">仿Vue极简双向绑定</a></p>
 <hr>
 <h2 id="了解Object-defineProperty-："><a href="#了解Object-defineProperty-：" class="headerlink" title="了解Object.defineProperty()："></a>了解Object.defineProperty()：</h2><p>这个API是实现双向绑定的核心，最主要的作用是重写数据的<code>get</code>、<code>set</code>方法，现在的三大框架(vue react angular)也都是通过这个API来实现双向绑定的。</p>
 <h3 id="使用方式："><a href="#使用方式：" class="headerlink" title="使用方式："></a>使用方式：</h3><pre><code>let obj = {
@@ -667,9 +667,9 @@ Watcher.prototype.update = function () {
     }
 }
 </code></pre><hr>
-<h2 id="完整代码-amp-demo地址"><a href="#完整代码-amp-demo地址" class="headerlink" title="完整代码&amp;demo地址"></a>完整代码&amp;demo地址</h2><p><a href="https://github.com/OBKoro1/simpleDemo/blob/master/myVue/index.html" target="_blank" rel="noopener">GitHub完整代码</a></p>
+<h2 id="完整代码-amp-demo地址"><a href="#完整代码-amp-demo地址" class="headerlink" title="完整代码&amp;demo地址"></a>完整代码&amp;demo地址</h2><p><a href="https://github.com/OBKoro1/simpleDemo/blob/b62f8ae98d345c287bea9b5622504fdbae626102/simpleDemo/myVue/index.html" target="_blank" rel="noopener">GitHub完整代码</a></p>
 <p><strong>codepen:</strong><a href="https://codepen.io/OBKoro1/pen/qKKqQe?editors=0010" target="_blank" rel="noopener">仿Vue极简双向绑定</a></p>
-<p><strong>Github:</strong><a href="http://obkoro1.com/simpleDemo/myVue/index.html" target="_blank" rel="noopener">仿Vue极简双向绑定</a></p>
+<p><strong>Github:</strong><a href="http://obkoro1.com/simpleDemo/simpleDemo/myVue/index.html" target="_blank" rel="noopener">仿Vue极简双向绑定</a></p>
 <p>如果觉得还不错的话，就给个<a href="https://github.com/OBKoro1/simpleDemo" target="_blank" rel="noopener">Star</a>⭐️鼓励一下我吧~</p>
 <hr>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本文只是一个简单的实现双向绑定的方法，主要目的是帮助各位同学理解mvvm框架的双向绑定机制，也并没有很完善，这里还是有很多缺陷，比如：没有实现数据的深度对数据进行<code>get</code>、<code>set</code>等。希望看完本文，大家能有所收获。</p>
@@ -835,7 +835,7 @@ Watcher.prototype.update = function () {
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-count">68</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -857,7 +857,7 @@ Watcher.prototype.update = function () {
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">64</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

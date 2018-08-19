@@ -1,28 +1,38 @@
 # 分类列表
 
-渐渐的积累了一些文章，抽空把文章分类了一下，还有一些比较早期的文章，感觉比较low就没有加上去，在[掘金](https://juejin.im/user/58714f0eb123db4a2eb95372/posts)上面的文章是比较全的，如果想看的小伙伴可以去那边看一下~
+渐渐的积累了一些文章，抽空把文章分类了一下~
 
-如果我的文章解决了你的问题或者是觉得还不错的话，路过的大佬们给个 [star](https://github.com/OBKoro1/OBKoro1.github.io) ⭐️ 鼓励一下吧~
+### 觉得我的博客还不错的话，给个[Star ⭐️](https://github.com/OBKoro1/OBKoro1.github.io) 鼓励一下我吧~
 
-### 鸡汤：
+其他项目：
 
-种一棵树最好的时间是在十年前，其次就是现在了。
+求Star，求Star，求Star~
 
-### 订阅号：
+* [前端算法题](https://github.com/OBKoro1/Brush_algorithm)
 
-如果喜欢我的文章，可以关注我的订阅号，共同交流成长:
+* [simpleDemo](https://github.com/OBKoro1/simpleDemo)
 
- ![](https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317)
+* [VsCode头部注释插件-koroFileHeader](https://github.com/OBKoro1/koro1FileHeader/blob/b03ef6c8c5c61bd1276c45fe5f108ad92f3ee7b8/README_zh-cn.md)
+
+* 搜索公众号：OBKoro1的学习分享
+
+    欢迎关注我的公众号，有新的文章，算法题，面试题等都会第一时间发布与订阅号上，有很多都是我没发布在博客上面的，漫漫长路，期待同行。
 
 ---
 
-## [算法 求Star](https://github.com/OBKoro1/Brush_algorithm)
+## [算法](https://github.com/OBKoro1/Brush_algorithm)
+
+### [算法-姓名去重](http://obkoro1.com/2018/08/16/%E7%AE%97%E6%B3%95-%E5%A7%93%E5%90%8D%E5%8E%BB%E9%87%8D/)
+
+### [算法_判断字符串回文](http://obkoro1.com/2018/08/12/%E7%AE%97%E6%B3%95-%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%9B%9E%E6%96%87/)
 
 ### [查找斐波纳契数列中第N个数](https://github.com/OBKoro1/Brush_algorithm/blob/master/readme/%E6%9F%A5%E6%89%BE%E6%96%90%E6%B3%A2%E7%BA%B3%E5%A5%91%E6%95%B0%E5%88%97%E4%B8%AD%E7%AC%ACN%E4%B8%AA%E6%95%B0.md)
 
 ---
 
 ## JavaScript
+
+### [面试题-树状数组结构转化](http://obkoro1.com)
 
 ### [前端er怎样操作剪切复制以及禁止复制+破解等](http://obkoro1.com/2018/08/08/%E5%89%8D%E7%AB%AFer%E6%80%8E%E6%A0%B7%E6%93%8D%E4%BD%9C%E5%89%AA%E5%88%87%E5%A4%8D%E5%88%B6%E4%BB%A5%E5%8F%8A%E7%A6%81%E6%AD%A2%E5%A4%8D%E5%88%B6-%E7%A0%B4%E8%A7%A3%E7%AD%89/)
 
