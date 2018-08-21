@@ -14,9 +14,9 @@
 
 * [VsCode头部注释插件-koroFileHeader](https://github.com/OBKoro1/koro1FileHeader/blob/b03ef6c8c5c61bd1276c45fe5f108ad92f3ee7b8/README_zh-cn.md)
 
-* 搜索公众号：OBKoro1的学习分享
+* 搜索关注公众号：OBKoro1的学习分享
 
-    欢迎关注我的公众号，有新的文章，算法题，面试题等都会第一时间发布与订阅号上，有很多都是我没发布在博客上面的，漫漫长路，期待同行。
+    有新的文章，算法题，面试题等都会第一时间发布与公众号上，有很多都是我没发布在博客上面的，漫漫长路，期待同行。
 
 ---
 
