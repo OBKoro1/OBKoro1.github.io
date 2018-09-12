@@ -85,7 +85,7 @@
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/9/9/165bd98ebe2f65b3?w=1740&h=746&f=png&s=139253">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/9/9/165bda20ddcbd209?w=1566&h=700&f=png&s=47920">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/9/9/165bdaa634c0839d?w=1604&h=506&f=png&s=33035">
-<meta property="og:updated_time" content="2018-09-09T09:59:32.156Z">
+<meta property="og:updated_time" content="2018-09-10T05:41:49.960Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VuePress 手摸手教你搭建一个类Vue文档风格的技术文档&#x2F;博客">
 <meta name="twitter:description" content="前言：VuePress是尤大为了支持 Vue 及其子项目的文档需求而写的一个项目，VuePress界面十分简洁，并且非常容易上手，一个小时就可以将项目架构搭好。现在已经有很多这种类型的文档，如果你有写技术文档的项目的话，VuePress绝对可以成为你的备选项之一。">
@@ -408,7 +408,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,922 字
+                  1,950 字
                 </span>
               
 
@@ -600,7 +600,8 @@ footer: MIT Licensed | Copyright © 2018-present Evan You
 <h2 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h2><h3 id="代码块编译错误："><a href="#代码块编译错误：" class="headerlink" title="代码块编译错误："></a>代码块编译错误：</h3><p>像下面这段代码会导致编译错误，VuePress会去找里面的变量，把它编译成text：</p>
 <pre><code>{{}} 啦 {{}}
 </code></pre><p>所以我们的代码块要以这种形式书写：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;&#125;&#125; 啦 &#123;&#123;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//```js</span></span><br><span class="line">&#123;&#123;&#125;&#125; 啦 &#123;&#123;&#125;&#125; <span class="comment">// 注释需要打开 这样vuepress会把这里面包裹的当成代码块而不是js</span></span><br><span class="line"><span class="comment">//</span></span><br></pre></td></tr></table></figure>
+<p><code>`</code></p>
 <p>并且这样也会让我们的代码高亮显示(下图第一个没有高亮，第二个有高亮)，阅读体验更好：</p>
 <p><img src="https://user-gold-cdn.xitu.io/2018/9/9/165bd98ebe2f65b3?w=1740&amp;h=746&amp;f=png&amp;s=139253" alt=""></p>
 <h3 id="自定义容器了解一下："><a href="#自定义容器了解一下：" class="headerlink" title="自定义容器了解一下："></a>自定义容器了解一下：</h3><p><img src="https://user-gold-cdn.xitu.io/2018/9/9/165bda20ddcbd209?w=1566&amp;h=700&amp;f=png&amp;s=47920" alt=""></p>
@@ -642,8 +643,12 @@ git commit -m &apos;deploy&apos;
 # git push -f git@github.com:&lt;USERNAME&gt;/&lt;REPO&gt;.git master:gh-pages
 
 cd -
-</code></pre><h3 id="设置package-json："><a href="#设置package-json：" class="headerlink" title="设置package.json："></a>设置package.json：</h3><p>{<br>  “scripts”: {<br>    “d”: “bash deploy.sh”<br>  }<br>}</p>
-<h3 id="部署："><a href="#部署：" class="headerlink" title="部署："></a>部署：</h3><p>然后你每次可以运行下面的命令行，来把最新更改推到<code>github</code>上：</p>
+</code></pre><h3 id="设置package-json："><a href="#设置package-json：" class="headerlink" title="设置package.json："></a>设置package.json：</h3><pre><code>{
+  &quot;scripts&quot;: {
+    &quot;d&quot;: &quot;bash deploy.sh&quot;
+  }
+}
+</code></pre><h3 id="部署："><a href="#部署：" class="headerlink" title="部署："></a>部署：</h3><p>然后你每次可以运行下面的命令行，来把最新更改推到<code>github</code>上：</p>
 <pre><code>npm run d
 </code></pre><p>如果你对运行项目和构建项目的命令行觉得很烦，你也可以像我这么做：</p>
 <pre><code>&quot;scripts&quot;: {
@@ -719,6 +724,10 @@ cd -
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/12/算法-入门两篇-水仙花数-反转一个3位整数/" rel="prev" title="算法(入门)_水仙花数&反转一个3位整数">
+                算法(入门)_水仙花数&反转一个3位整数 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -798,7 +807,7 @@ cd -
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-count">71</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -914,7 +923,7 @@ cd -
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
     <span title="Site words total count">
-      118.3k
+      119.1k
     </span>
   
 </div>
