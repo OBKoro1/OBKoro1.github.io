@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[算法_字符串压缩]]></title>
+    <url>%2F2018%2F10%2F27%2F%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8E%8B%E7%BC%A9%2F</url>
+    <content type="text"><![CDATA[难度：简单描述：设计一种方法，通过给重复字符计数来进行基本的字符串压缩。 例如，字符串 aabcccccaaa 可压缩为 a2b1c5a3 。而如果压缩后的字符数不小于原始的字符数，则返回原始的字符串。 可以假设字符串仅包括 a-z 的字母。 样例：str=aabcccccaaa 返回 a2b1c5a3 str=aabbcc 返回 aabbcc str=aaaa 返回 a4 思路分析：解题思路：取出字符串，判断重复停止，添加到新字符串中。 注：需判断压缩后的字符串长度和原始字符串长度。 代码模板：1const compress = function(originalString) &#123;&#125;; 想一想再看答案想一想再看答案想一想再看答案代码：1234567891011121314151617181920212223242526272829303132333435// 取出字符串，判断重复停止，添加到新字符串中const compress = function(originalString) &#123; if (originalString.length &lt;= 1) return originalString; // 直接返回源字符串 let newStr = ''; let s = originalString.charAt(0); let num = 1; // 跳过第一个 let total = originalString.length; for (let i = 1; i &lt; total; i++) &#123; let nowS = originalString.charAt(i); if (nowS === s) &#123; num = num + 1; // 增加数量 if (i + 1 === total) &#123; newStr += `$&#123;s&#125;$&#123;num&#125;`; // 遍历结束时，拼接最后的字符串 &#125; &#125; else &#123; newStr += `$&#123;s&#125;$&#123;num&#125;`; // 拼接字符串 num = 1; // 重置为1 s = nowS; // 转为下一个字符s &#125; &#125; // 生成的字符串长度大于等于源字符串 返回源字符串 否则返回生成的字符串 if (newStr.length &gt;= originalString.length) &#123; return originalString; &#125; else &#123; return newStr; &#125;&#125;;console.log( '输出：', compress('aabcccccaaa'), // a2b1c5a3 compress('aabbcc'), // aabbcc compress('aaaa'), // a4 compress('a'), // a compress('') // ''); 鼓励我一下：觉得还不错的话，给我的项目点个star吧]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[算法_第一次只出现一次的字符]]></title>
+    <url>%2F2018%2F10%2F27%2F%E7%AE%97%E6%B3%95-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E5%AD%97%E7%AC%A6%2F</url>
+    <content type="text"><![CDATA[难度：简单描述：给出一个字符串，找出第一个只出现一次的字符。 样例：对于 aabc, b为第一个只出现一次的字符. 对于 abaccdeff, b为第一个只出现一次的字符. 思路分析：可以用对象保存字符出现的次数。 代码模板：1const firstUniqChar = function(str) &#123;&#125;; 想一想再看答案想一想再看答案想一想再看答案代码： 将值删除，用 indexOf 查找还有没有相同字符，并查找之前删过的字符 123456789101112131415const firstUniqChar = function(str) &#123; str = [...str]; let num = str.length; // 保存遍历次数 let obj = &#123;&#125;; // 保存被删元素 for (let i = 0; i &lt; num; i++) &#123; let item = str.splice(0, 1)[0]; // 删除第一个值 if (str.indexOf(item) === -1 &amp;&amp; obj[item] === undefined) &#123; // 当前数组中没有 并且对象中也没有 return item; // 找到 &#125; else &#123; obj[item] = item; // 出现的字符串，用对象保存起来。 &#125; &#125;&#125;;console.log('输出：', firstUniqChar('abaccdeff'), firstUniqChar('aabc')); indexOf 的第二个参数，从当前值往后搜索，并查找之前已经查过的字符 想起了indexOf的第二个参数，省了一步删除的操作。 12345678910111213const firstUniqChar = function(str) &#123; str = [...str]; let obj = &#123;&#125;; for (let [index, key] of str.entries()) &#123; if (str.indexOf(key, index + 1) === -1 &amp;&amp; obj[key] === undefined) &#123; // 跳过这个元素，当后面没有 并且前面也没有 return key; // 找到 &#125; else &#123; obj[key] = key; // 前面出现过 存起来 &#125; &#125;&#125;;console.log('输出：', firstUniqChar('abaccdeff'), firstUniqChar('aabc')); 记录字符出现的次数，遍历字符串，第一个只出现一次的字符，就是要找的值。 12345678910111213141516171819const firstUniqChar = function(str) &#123; var obj = &#123;&#125;; // 用对象 for (var i = 0; i &lt; str.length; i++) &#123; var code = str.charCodeAt(i); // 记录出现的次数 if (obj[code] == undefined) &#123; obj[code] = 1; &#125; else &#123; obj[code]++; &#125; &#125; for (var i = 0; i &lt; str.length; i++) &#123; // 遍历字符串出现的顺序(保证第一次出现重复)，当出现为1时，即找到 if (obj[str.charCodeAt(i)] == 1) &#123; return str.charAt(i); &#125; &#125; return null;&#125;; 鼓励我一下：觉得还不错的话，给我的项目点个star吧]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[算法_原地删除数组元素]]></title>
     <url>%2F2018%2F10%2F24%2F%E7%AE%97%E6%B3%95_%E5%8E%9F%E5%9C%B0%E5%88%A0%E9%99%A4%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%2F</url>
     <content type="text"><![CDATA[难度：简单描述：给定一个数组和一个值，在原地删除与值相同的数字，返回新数组的长度。 元素的顺序可以改变，并且对新的数组不会有影响。 样例：给出一个数组 [0,4,4,0,0,2,4,4]，和值 4 返回 4 并且 4 个元素的新数组为[0,0,0,2] 代码模板：1const removeElement = (arr, ele) =&gt; &#123;&#125;; 想一想再看答案想一想再看答案想一想再看答案代码： 保存遍历次数，匹配元素，然后删除 切勿直接使用数组的length属性，因为被删除后length属性会减少，导致遍历提前结束，删除不彻底。 1234567891011const removeElement = (arr, ele) =&gt; &#123; let num = arr.length; // 保存遍历的次数 for (let index = 0; index &lt; num; index++) &#123; let find = arr.indexOf(ele); if (find !== -1) &#123; arr.splice(find, 1); // 原地删除 &#125; else &#123; return arr.length; // 找不到即退出 &#125; &#125;&#125;; 遍历数组，匹配元素，赋值为null/undefined，再过滤掉 12345678910const removeElement = (arr, ele) =&gt; &#123; for (let index of arr.keys()) &#123; let find = arr.indexOf(ele); if (find !== -1) &#123; arr[find] = null; &#125; else &#123; return arr.filter(x =&gt; x).length; // 将假值过滤掉 &#125; &#125;&#125;; 直接过滤 在写出上个方法之后，想到可以直接过滤掉，最简洁。但还是把另外两个方法放上来，当个思路参考一下！ 123const removeElement = (arr, ele) =&gt; &#123; return arr.filter(x =&gt; x !== ele).length; // 使用过滤将值不等于ele的直接过滤出来，返回长度&#125;; 鼓励我一下：觉得还不错的话，给我的项目点个star吧]]></content>
@@ -311,8 +333,8 @@
       </categories>
       <tags>
         <tag>js</tag>
-        <tag>js 机制</tag>
         <tag>js定时器</tag>
+        <tag>js 机制</tag>
       </tags>
   </entry>
   <entry>
