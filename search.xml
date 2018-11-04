@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[算法-奇偶分割数组]]></title>
+    <url>%2F2018%2F11%2F04%2F%E7%AE%97%E6%B3%95-%E5%A5%87%E5%81%B6%E5%88%86%E5%89%B2%E6%95%B0%E7%BB%84%2F</url>
+    <content type="text"><![CDATA[奇偶分割数组难度：简单描述：分割一个整数数组，使得奇数在前偶数在后。 样例：给定 [1, 2, 3, 4]，返回 [1, 3, 2, 4]。 增加一下难度：给定乱序数组：[2, 5, 1, 6, 3, 4]，返回[1, 3, 5, 2, 4, 6] 思路分析：排序好的数组：找到奇数进行操作。 乱序的数组：使用sort方法进行排序+提取奇数 代码模板：1const partitionArray = arr =&gt; &#123;&#125;; 想一想再看答案想一想再看答案想一想再看答案代码： 排序好的数组找到奇数进行操作 12345678910111213const partitionArray = arr =&gt; &#123; let num = arr.length - 1; // 其实如果是乱序数组，可以在这里使用sort将数组排序好再走下面那部分也可以 // 倒序遍历 for (let i = num; i &gt;= 0; i--) &#123; if (arr[i] % 2 !== 0) &#123; let item = arr.splice(i, 1); // 将当前值取出来 arr.unshift(item[0]); // 添加到首位 &#125; &#125; return arr;&#125;;console.log('输出', partitionArray([1, 2, 3, 4])); 乱序数组,排序+取奇数偶数 这种方法无疑是更好的解决方法，事实上涉及排序最好都是使用sort进行排序，对 sort 不熟的，可以看下之前写的这篇数组 API 解析合集 12345678910111213141516171819202122const partitionArray = arr =&gt; &#123; return arr.sort((a, b) =&gt; &#123; if (a % 2 !== 0 &amp;&amp; b % 2 !== 0) &#123; // 当两个数都是奇数的情况下 按大小排序 return a - b; &#125; else if (a % 2 === 0 &amp;&amp; b % 2 === 0) &#123; // 当两个数都是偶数的情况下也是按大小排序 return a - b; &#125; else if (a % 2 !== 0) &#123; // 当a是奇数 要排在b的前面 return -1; &#125; else if (b % 2 !== 0) &#123; // 当b是奇数 排在a的前面 return 1; &#125; &#125;);&#125;;console.log( '输出', partitionArray([1, 2, 3, 4]), partitionArray([2, 5, 1, 6, 3, 4])); 鼓励我一下：觉得还不错的话，给我的项目点个star吧]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[算法-爬楼梯2]]></title>
+    <url>%2F2018%2F11%2F04%2F%E7%AE%97%E6%B3%95-%E7%88%AC%E6%A5%BC%E6%A2%AF2%2F</url>
+    <content type="text"><![CDATA[爬楼梯 2难度：简单描述：一个小孩爬一个 n 层台阶的楼梯。他可以每次跳 1 步， 2 步 或者 3 步。实现一个方法来统计总共有多少种不同的方式爬到最顶层的台阶 本题跟爬楼梯一毛一样，只是多了可以一次跳三步，所以尽量自己做出来 样例：n = 3，1 + 1 + 1 = 2 + 1 = 1 + 2 = 3 = 3，共有 4 种方法 思路分析：这类题我们首先要来找其中的规律，找到了里面的规律，剩下的就好办了。 我再列举出几个结果： 123451: 1 // 1种方法2: 1+1=2 // 2种方法3: 1 + 1 + 1 = 2 + 1 = 1 + 2 = 3 = 3 // 4种方法4: 1+1+1+1=2+2=1+3 =1+2+1=2+1+1 = 1+1+2= 3+1 // 7种方法5：1 * 5 =1+2+2 =2+1+2 =2+2+1 = 1+1+3 =1+3+1 = 3+1+1 = 3+2 = 2+3 = 1+1+1+2 =1+2+1+1 = 2+1+1+1 = 1+1+2+1 // 13种方法 查找样例中的规律：爬楼梯 代码模板：12345/** * @param n: An integer * @return: An integer */const climbStairs2 = function(n) &#123;&#125;; 想一想再看答案想一想再看答案想一想再看答案规律除了前 3 阶楼梯是没有规律的，第 n 阶的楼梯的方法是第 i-1 、第 i-2 和第 i-3 阶楼梯所用方法的和。 规律都给你总结好了，再给你个机会自己做出来。 代码：解题的核心就是逐步推导，推导出 n 前面的两个值。 递归 因为做过一遍，最先想起来的就是递归。 1234567891011const climbStairs2 = n =&gt; &#123; let everyStairs = k =&gt; &#123; // 循环退出条件 if (k === 1) return 1; if (k === 2) return 2; if (k === 3) return 4; return everyStairs(k - 1) + everyStairs(k - 2) + everyStairs(k - 3); // 三个值相加求出k所用的方法 &#125;; return everyStairs(n);&#125;;console.log('输出', climbStairs2(3), climbStairs2(4), climbStairs2(5)); 交换变量 实际上我们只需要 n 之前的三个值，就可以求出 n 所用的方法，所以我们没必要将 n 之前的所有值都推导出来。 1234567891011const climbStairs2 = k =&gt; &#123; if (k === 1) return 1; if (k === 2) return 2; if (k === 3) return 4; let [a, b, c] = [1, 2, 4]; // 前三阶楼梯 for (let i = 3; i &lt;= n; i++) &#123; [a, b, c] = [b, c, a + b + c]; // 交换变量 更新前两个值，推导k的值 &#125; return c;&#125;;console.log('输出', climbStairs2(3), climbStairs2(4), climbStairs2(5)); 数组形式： 12345678const climbStairs2 = function(n) &#123; let dp = [0, 1, 2, 4]; // 初始数组 前面三个没有规律 // 从第4阶楼梯开始推导 for (let i = 4; i &lt;= n; i++) &#123; dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3]; // 从3开始都是可以由前面3个元素相加推导出来 &#125; return dp[n];&#125;; 鼓励我一下：觉得还不错的话，给我的项目点个star吧]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[算法-相亲数]]></title>
+    <url>%2F2018%2F11%2F04%2F%E7%AE%97%E6%B3%95-%E7%9B%B8%E4%BA%B2%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[相亲数难度：简单描述：一对整数是相亲数是说他们各自的所有有效因子（除了自己以外的因子）之和等于另外一个数。比如(220, 284)就是一对相亲数。 220 的所有因子：1+2+4+5+10+11+20+22+44+55+110 = 284 284 的所有因子：1+2+4+71+142 = 220 给出整数 k，求 1~k 之间的所有相亲数对。 样例：给出 300, 返回 [[220, 284]] 思路分析：因素：给出一个数，能整除该数的的除数都是这个数的因素。 计算出每个数的因素和，将其存起来，然后再去判断是否为相亲数 代码模板：1const amicablePair = k =&gt; &#123;&#125;; 想一想再看答案想一想再看答案想一想再看答案代码：事实上我们要做的只有两步： 遍历 1~k 求出每个数的因素和，并用对象存储起来,遍历对象，判断相亲数 12345678910111213141516171819202122232425262728293031const amicablePair = k =&gt; &#123; let obj = &#123;&#125;; // 遍历整个范围，包括k for (let i = 1; i &lt;= k; i++) &#123; let arr = []; // 求每个数的因数 for (let j = 1; j &lt; i; j++) &#123; // 能整除 没有余数的 除数都是因数 if (i % j === 0) &#123; arr.push(j); &#125; &#125; // 计算因数和 let total = arr.reduce((a, b) =&gt; &#123; return a + b; &#125;, 0); obj[i] = total; // 储存每个数的相亲数 &#125; let res = []; // 结果 for (let key in obj) &#123; // 顺序 当属性的值比属性大时才进入 此处也可防止重复添加 if (obj[key] &gt; key) &#123; // 判断相亲数 if (key === `$&#123;obj[obj[key]]&#125;`) &#123; res.push([key, obj[key]]); // 按顺序添加 &#125; &#125; &#125; return res;&#125;;console.log('输出', amicablePair(300)); 在求因素和的时候，直接判断是否有对应的相亲数 1234567891011121314151617181920212223242526272829303132const amicablePair = k =&gt; &#123; let res = []; // 遍历整个范围，包括k for (let i = 1; i &lt;= k; i++) &#123; let total = totalFn(i); // i的因素和需要比i小 才能push 防止重复添加 if (total &gt; i) &#123; let total2 = totalFn(total); // 求 i的因素和 的因素和 // 判断相亲数：i是否与i的因素和的因素和相等 if (i === total2) &#123; res.push(i, total); &#125; &#125; &#125; // 计算一个数的因素和 function totalFn(num) &#123; let arr = []; // 求每个数的因数 for (let j = 1; j &lt; num; j++) &#123; // 能整除 没有余数的 除数都是因数 if (num % j === 0) &#123; arr.push(j); &#125; &#125; // 计算因数和 let total = arr.reduce((a, b) =&gt; &#123; return a + b; &#125;, 0); return total; &#125; return res; // 结果&#125;; 鼓励我一下：觉得还不错的话，给我的项目点个star吧]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[算法-丢失的数]]></title>
+    <url>%2F2018%2F11%2F04%2F%E7%AE%97%E6%B3%95-%E4%B8%A2%E5%A4%B1%E7%9A%84%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[丢失的数难度：简单描述：在数组 A 中，包含 0 到 n 的整数，其中缺失了一个数。请编写代码，以查找数组中缺失的整数。 样例：array = [4,3,2,0,5] return 1 array = [0,1,2,3,4,7,6] return 5 array = [0,1,2,3] return 4 思路分析：简单，不分析 代码模板：1const findMissing = arr =&gt; &#123;&#125;; 想一想再看答案想一想再看答案想一想再看答案代码：遍历数组长度的n+1次(包括0)，对比有没有这个值即可 123456789101112const findMissing = arr =&gt; &#123; let num = arr.length + 1; for (let i = 0; i &lt; num; i++) &#123; if (arr.indexOf(i) === -1) &#123; // i不在数组中 就找到这个值 return i; &#125; &#125;&#125;;console.log('输出', findMissing([4, 3, 2, 0, 5])); //1console.log(findMissing([0, 1, 2, 3, 4, 7, 6])); // 5console.log(findMissing([0, 1, 2, 3])); // 4 鼓励我一下：觉得还不错的话，给我的项目点个star吧]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[算法-判断字符串的循环移动]]></title>
+    <url>%2F2018%2F11%2F04%2F%E7%AE%97%E6%B3%95-%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%BE%AA%E7%8E%AF%E7%A7%BB%E5%8A%A8%2F</url>
+    <content type="text"><![CDATA[判断字符串的循环移动难度：简单描述：可以检验某个单词是否为另一个单词的子字符串。给定 s1 和 s2，请设计一种方法来检验 s2 是否为 s1 的循环移动后的字符串。 样例：s1 = waterbottle;s2 = erbottlewat;返回true; s1 = apple;s2 = ppale;返回false; 思路分析：将其中一个字符串转成数组来操作，然后再转成字符，回头来比较字符串。 代码模板：123456/** * @param s1: the first string * @param s2: the socond string * @return: true if s2 is a rotation of s1 or false */const isRotation = function(s1, s2) &#123;&#125;; 想一想再看答案想一想再看答案想一想再看答案代码：123456789101112131415161718// 将最后的值拿出来 再放到第一位上去const isRotation = (s, t) =&gt; &#123; if (s.length === t.length &amp;&amp; s &amp;&amp; t) &#123; for (let i = 0; i &lt; s.length; i++) &#123; t = [...t]; // 转数组 let pop = t.pop(); // 拿最后一个元素 t.unshift(pop); // 添加到第一个元素 t = t.join(''); // 转字符 if (t === s) return true; // 比较 &#125; &#125; return false; // 字符串长度相等 并且有值&#125;;console.log( '输出：', isRotation('waterbottle', 'erbottlewat'), isRotation('apple', 'ppale')); 鼓励我一下：觉得还不错的话，给我的项目点个star吧]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[算法_字符串压缩]]></title>
     <url>%2F2018%2F10%2F27%2F%E7%AE%97%E6%B3%95-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8E%8B%E7%BC%A9%2F</url>
     <content type="text"><![CDATA[难度：简单描述：设计一种方法，通过给重复字符计数来进行基本的字符串压缩。 例如，字符串 aabcccccaaa 可压缩为 a2b1c5a3 。而如果压缩后的字符数不小于原始的字符数，则返回原始的字符串。 可以假设字符串仅包括 a-z 的字母。 样例：str=aabcccccaaa 返回 a2b1c5a3 str=aabbcc 返回 aabbcc str=aaaa 返回 a4 思路分析：解题思路：取出字符串，判断重复停止，添加到新字符串中。 注：需判断压缩后的字符串长度和原始字符串长度。 代码模板：1const compress = function(originalString) &#123;&#125;; 想一想再看答案想一想再看答案想一想再看答案代码：1234567891011121314151617181920212223242526272829303132333435// 取出字符串，判断重复停止，添加到新字符串中const compress = function(originalString) &#123; if (originalString.length &lt;= 1) return originalString; // 直接返回源字符串 let newStr = ''; let s = originalString.charAt(0); let num = 1; // 跳过第一个 let total = originalString.length; for (let i = 1; i &lt; total; i++) &#123; let nowS = originalString.charAt(i); if (nowS === s) &#123; num = num + 1; // 增加数量 if (i + 1 === total) &#123; newStr += `$&#123;s&#125;$&#123;num&#125;`; // 遍历结束时，拼接最后的字符串 &#125; &#125; else &#123; newStr += `$&#123;s&#125;$&#123;num&#125;`; // 拼接字符串 num = 1; // 重置为1 s = nowS; // 转为下一个字符s &#125; &#125; // 生成的字符串长度大于等于源字符串 返回源字符串 否则返回生成的字符串 if (newStr.length &gt;= originalString.length) &#123; return originalString; &#125; else &#123; return newStr; &#125;&#125;;console.log( '输出：', compress('aabcccccaaa'), // a2b1c5a3 compress('aabbcc'), // aabbcc compress('aaaa'), // a4 compress('a'), // a compress('') // ''); 鼓励我一下：觉得还不错的话，给我的项目点个star吧]]></content>
@@ -15,17 +70,6 @@
     <title><![CDATA[算法_第一次只出现一次的字符]]></title>
     <url>%2F2018%2F10%2F27%2F%E7%AE%97%E6%B3%95-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E5%AD%97%E7%AC%A6%2F</url>
     <content type="text"><![CDATA[难度：简单描述：给出一个字符串，找出第一个只出现一次的字符。 样例：对于 aabc, b为第一个只出现一次的字符. 对于 abaccdeff, b为第一个只出现一次的字符. 思路分析：可以用对象保存字符出现的次数。 代码模板：1const firstUniqChar = function(str) &#123;&#125;; 想一想再看答案想一想再看答案想一想再看答案代码： 将值删除，用 indexOf 查找还有没有相同字符，并查找之前删过的字符 123456789101112131415const firstUniqChar = function(str) &#123; str = [...str]; let num = str.length; // 保存遍历次数 let obj = &#123;&#125;; // 保存被删元素 for (let i = 0; i &lt; num; i++) &#123; let item = str.splice(0, 1)[0]; // 删除第一个值 if (str.indexOf(item) === -1 &amp;&amp; obj[item] === undefined) &#123; // 当前数组中没有 并且对象中也没有 return item; // 找到 &#125; else &#123; obj[item] = item; // 出现的字符串，用对象保存起来。 &#125; &#125;&#125;;console.log('输出：', firstUniqChar('abaccdeff'), firstUniqChar('aabc')); indexOf 的第二个参数，从当前值往后搜索，并查找之前已经查过的字符 想起了indexOf的第二个参数，省了一步删除的操作。 12345678910111213const firstUniqChar = function(str) &#123; str = [...str]; let obj = &#123;&#125;; for (let [index, key] of str.entries()) &#123; if (str.indexOf(key, index + 1) === -1 &amp;&amp; obj[key] === undefined) &#123; // 跳过这个元素，当后面没有 并且前面也没有 return key; // 找到 &#125; else &#123; obj[key] = key; // 前面出现过 存起来 &#125; &#125;&#125;;console.log('输出：', firstUniqChar('abaccdeff'), firstUniqChar('aabc')); 记录字符出现的次数，遍历字符串，第一个只出现一次的字符，就是要找的值。 12345678910111213141516171819const firstUniqChar = function(str) &#123; var obj = &#123;&#125;; // 用对象 for (var i = 0; i &lt; str.length; i++) &#123; var code = str.charCodeAt(i); // 记录出现的次数 if (obj[code] == undefined) &#123; obj[code] = 1; &#125; else &#123; obj[code]++; &#125; &#125; for (var i = 0; i &lt; str.length; i++) &#123; // 遍历字符串出现的顺序(保证第一次出现重复)，当出现为1时，即找到 if (obj[str.charCodeAt(i)] == 1) &#123; return str.charAt(i); &#125; &#125; return null;&#125;; 鼓励我一下：觉得还不错的话，给我的项目点个star吧]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[算法_原地删除数组元素]]></title>
-    <url>%2F2018%2F10%2F24%2F%E7%AE%97%E6%B3%95_%E5%8E%9F%E5%9C%B0%E5%88%A0%E9%99%A4%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%2F</url>
-    <content type="text"><![CDATA[难度：简单描述：给定一个数组和一个值，在原地删除与值相同的数字，返回新数组的长度。 元素的顺序可以改变，并且对新的数组不会有影响。 样例：给出一个数组 [0,4,4,0,0,2,4,4]，和值 4 返回 4 并且 4 个元素的新数组为[0,0,0,2] 代码模板：1const removeElement = (arr, ele) =&gt; &#123;&#125;; 想一想再看答案想一想再看答案想一想再看答案代码： 保存遍历次数，匹配元素，然后删除 切勿直接使用数组的length属性，因为被删除后length属性会减少，导致遍历提前结束，删除不彻底。 1234567891011const removeElement = (arr, ele) =&gt; &#123; let num = arr.length; // 保存遍历的次数 for (let index = 0; index &lt; num; index++) &#123; let find = arr.indexOf(ele); if (find !== -1) &#123; arr.splice(find, 1); // 原地删除 &#125; else &#123; return arr.length; // 找不到即退出 &#125; &#125;&#125;; 遍历数组，匹配元素，赋值为null/undefined，再过滤掉 12345678910const removeElement = (arr, ele) =&gt; &#123; for (let index of arr.keys()) &#123; let find = arr.indexOf(ele); if (find !== -1) &#123; arr[find] = null; &#125; else &#123; return arr.filter(x =&gt; x).length; // 将假值过滤掉 &#125; &#125;&#125;; 直接过滤 在写出上个方法之后，想到可以直接过滤掉，最简洁。但还是把另外两个方法放上来，当个思路参考一下！ 123const removeElement = (arr, ele) =&gt; &#123; return arr.filter(x =&gt; x !== ele).length; // 使用过滤将值不等于ele的直接过滤出来，返回长度&#125;; 鼓励我一下：觉得还不错的话，给我的项目点个star吧]]></content>
       <categories>
         <category>算法</category>
       </categories>
@@ -320,8 +364,8 @@
         <category>Vue</category>
       </categories>
       <tags>
-        <tag>Vue</tag>
         <tag>js</tag>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -405,8 +449,8 @@
         <category>js</category>
       </categories>
       <tags>
-        <tag>Vue</tag>
         <tag>js</tag>
+        <tag>Vue</tag>
         <tag>CSS</tag>
         <tag>键盘事件</tag>
       </tags>
@@ -431,8 +475,8 @@
         <category>Js</category>
       </categories>
       <tags>
-        <tag>Vue</tag>
         <tag>js</tag>
+        <tag>Vue</tag>
         <tag>Css</tag>
         <tag>前端</tag>
       </tags>
@@ -445,8 +489,8 @@
         <category>Vue</category>
       </categories>
       <tags>
-        <tag>Vue</tag>
         <tag>js</tag>
+        <tag>Vue</tag>
         <tag>css</tag>
         <tag>组件</tag>
       </tags>
