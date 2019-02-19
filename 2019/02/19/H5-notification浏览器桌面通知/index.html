@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="js,Html5,html,npm," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Notification是HTML5新增的API，用于向用户配置和显示桌面通知。上次在别的网站上看到别人的通知弹窗，好奇之余也想知道如何实现的。实际去查一下发现并不复杂，且可以说比较简单，故写篇博客分享给大家,希望能帮你们了解这个API。">
+<meta name="keywords" content="js,Html5,html,npm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="H5 notification浏览器桌面通知">
+<meta property="og:url" content="http://yoursite.com/2019/02/19/H5-notification浏览器桌面通知/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="Notification是HTML5新增的API，用于向用户配置和显示桌面通知。上次在别的网站上看到别人的通知弹窗，好奇之余也想知道如何实现的。实际去查一下发现并不复杂，且可以说比较简单，故写篇博客分享给大家,希望能帮你们了解这个API。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1g0brdnk332j30xc0dwjtz.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fzskpfbfmbj30hs078q36.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fzyaxnnc25j30kg03wjrs.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fzyy3ykl2gj30jy0kc772.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1g05d2z0zxej30je03wwep.jpg">
+<meta property="og:updated_time" content="2019-02-19T07:21:54.036Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="H5 notification浏览器桌面通知">
+<meta name="twitter:description" content="Notification是HTML5新增的API，用于向用户配置和显示桌面通知。上次在别的网站上看到别人的通知弹窗，好奇之余也想知道如何实现的。实际去查一下发现并不复杂，且可以说比较简单，故写篇博客分享给大家,希望能帮你们了解这个API。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1g0brdnk332j30xc0dwjtz.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/19/H5-notification浏览器桌面通知/"/>
+
+
+
+
+
+  <title>H5 notification浏览器桌面通知 | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-前端算法">
+          <a href="/arithmetic/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            前端算法
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-博客最新更新">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            博客最新更新
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-new一个对象">
+          <a href="/object/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            new一个对象
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/H5-notification浏览器桌面通知/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">H5 notification浏览器桌面通知</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-19T15:16:39+08:00">
+                2019-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Html5/" itemprop="url" rel="index">
+                    <span itemprop="name">Html5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/19/H5-notification浏览器桌面通知/" class="leancloud_visitors" data-flag-title="H5 notification浏览器桌面通知">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,746 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1g0brdnk332j30xc0dwjtz.jpg" alt=""></p>
+<p><code>Notification</code>是HTML5新增的API，用于向用户配置和显示桌面通知。上次在别的网站上看到别人的通知弹窗，好奇之余也想知道如何实现的。实际去查一下发现并不复杂，且可以说比较简单，故写篇博客分享给大家,希望能帮你们了解这个API。</p>
+<a id="more"></a>
+<h3 id="npm包："><a href="#npm包：" class="headerlink" title="npm包："></a>npm包：</h3><p>我还发了一个npm包:<a href="https://github.com/OBKoro1/notification-Koro1" target="_blank" rel="noopener">notification-Koro1</a>，非常轻量简洁，觉得不错的话，点个Star吧~</p>
+<h3 id="chrome下Notification的表现："><a href="#chrome下Notification的表现：" class="headerlink" title="chrome下Notification的表现："></a>chrome下<code>Notification</code>的表现：</h3><ol>
+<li>以谷歌为例，一开始需要用户允许通知：</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fzskpfbfmbj30hs078q36.jpg" alt=""></p>
+<ol start="2">
+<li>允许通知之后，显示的通知长这样：</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fzyaxnnc25j30kg03wjrs.jpg" alt=""></p>
+<h3 id="Notification特性"><a href="#Notification特性" class="headerlink" title="Notification特性"></a><code>Notification</code>特性</h3><ol>
+<li><p><strong>该通知是脱离浏览器的，即使用户没有停留在当前标签页，甚至最小化了浏览器，也会在主屏幕的右上角显示通知，然后在一段时间后消失</strong>。</p>
+</li>
+<li><p><strong>我们可以监听通知的显示，点击，关闭等事件</strong>,比如点击通知打开一个页面。</p>
+</li>
+</ol>
+<blockquote>
+<p><a href="http://obkoro1.com/" target="_blank" rel="noopener">博客</a>、<a href="http://obkoro1.com/web_accumulate/accumulate/" target="_blank" rel="noopener">前端积累文档</a>、<a href="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317" target="_blank" rel="noopener">公众号</a>、<a href="https://github.com/OBKoro1" target="_blank" rel="noopener">GitHub</a></p>
+</blockquote>
+<h3 id="栗子：去各个网站里面的控制台去运行"><a href="#栗子：去各个网站里面的控制台去运行" class="headerlink" title="栗子：去各个网站里面的控制台去运行"></a>栗子：去各个网站里面的控制台去运行</h3><p>API的具体细节，等下再说，先试试这个API~</p>
+<p>下面是一个简单的栗子，大家<strong>可以先在各个网站的控制台里面运行查看<code>Notification</code>的效果</strong>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> options = &#123;</span><br><span class="line">  dir: <span class="string">"auto"</span>, <span class="comment">// 文字方向</span></span><br><span class="line">  body: <span class="string">"通知：OBKoro1评论了你的朋友圈"</span>, <span class="comment">// 通知主体</span></span><br><span class="line">  requireInteraction: <span class="literal">true</span>, <span class="comment">// 不自动关闭通知</span></span><br><span class="line">  <span class="comment">// 通知图标 </span></span><br><span class="line">  icon: <span class="string">"https://upload-images.jianshu.io/upload_images/5245297-818e624b75271127.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"</span></span><br><span class="line">&#125;;</span><br><span class="line">notifyMe(<span class="string">'这是通知的标题'</span>, options);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">notifyMe</span>(<span class="params">title, options</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 先检查浏览器是否支持</span></span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">window</span>.Notification) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'浏览器不支持通知'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 检查用户曾经是否同意接受通知</span></span><br><span class="line">    <span class="keyword">if</span> (Notification.permission === <span class="string">'granted'</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> notification = <span class="keyword">new</span> Notification(title, options); <span class="comment">// 显示通知</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Notification.permission === <span class="string">'default'</span>) &#123;</span><br><span class="line">      <span class="comment">// 用户还未选择，可以询问用户是否同意发送通知</span></span><br><span class="line">      Notification.requestPermission().then(<span class="function"><span class="params">permission</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (permission === <span class="string">'granted'</span>) &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'用户同意授权'</span>);</span><br><span class="line">          <span class="keyword">var</span> notification = <span class="keyword">new</span> Notification(title, options); <span class="comment">// 显示通知</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (permission === <span class="string">'default'</span>) &#123;</span><br><span class="line">          <span class="built_in">console</span>.warn(<span class="string">'用户关闭授权 未刷新页面之前 可以再次请求授权'</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">// denied</span></span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'用户拒绝授权 不能显示通知'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// denied 用户拒绝</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'用户曾经拒绝显示通知'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="浏览器支持："><a href="#浏览器支持：" class="headerlink" title="浏览器支持："></a>浏览器支持：</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/notification#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7" target="_blank" rel="noopener">MDN</a>：目前<code>Notification</code>除了IE浏览器不支持外, 其他浏览器都已支持桌面通知，移动端浏览器基本都未支持。</p>
+<p>因为兼容性问题，所以在使用<code>Notification</code>之前，我们需要查看浏览器是否支持<code>Notification</code>这个API：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">window</span>.Notification)&#123;</span><br><span class="line">  <span class="comment">// 桌面通知的逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="通知权限："><a href="#通知权限：" class="headerlink" title="通知权限："></a>通知权限：</h3><p>为了避免网站滥用通知扰民，在向用户显示通知之前，需要经过用户同意。</p>
+<p><code>Notification.permission</code> <strong>用于表明当前通知显示的授权状态</strong>,它有三个值：</p>
+<ol>
+<li><code>default</code>: 默认值，用户还未选择</li>
+<li><code>granted</code>: 用户允许该网站发送通知</li>
+<li><code>denied</code>: 用户拒绝该网站发送通知</li>
+</ol>
+<h3 id="检测权限："><a href="#检测权限：" class="headerlink" title="检测权限："></a>检测权限：</h3><p>检测浏览器是否支持<code>Notification</code>之后，需要检测一下用户通知权限。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (Notification.permission === <span class="string">'granted'</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'用户曾经同意授权'</span>);</span><br><span class="line">   <span class="comment">// 随时可以显示通知</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (Notification.permission === <span class="string">'default'</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'用户还未选择同意/拒绝'</span>);</span><br><span class="line">  <span class="comment">// 下一步请求用户授权</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'用户曾经拒绝授权 不能显示通知'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="请求权限"><a href="#请求权限" class="headerlink" title="请求权限"></a>请求权限</h3><p>当<code>Notification.permission</code>为<code>default</code>的时候，我们需要使用<code>Notification.requestPermission()</code>来请求用户权限。</p>
+<p><code>Notification.requestPermission()</code>基于promise语法，then的回调函数参数是用户权限的状态<code>Notification.permission</code>的值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Notification.requestPermission().then(<span class="function"><span class="params">permission</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (permission === <span class="string">'granted'</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'用户同意授权'</span>);</span><br><span class="line">     <span class="comment">// 随时可以显示通知</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (permission === <span class="string">'default'</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'用户关闭授权 可以再次请求授权'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'用户拒绝授权 不能显示通知'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 老版本使用的是回调函数机制：Notification.requestPermission(callback); 参数一样</span></span><br></pre></td></tr></table></figure>
+<h3 id="推送通知"><a href="#推送通知" class="headerlink" title="推送通知"></a>推送通知</h3><p>当<code>Notification.permission</code>为<code>granted</code>时，请求到用户权限之后，不必立即发送通知，可以在任意时刻，以任意形式来发送通知。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> options = &#123;&#125;; <span class="comment">// 传空配置</span></span><br><span class="line"><span class="keyword">const</span> title = <span class="string">'这里是标题'</span>;</span><br><span class="line"><span class="keyword">const</span> notification = <span class="keyword">new</span> Notification(title, options) <span class="comment">// 显示通知</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面这段代码就可以显示一个简单的通知了，只要用户允许你弹窗。</p>
+</blockquote>
+<h3 id="Notification的参数："><a href="#Notification的参数：" class="headerlink" title="Notification的参数："></a><code>Notification</code>的参数：</h3><ul>
+<li>title：通知的标题</li>
+<li>options：通知的设置选项（可选）。<ul>
+<li>body：字符串。通知的body内容。</li>
+<li>tag：代表通知的一个识别标签，<strong>相同tag时只会打开一个通知窗口</strong>。</li>
+<li>icon：字符串。要在通知中显示的图标的URL。</li>
+<li>data：想要和通知关联的数据,可以在<code>new Notification</code>返回的实例中找到。</li>
+<li>renotify: 布尔值。相同tag，新通知出现的时候是否替换之前的(开启此项，tag必须设置)。</li>
+<li>requireInteraction：布尔值。通知不自动关闭，默认为false(自动关闭)。</li>
+<li>还有一些不太重要的配置可以看<a href="https://www.zhangxinxu.com/wordpress/2016/07/know-html5-web-notification/" target="_blank" rel="noopener">张鑫旭老师的博客</a>和<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/notification" target="_blank" rel="noopener">MDN</a>的介绍</li>
+</ul>
+</li>
+</ul>
+<p><strong>requireInteraction</strong>: 保持通知不自动关闭</p>
+<p>默认值为false，通知会在三四秒之后自动关闭。</p>
+<p>当设置为<code>true</code>,并且当有超过两个通知(<code>new Notification(title, options)</code>)时，会出现如下图的通知叠加状态。</p>
+<p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fzyy3ykl2gj30jy0kc772.jpg" alt=""></p>
+<p>这种情况显然，我们只能默认操作最后一个通知，除非你把每个通知返回的实例都保存下来。</p>
+<p>我发布的npm包：<a href="https://github.com/OBKoro1/notification-Koro1" target="_blank" rel="noopener">notification-koro1</a>，可以<strong>自定义一定的时间间隔自动关闭不自动关闭的通知，也可以一次性关闭所有通知</strong></p>
+<p>PS：如果没有触发叠加，很可能是因为你两次通知的tag配置项是相同的(相同tag只能出现一个弹窗)。</p>
+<p>PS:  safari下不支持该选项,默认自动关闭</p>
+<p><strong>renotify</strong>：相同</p>
+<p>默认值为false，chorme下相同tag的通知不替换，还是老的通知</p>
+<p>设置为<code>true</code>, 两个相同tag的通知，新通知替换之前旧的通知。</p>
+<p><strong>注意</strong>：使用<code>renotify</code>，<strong>必须要同时设置<code>tag</code>选项，否则将会报错</strong>。</p>
+<p>PS： safari下不支持该选项，默认两个相同tag的通知，新通知替换之前旧的通知。</p>
+<h2 id="Notification的实例："><a href="#Notification的实例：" class="headerlink" title="Notification的实例："></a><code>Notification</code>的实例：</h2><p>生成通知，会返回一个实例，如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> instanceNotification = <span class="keyword">new</span> Notification(title, options)</span><br></pre></td></tr></table></figure>
+<p><code>instanceNotification</code>就是当前通知的实例，在该实例上，我们可以<strong>查询该通知的配置，监听事件，调用实例方法</strong>。</p>
+<p>下文都以<code>instanceNotification</code>指代通知返回的实例。</p>
+<h3 id="通知的配置："><a href="#通知的配置：" class="headerlink" title="通知的配置："></a>通知的配置：</h3><p><strong>在通知实例上可以读取到设置通知时的所有配置</strong>，比如：</p>
+<p>通知标题：<code>instanceNotification. title</code>、通知内容：<code>instanceNotification. body</code>、通知图标：<code>instanceNotification. icon</code>等。</p>
+<p>PS： 这些属性都是只读的，不能删除，不能修改，不能遍历。</p>
+<h3 id="事件处理："><a href="#事件处理：" class="headerlink" title="事件处理："></a>事件处理：</h3><p>我们可以使用通知的实例来监听通知的事件：</p>
+<ul>
+<li><code>click</code>: 用户点击通知时被触发</li>
+<li><code>show</code>: 通知显示的时候被触发</li>
+<li><code>error</code>: 通知遇到错误时被触发</li>
+<li><code>close</code>: 用户关闭通知时被触发</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">instanceNotification.onclick = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// do something 可以是：打开网址，发请求，关闭通知等</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：最好是一发出通知就立即监听事件，否则有些事件可能一开始没被触发或永远不会触发。</p>
+<p>例如：用定时器5秒后才监听通知的点击和显示事件，则永远不会触发通知显示的回调，点击事件在5秒后才可以正常起作用但会错误五秒之前用户的点击。</p>
+<h3 id="关闭通知"><a href="#关闭通知" class="headerlink" title="关闭通知"></a>关闭通知</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">instanceNotification.close()</span><br></pre></td></tr></table></figure>
+<p>没有设置不自动关闭的话，chrome通知将会在4.5秒左右自动关闭通知，safari则是5秒钟(无法设置不自动关闭)。</p>
+<p>notification没有定时控制通知多久后消失的功能，当出现多个通知，也无法统一关闭。</p>
+<p>这两个问题，在我发布的NPM包：<a href="https://github.com/OBKoro1/notification-Koro1" target="_blank" rel="noopener">notification-koro1</a>中，都解决掉了，并提供更清晰的回调</p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li>即时通讯软件(邮件、聊天室)</li>
+<li>体育赛事结果彩票/抽奖结果</li>
+<li>新闻网站重大新闻通知</li>
+<li>网站的重大更新，重大新闻等。</li>
+</ul>
+<h2 id="notification其他"><a href="#notification其他" class="headerlink" title="notification其他"></a>notification其他</h2><p>这里是一些API/浏览器细节，以及可能会遇到的问题，可以先不看，等真正遇到了，回头再来看。</p>
+<h3 id="用户拒绝显示通知："><a href="#用户拒绝显示通知：" class="headerlink" title="用户拒绝显示通知："></a>用户拒绝显示通知：</h3><p>一旦用户禁止网站显示通知，网站就不能再请求用户授权显示通知，需要用户去设置中更改。</p>
+<p> chrome浏览器的通知设置位置：设置&gt;高级&gt;内容设置&gt;通知</p>
+<p>saafari浏览器：偏好设置&gt;网站&gt;通知&gt;找到网站&gt;修改权限/恢复默认</p>
+<h3 id="关闭请求权限："><a href="#关闭请求权限：" class="headerlink" title="关闭请求权限："></a>关闭请求权限：</h3><p>在chorme浏览器中：当用户关闭请求权限的弹窗(右上角的叉叉)，页面还没刷新，我们可以再次向用户请求权限。<strong>页面刷新过后，浏览器默认用户拒绝</strong>。</p>
+<p>在safari浏览器下，没有关闭请求权限的选项，用户必须选择同意/拒绝。</p>
+<h3 id="icon不显示问题："><a href="#icon不显示问题：" class="headerlink" title="icon不显示问题："></a>icon不显示问题：</h3><p>可能是网站进行了同源限制(比如github)，不是域名下面的图片，会报错，不能调用。</p>
+<h3 id="tag："><a href="#tag：" class="headerlink" title="tag："></a>tag：</h3><ol>
+<li><code>tag</code>相同的通知，同时只能出现一个，老通知是否会被覆盖取决于：<code>renotify</code>配置和浏览器。</li>
+<li>chrome下：当通知关闭之后，<strong>上次出现过的tag在一段时间内，不能再出现</strong>，比如刷新页面再请求相同tag的通知。（在safari下正常出现）</li>
+</ol>
+<h3 id="safari下面不能显示icon"><a href="#safari下面不能显示icon" class="headerlink" title="safari下面不能显示icon"></a>safari下面不能显示icon</h3><p>在safari下面，同一个网站(比如谷歌)，同样的代码，chorme可以正常显示icon，safari却没有icon，也没有报错。</p>
+<p>谷歌之后发现,在<a href="https://stackoverflow.com/questions/20949203/i-dont-see-the-icon-in-my-web-notification-in-safari" target="_blank" rel="noopener">stack overflow</a>里面看到<strong>safari只支持body和tag选项,并不支持icon选项</strong>。</p>
+<h3 id="连续触发"><a href="#连续触发" class="headerlink" title="连续触发"></a>连续触发</h3><p>在safari和chrome下短时间内连续触发通知(不设<code>tag</code>，不设<code>requireInteraction</code>)，会出现如下表现：</p>
+<p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1g05d2z0zxej30je03wwep.jpg" alt="notification 连续触发"></p>
+<p>这个表现，<strong>通知没有icon、标题、内容，就显得没有意义了</strong>，浏览器以这种形式，限制开发者不要频繁打扰用户。</p>
+<h3 id="notification-Koro1："><a href="#notification-Koro1：" class="headerlink" title="notification-Koro1："></a>notification-Koro1：</h3><p>试一下<a href="https://github.com/OBKoro1/notification-Koro1" target="_blank" rel="noopener">notification-Koro1</a>啦, 持续维护，简单方便~</p>
+<hr>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本文写的比较细，可以先mark一下，然后以后真正用到这个API了，可以先通过文中的栗子，然后再查找对应的内容。</p>
+<p>还有就是注意浏览器间的差异，我自己就试了chrome和safari，然后这两个浏览器在实现细节上有很多不一样的地方，开发的时候注意一下。</p>
+<h3 id="希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。"><a href="#希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。" class="headerlink" title="希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。"></a>希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。</h3><p><a href="http://obkoro1.com/" target="_blank" rel="noopener">博客</a>、<a href="http://obkoro1.com/web_accumulate/accumulate/" target="_blank" rel="noopener">前端积累文档</a>、<a href="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317" target="_blank" rel="noopener">公众号</a>、<a href="https://github.com/OBKoro1" target="_blank" rel="noopener">GitHub</a></p>
+<p> 以上2019.02.17</p>
+<p> 参考资料：</p>
+<p><a href="https://github.com/OBKoro1/notification-Koro1" target="_blank" rel="noopener">notification-Koro1</a></p>
+<p><a href="https://www.zhangxinxu.com/wordpress/2016/07/know-html5-web-notification/" target="_blank" rel="noopener">简单了解HTML5中的Web Notification桌面通知</a></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/notification" target="_blank" rel="noopener">Notification MDN</a></p>
+<p><a href="https://juejin.im/post/59ed37f5f265da431e15eaac" target="_blank" rel="noopener">HTML5 桌面通知：Notification API</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/Html5/" rel="tag"><i class="fa fa-tag"></i> Html5</a>
+          
+            <a href="/tags/html/" rel="tag"><i class="fa fa-tag"></i> html</a>
+          
+            <a href="/tags/npm/" rel="tag"><i class="fa fa-tag"></i> npm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/13/刷新-关闭页面之前发送请求/" rel="next" title="刷新/关闭页面之前发送请求">
+                <i class="fa fa-chevron-left"></i> 刷新/关闭页面之前发送请求
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives">
+            
+                <span class="site-state-item-count">101</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">71</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://segmentfault.com/u/obkoro1/articles" target="_blank" title="segmentfault">
+                  
+                    <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#npm包："><span class="nav-number">1.</span> <span class="nav-text">npm包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chrome下Notification的表现："><span class="nav-number">2.</span> <span class="nav-text">chrome下Notification的表现：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Notification特性"><span class="nav-number">3.</span> <span class="nav-text">Notification特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栗子：去各个网站里面的控制台去运行"><span class="nav-number">4.</span> <span class="nav-text">栗子：去各个网站里面的控制台去运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器支持："><span class="nav-number">5.</span> <span class="nav-text">浏览器支持：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通知权限："><span class="nav-number">6.</span> <span class="nav-text">通知权限：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测权限："><span class="nav-number">7.</span> <span class="nav-text">检测权限：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请求权限"><span class="nav-number">8.</span> <span class="nav-text">请求权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送通知"><span class="nav-number">9.</span> <span class="nav-text">推送通知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Notification的参数："><span class="nav-number">10.</span> <span class="nav-text">Notification的参数：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Notification的实例："><span class="nav-number"></span> <span class="nav-text">Notification的实例：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通知的配置："><span class="nav-number">1.</span> <span class="nav-text">通知的配置：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件处理："><span class="nav-number">2.</span> <span class="nav-text">事件处理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭通知"><span class="nav-number">3.</span> <span class="nav-text">关闭通知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#notification其他"><span class="nav-number"></span> <span class="nav-text">notification其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户拒绝显示通知："><span class="nav-number">1.</span> <span class="nav-text">用户拒绝显示通知：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭请求权限："><span class="nav-number">2.</span> <span class="nav-text">关闭请求权限：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#icon不显示问题："><span class="nav-number">3.</span> <span class="nav-text">icon不显示问题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tag："><span class="nav-number">4.</span> <span class="nav-text">tag：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#safari下面不能显示icon"><span class="nav-number">5.</span> <span class="nav-text">safari下面不能显示icon</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连续触发"><span class="nav-number">6.</span> <span class="nav-text">连续触发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#notification-Koro1："><span class="nav-number">7.</span> <span class="nav-text">notification-Koro1：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number"></span> <span class="nav-text">结语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。"><span class="nav-number">1.</span> <span class="nav-text">希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      148.8k
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
