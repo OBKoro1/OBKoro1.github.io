@@ -502,7 +502,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/13/刷新-关闭页面之前发送请求/" itemprop="url">刷新/关闭页面之前发送请求</a></h1>
+                <a class="post-title-link" href="/2019/01/13/刷新-关闭页面之前发送请求/" itemprop="url">sendBeacon 刷新/关闭页面之前发送请求</a></h1>
         
 
         <div class="post-meta">
@@ -554,7 +554,7 @@
 
           
           
-             <span id="/2019/01/13/刷新-关闭页面之前发送请求/" class="leancloud_visitors" data-flag-title="刷新/关闭页面之前发送请求">
+             <span id="/2019/01/13/刷新-关闭页面之前发送请求/" class="leancloud_visitors" data-flag-title="sendBeacon 刷新/关闭页面之前发送请求">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -579,7 +579,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,168 字
+                  1,963 字
                 </span>
               
 
@@ -595,7 +595,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4分钟
+                  7分钟
                 </span>
               
             </div>
@@ -617,10 +617,15 @@
 
       
         
-          <p><img src="https://user-gold-cdn.xitu.io/2019/1/13/16846cf38b1ca27e?imageView2/2/w/480/h/480/q/85/interlace/1" alt=""></p>
-<h3 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h3><p>有一个任务非常耗时会消耗后台大量算力，所以在退出页面的时候，要求前端这边发送一个请求来杀死任务。</p>
-<p>一开始以为这个需求非常简单，就是在进入其他路由前，发送一下请求，杀死  一下任务就好了。</p>
-<p>然而现实狠狠的打了我的脸，因为退出页面的场景不止切换路由~</p>
+          
+          
+背景：有一个任务非常耗时会消耗后台大量算力，所以在退出页面的时候，要求前端这边发送一个请求来杀死任务。
+一开始以为这个需求非常简单，就是在进入其他路由前，发送一下请求，杀死一下任务就好了。
+然而现实狠狠的打了我的脸，因为退出页面的场景不止切换路由~
+退出页面场景：
+还在本网站，跳到其他路由
+刷新页
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/01/13/刷新-关闭页面之前发送请求/#more" rel="contents">
@@ -2325,7 +2330,7 @@
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
     <span title="Site words total count">
-      148.8k
+      149.6k
     </span>
   
 </div>
