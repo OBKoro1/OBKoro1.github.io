@@ -2,7 +2,7 @@
 
 我平时写的文章都会放在博客上，有些小型的文章不会放在掘金之类的社区上，然后抽空把文章分类了一下，方便以后查阅^_^
 
-* 觉得我的博客还不错的话，给个[Star ⭐️](https://github.com/OBKoro1/OBKoro1.github.io) 鼓励一下我吧~
+* 觉得博客还不错的话，给个[Star ⭐️](https://github.com/OBKoro1/OBKoro1.github.io) 支持一下吧~
 
 其他项目：
 

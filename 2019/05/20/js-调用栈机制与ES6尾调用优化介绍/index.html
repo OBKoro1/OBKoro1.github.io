@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="js,js 机制,ES6," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="OBKoro1's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="调用栈的英文名叫做Call Stack，大家或多或少是有听过的，但是对于js调用栈的工作方式以及如何在工作中利用这一特性，大部分人可能没有进行过更深入的研究，这块内容可以说对我们前端来说就是所谓的基础知识，咋一看好像用处并没有很大，但掌握好这个知识点，就可以让我们在以后可以走的更远，走的更快！">
+<meta name="keywords" content="js,js 机制,ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js 调用栈机制与ES6尾调用优化介绍">
+<meta property="og:url" content="http://yoursite.com/2019/05/20/js-调用栈机制与ES6尾调用优化介绍/index.html">
+<meta property="og:site_name" content="OBKoro1&#39;s Blog">
+<meta property="og:description" content="调用栈的英文名叫做Call Stack，大家或多或少是有听过的，但是对于js调用栈的工作方式以及如何在工作中利用这一特性，大部分人可能没有进行过更深入的研究，这块内容可以说对我们前端来说就是所谓的基础知识，咋一看好像用处并没有很大，但掌握好这个知识点，就可以让我们在以后可以走的更远，走的更快！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/OBKoro1/articleImg_src/blob/master/2019/2019_5_20.jpg?raw=true">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/18/16acb4a439190d49?w=1024&h=768&f=png&s=68010">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/19/16ace8030a36c8dd?w=326&h=440&f=png&s=50219">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/20/16ad3f508ab127a9?w=678&h=318&f=png&s=29341">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/20/16ad3ff354f2dac3?w=2024&h=1240&f=png&s=339262">
+<meta property="og:updated_time" content="2019-05-20T09:59:33.924Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js 调用栈机制与ES6尾调用优化介绍">
+<meta name="twitter:description" content="调用栈的英文名叫做Call Stack，大家或多或少是有听过的，但是对于js调用栈的工作方式以及如何在工作中利用这一特性，大部分人可能没有进行过更深入的研究，这块内容可以说对我们前端来说就是所谓的基础知识，咋一看好像用处并没有很大，但掌握好这个知识点，就可以让我们在以后可以走的更远，走的更快！">
+<meta name="twitter:image" content="https://github.com/OBKoro1/articleImg_src/blob/master/2019/2019_5_20.jpg?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/20/js-调用栈机制与ES6尾调用优化介绍/"/>
+
+
+
+
+
+  <title>js 调用栈机制与ES6尾调用优化介绍 | OBKoro1's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?64d57d0b926bbd27431daa89d2e0a76b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OBKoro1's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-前端算法">
+          <a href="/arithmetic/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            前端算法
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-博客最新更新">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            博客最新更新
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-new一个对象">
+          <a href="/object/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />
+            
+            new一个对象
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/js-调用栈机制与ES6尾调用优化介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OBKoro1">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/hand1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OBKoro1's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js 调用栈机制与ES6尾调用优化介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T17:56:57+08:00">
+                2019-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/20/js-调用栈机制与ES6尾调用优化介绍/" class="leancloud_visitors" data-flag-title="js 调用栈机制与ES6尾调用优化介绍">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,694 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://github.com/OBKoro1/articleImg_src/blob/master/2019/2019_5_20.jpg?raw=true" alt=""></p>
+<p>调用栈的英文名叫做Call Stack，大家或多或少是有听过的，但是对于js调用栈的工作方式以及如何在工作中利用这一特性，大部分人可能没有进行过更深入的研究，这块内容可以说对我们前端来说就是所谓的基础知识，咋一看好像用处并没有很大，但掌握好这个知识点，就可以让我们在以后可以走的更远，走的更快！</p>
+<a id="more"></a>
+<blockquote>
+<p><a href="http://obkoro1.com/" target="_blank" rel="noopener">博客</a>、<a href="http://obkoro1.com/web_accumulate/accumulate/" target="_blank" rel="noopener">前端积累文档</a>、<a href="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317" target="_blank" rel="noopener">公众号</a>、<a href="https://github.com/OBKoro1" target="_blank" rel="noopener">GitHub</a></p>
+</blockquote>
+<hr>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
+<li>数据结构：栈</li>
+<li>调用栈是什么？用来做什么？ </li>
+<li>调用栈的运行机制</li>
+<li>调用栈优化内存</li>
+<li>调用栈debug大法</li>
+</ol>
+<h3 id="数据结构：栈"><a href="#数据结构：栈" class="headerlink" title="数据结构：栈"></a>数据结构：栈</h3><p>栈是一种遵从<strong>后进先出(<code>LIFO</code>)原则的有序集合</strong>，新元素都靠近栈顶，旧元素都接近栈底。</p>
+<p>生活中的栗子，帮助一下理解：</p>
+<p>餐厅里面堆放的盘子(栈)，一开始放的都在下面(先进)，后面放的都在上面(后进)，洗盘子的时候先从上面开始洗(先出)。</p>
+<h3 id="调用栈是什么？用来做什么？"><a href="#调用栈是什么？用来做什么？" class="headerlink" title="调用栈是什么？用来做什么？"></a>调用栈是什么？用来做什么？</h3><ol>
+<li><strong>调用栈是一种栈结构的数据，它是由调用侦组成的</strong>。</li>
+<li><strong>调用栈记录了函数的执行顺序和函数内部变量等信息</strong>。</li>
+</ol>
+<h4 id="调用栈的运行机制"><a href="#调用栈的运行机制" class="headerlink" title="调用栈的运行机制"></a>调用栈的运行机制</h4><p><strong>机制</strong>：</p>
+<p>程序运行到一个函数，它就会将其添加到调用栈中，当从这个函数返回的时候，就会将这个函数从调用栈中删掉。</p>
+<p>看一下例子帮助理解：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调用栈中的执行步骤用数字表示</span></span><br><span class="line">printSquare(<span class="number">5</span>); <span class="comment">// 1 添加</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printSquare</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> s = multiply(x, x); <span class="comment">// 2 添加 =&gt; 3 运行完成，内部没有再调用其他函数，删掉</span></span><br><span class="line">    <span class="built_in">console</span>.log(s); <span class="comment">// 4 添加 =&gt; 5 删掉</span></span><br><span class="line">    <span class="comment">// 运行完成 删掉printSquare</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用栈中的执行步骤如下(删除multiply的步骤被省略了)：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/18/16acb4a439190d49?w=1024&amp;h=768&amp;f=png&amp;s=68010" alt=""></p>
+<p><strong>调用侦</strong>：</p>
+<p>每个进入到调用栈中的函数，都会分配到一个单独的栈空间，称为“调用侦”。</p>
+<p>在调用栈中每个“调用侦”都对应一个函数，最上方的调用帧称为“当前帧”，调用栈是由所有的调用侦形成的。</p>
+<p>找到一张图片，调用侦：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/19/16ace8030a36c8dd?w=326&amp;h=440&amp;f=png&amp;s=50219" alt=""></p>
+<h3 id="调用栈优化内存"><a href="#调用栈优化内存" class="headerlink" title="调用栈优化内存"></a>调用栈优化内存</h3><p><strong>调用栈的内存消耗</strong>：</p>
+<p>如上图，函数的变量等信息会被调用侦保存起来，所以<strong>调用侦中的变量不会被垃圾收集器回收</strong>。</p>
+<p>当函数嵌套的层级比较深了，调用栈中的调用侦比较多的时候，这些信息对内存消耗是非常大的。</p>
+<p>针对这种情况除了我们要尽量避免函数层级嵌套的比较深之外，ES6提供了“尾调用优化”来解决调用侦过多，引起的内存消耗过大的问题。</p>
+<p><strong>何谓尾调用</strong>：</p>
+<p>尾调用指的是：<strong>函数的最后一步是调用另一个函数</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> g(x); <span class="comment">// 最后一步调用另一个函数并且使用return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  g(x); <span class="comment">// 没有return 不算尾调用 因为不知道后面还有没有操作</span></span><br><span class="line">  <span class="comment">// return undefined; // 隐式的return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>尾调用优化优化了什么？</strong></p>
+<p>尾调用用来<strong>删除外层无用的调用侦</strong>，只保留内层函数的调用侦，来节省浏览器的内存。</p>
+<p>下面这个例子调用栈中的调用侦一直只有一项，如果不使用尾调用的话会出现三个调用侦：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a() <span class="comment">// 1 添加a到调用栈</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b(); <span class="comment">// 在调用栈中删除a 添加b</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> c() <span class="comment">// 删除b 添加c</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>防止爆栈</strong>：</p>
+<p>浏览器对<a href="https://codeday.me/bug/20170824/62171.html" target="_blank" rel="noopener">调用栈都有大小限制</a>，在ES6之前递归比较深的话，很容易出现“爆栈”问题(stack overflow)。</p>
+<p>现在可以使用“尾调用优化”来写一个“尾递归”，只保存一个调用侦，来防止爆栈问题。</p>
+<p><strong>注意</strong>：</p>
+<ol>
+<li>只有不再用到外层函数的内部变量，内层函数的调用帧才会取代外层函数的调用帧。</li>
+</ol>
+<blockquote>
+<p>如果要使用外层函数的变量，可以通过参数的形式传到内层函数中</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> aa = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">let</span> b = <span class="function"><span class="params">val</span> =&gt;</span> aa + val <span class="comment">// 使用了外层函数的参数aa</span></span><br><span class="line">    <span class="keyword">return</span> b(<span class="number">2</span>) <span class="comment">// 无法进行尾调用优化</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>尾调用优化只在严格模式下开启，非严格模式是无效的。</li>
+<li>如果环境不支持“尾调用优化”，代码还可以正常运行，是无害的！</li>
+</ol>
+<p><strong>更多</strong>：</p>
+<p>关于尾递归以及更多尾调用优化的内容，推荐查阅<a href="http://es6.ruanyifeng.com/#docs/function#%E5%B0%BE%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96" target="_blank" rel="noopener">ES6入门-阮一峰</a></p>
+<h3 id="调用栈debug大法"><a href="#调用栈debug大法" class="headerlink" title="调用栈debug大法"></a>调用栈debug大法</h3><p><strong>查看调用栈有什么用</strong></p>
+<ol>
+<li>查看函数的调用顺序是否跟预期一致，比如不同判断调用不同函数。</li>
+<li><p>快速定位问题/修改三方库的代码。</p>
+<p> 当接手一个历史项目，或者引用第三方库出现问题的时候，可以先查看对应API的调用栈，找到其中涉及的关键函数，针对性的修复它。</p>
+<p> 通过查看调用栈的形式，帮助我快速定位问题，修改三方库的源码。</p>
+</li>
+</ol>
+<p><strong>如何查看调用栈</strong></p>
+<ol>
+<li>只查看调用栈：<code>console.trace</code></li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">a()</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    b();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    c()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> aa = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">console</span>.trace()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如图所示,点击右侧还能查看代码位置：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/20/16ad3f508ab127a9?w=678&amp;h=318&amp;f=png&amp;s=29341" alt=""></p>
+<ol start="2">
+<li><code>bugger</code>打断点形式，这也是我最喜欢的调试方式：</li>
+</ol>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/20/16ad3ff354f2dac3?w=2024&amp;h=1240&amp;f=png&amp;s=339262" alt=""></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本文主要讲了这几个方面的内容：</p>
+<ol>
+<li>理解调用栈的运行机制，对代码背后的一些执行机制也可以更加了解，帮助我们在百尺竿头更进一步。</li>
+<li>我们应该在日常的code中，有意识的使用ES6的“尾调用优化”，来减少调用栈的长度，节省客户端内存。</li>
+<li>利用调用栈，对第三方库或者不熟悉的项目，可以更快速的定位问题，提高我们debug速度。</li>
+</ol>
+<p>最后：之前写过一篇关于<a href="https://juejin.im/post/5b40581e5188251ac446c716" target="_blank" rel="noopener">垃圾回收机制与内存泄露</a>的文章，感兴趣的同学可以扩展一下。</p>
+<h3 id="如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！"><a href="#如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！" class="headerlink" title="如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！"></a>如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！</h3><p><a href="http://obkoro1.com/" target="_blank" rel="noopener">博客</a>、<a href="http://obkoro1.com/web_accumulate/accumulate/" target="_blank" rel="noopener">前端积累文档</a>、<a href="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317" target="_blank" rel="noopener">公众号</a>、<a href="https://github.com/OBKoro1" target="_blank" rel="noopener">GitHub</a></p>
+<p> 以上2019/5/19</p>
+<p> 参考资料：</p>
+<p> <a href="https://juejin.im/post/5b40581e5188251ac446c716" target="_blank" rel="noopener">JS垃圾回收机制与常见内存泄露的解决方法</a></p>
+<p><a href="http://es6.ruanyifeng.com/#docs/function#%E5%B0%BE%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96" target="_blank" rel="noopener">ES6入门-阮一峰</a></p>
+<p><a href="https://juejin.im/post/5a05b4576fb9a04519690d42" target="_blank" rel="noopener">JavaScript 如何工作：对引擎、运行时、调用堆栈的概述</a></p>
+<p><a href="https://segmentfault.com/a/1190000010360316" target="_blank" rel="noopener">浅析javascript调用栈</a>  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>听说，打赏我的人最后都找到了真爱。</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay/weixin.jpg" alt="OBKoro1 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay/ali.jpg" alt="OBKoro1 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/js-机制/" rel="tag"><i class="fa fa-tag"></i> js 机制</a>
+          
+            <a href="/tags/ES6/" rel="tag"><i class="fa fa-tag"></i> ES6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/22/普通函数与箭头函数的区别/" rel="next" title="普通函数与箭头函数的区别">
+                <i class="fa fa-chevron-left"></i> 普通函数与箭头函数的区别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/hand1.jpg"
+              alt="OBKoro1" />
+          
+            <p class="site-author-name" itemprop="name">OBKoro1</p>
+            <p class="site-description motion-element" itemprop="description">种一棵树最好的时间是十年前,其次是现在</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives">
+            
+                <span class="site-state-item-count">103</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">71</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/OBKoro1" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://segmentfault.com/u/obkoro1/articles" target="_blank" title="segmentfault">
+                  
+                    <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构：栈"><span class="nav-number">2.</span> <span class="nav-text">数据结构：栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用栈是什么？用来做什么？"><span class="nav-number">3.</span> <span class="nav-text">调用栈是什么？用来做什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#调用栈的运行机制"><span class="nav-number">3.1.</span> <span class="nav-text">调用栈的运行机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用栈优化内存"><span class="nav-number">4.</span> <span class="nav-text">调用栈优化内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用栈debug大法"><span class="nav-number">5.</span> <span class="nav-text">调用栈debug大法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number"></span> <span class="nav-text">结语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！"><span class="nav-number">1.</span> <span class="nav-text">如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OBKoro1</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">
+      154.7k
+    </span>
+  
+</div>
+
+
+
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="site-uv"><i class="fa fa-user"></i> 访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv">21621</span> 人 </span>
+<span class="site-pv"><i class="fa fa-eye"></i> 访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv">68503</span> 次</span>
+
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("9ANFp60h6oVyxIPGlau3NOA4-gzGzoHsz", "tMdNuKMbFtN4QsekeNVu83TV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
