@@ -80,9 +80,9 @@
 <meta property="og:description" content="背景：有一个任务非常耗时会消耗后台大量算力，所以在退出页面的时候，要求前端这边发送一个请求来杀死任务。 一开始以为这个需求非常简单，就是在进入其他路由前，发送一下请求，杀死一下任务就好了。 然而现实狠狠的打了我的脸，因为退出页面的场景不止切换路由~ 退出页面场景： 还在本网站，跳到其他路由 刷新页面/关闭页面也需要发送请求来杀死任务  还在本网站，跳到其他路由这个比较简单，在Vue中可以通过路由">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/13/16846cf38b1ca27e?imageView2/2/w/480/h/480/q/85/interlace/1">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1g0bvkiozjwj30bt04vglt.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1g0bvl43w8gj31gd06n761.jpg">
-<meta property="og:updated_time" content="2019-02-20T05:03:54.374Z">
+<meta property="og:image" content="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1g0bvkiozjwj30bt04vglt.jpg?raw=true">
+<meta property="og:image" content="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1g0bvl43w8gj31gd06n761.jpg?raw=true">
+<meta property="og:updated_time" content="2019-05-29T10:38:49.182Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sendBeacon 刷新&#x2F;关闭页面之前发送请求">
 <meta name="twitter:description" content="背景：有一个任务非常耗时会消耗后台大量算力，所以在退出页面的时候，要求前端这边发送一个请求来杀死任务。 一开始以为这个需求非常简单，就是在进入其他路由前，发送一下请求，杀死一下任务就好了。 然而现实狠狠的打了我的脸，因为退出页面的场景不止切换路由~ 退出页面场景： 还在本网站，跳到其他路由 刷新页面/关闭页面也需要发送请求来杀死任务  还在本网站，跳到其他路由这个比较简单，在Vue中可以通过路由">
@@ -445,7 +445,7 @@
 <h2 id="beforeunload和unload"><a href="#beforeunload和unload" class="headerlink" title="beforeunload和unload"></a><code>beforeunload</code>和<code>unload</code></h2><h3 id="beforeunload-当浏览器窗口关闭或者刷新时触发"><a href="#beforeunload-当浏览器窗口关闭或者刷新时触发" class="headerlink" title="beforeunload 当浏览器窗口关闭或者刷新时触发:"></a>beforeunload 当浏览器窗口关闭或者刷新时触发:</h3><p><strong>介绍</strong>：</p>
 <p>使用这个<code>API</code>可以阻止页面直接关闭，用户通过点击确定/取消按钮，来决定是否不关闭/刷新当前页面。</p>
 <p>在 chrome 下长这个样子，你们肯定都见过：</p>
-<p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1g0bvkiozjwj30bt04vglt.jpg" alt=""></p>
+<p><img src="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1g0bvkiozjwj30bt04vglt.jpg?raw=true" alt=""></p>
 <p><strong>如何使用</strong></p>
 <p>这个 API 的使用非常简单，只要在页面加载的时候监听一下此事件，在需要出现弹窗的时候<strong>return 一个可以转化为 true 的值</strong>,就可以了。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 页面卸载之前</span></span><br><span class="line"><span class="keyword">let</span> killTask = <span class="literal">false</span>; <span class="comment">// 是否杀死任务</span></span><br><span class="line"><span class="built_in">window</span>.onbeforeunload = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (任务运行 &amp;&amp; 对应页面) &#123;</span><br><span class="line">    killTask = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'您可能有数据没有保存'</span>; <span class="comment">// 在部分浏览器可以修改弹窗标题</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    killTask = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 没有return一个可以转化为true的值 就不会出现弹窗</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -485,7 +485,7 @@
 <p>到这里大家肯定以为已经做出来了该需求，事实上，并没有！</p>
 <p><strong>无法发送异步请求</strong></p>
 <p>我使用的是<code>axios</code>来发送请求，请求发出去了，但是被取消了，服务器那边根本没有收到请求，如下。</p>
-<p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1g0bvl43w8gj31gd06n761.jpg" alt=""></p>
+<p><img src="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1g0bvl43w8gj31gd06n761.jpg?raw=true" alt=""></p>
 <p>经过一顿分析:发现是<code>axios</code>请求是异步的问题，谷歌之后发现axios不支持同步的请求</p>
 <p><strong>最后使用原生的<a href="http://www.w3school.com.cn/xml/xml_http.asp" target="_blank" rel="noopener">XMLHttpRequest</a>对象</strong>，让请求同步</p>
 <p><del>大功告成！</del> 实际上，上面才是我第一次要发的内容，而下面更好的解决方法！</p>
@@ -736,15 +736,21 @@
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://segmentfault.com/u/obkoro1/articles" target="_blank" title="segmentfault">
-                  
-                    <i class="fa fa-fw fa-globe"></i>segmentfault</a>
-              </span>
-            
-              <span class="links-of-author-item">
                 <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
                   
                     <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://obkoro1.com/web_accumulate/" target="_blank" title="前端积累">
+                  
+                    <i class="fa fa-fw fa-globe"></i>前端积累</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://segmentfault.com/u/obkoro1/articles" target="_blank" title="segmentfault">
+                  
+                    <i class="fa fa-fw fa-globe"></i>segmentfault</a>
               </span>
             
           

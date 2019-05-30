@@ -79,15 +79,15 @@
 <meta property="og:site_name" content="OBKoro1&#39;s Blog">
 <meta property="og:description" content="前言现在的前端面试不管你用的什么框架，总会问你这个框架的双向绑定机制，有的甚至要求你现场实现一个双向绑定出来，那对于没有好好研究过这方面知识的同学来说，当然是很难的，接下来本文用160行代码带你实现一个极简的双向绑定机制。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。 本文是在面试题：你能写一个Vue的双向数据绑定吗？的基础上仔细研究+改动，并添加了详细注释，而成的。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl9m7cdk1j30hs0buqeb.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl70vrkj3g30aw09iq3y.gif">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl7dygfovj30ka0augpd.jpg">
+<meta property="og:image" content="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1fsl9m7cdk1j30hs0buqeb.jpg?raw=true">
+<meta property="og:image" content="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1fsl70vrkj3g30aw09iq3y.gif?raw=true">
+<meta property="og:image" content="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1fsl7dygfovj30ka0augpd.jpg?raw=true">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317">
-<meta property="og:updated_time" content="2018-09-02T09:13:52.111Z">
+<meta property="og:updated_time" content="2019-05-29T10:38:49.125Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="160行代码仿Vue实现极简双向绑定[详细注释]">
 <meta name="twitter:description" content="前言现在的前端面试不管你用的什么框架，总会问你这个框架的双向绑定机制，有的甚至要求你现场实现一个双向绑定出来，那对于没有好好研究过这方面知识的同学来说，当然是很难的，接下来本文用160行代码带你实现一个极简的双向绑定机制。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。 本文是在面试题：你能写一个Vue的双向数据绑定吗？的基础上仔细研究+改动，并添加了详细注释，而成的。">
-<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl9m7cdk1j30hs0buqeb.jpg">
+<meta name="twitter:image" content="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1fsl9m7cdk1j30hs0buqeb.jpg?raw=true">
 
 
 
@@ -431,7 +431,7 @@
       
 
       
-        <p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl9m7cdk1j30hs0buqeb.jpg" alt=""></p>
+        <p><img src="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1fsl9m7cdk1j30hs0buqeb.jpg?raw=true" alt=""></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在的前端面试不管你用的什么框架，总会问你这个框架的双向绑定机制，有的甚至要求你现场实现一个双向绑定出来，那对于没有好好研究过这方面知识的同学来说，当然是很难的，<strong>接下来本文用160行代码带你实现一个极简的双向绑定机制</strong>。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本文可以有所收获。</p>
 <p>本文是在<a href="https://juejin.im/post/5acc17cb51882555745a03f8" target="_blank" rel="noopener">面试题：你能写一个Vue的双向数据绑定吗？</a>的基础上仔细研究+改动，并添加了详细注释，而成的。</p>
 <a id="more"></a>
@@ -439,7 +439,7 @@
 <p>个人博客了解一下：<a href="http://obkoro1.com/" target="_blank" rel="noopener">obkoro1.com</a></p>
 </blockquote>
 <hr>
-<h2 id="效果GIF："><a href="#效果GIF：" class="headerlink" title="效果GIF："></a>效果GIF：</h2><p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl70vrkj3g30aw09iq3y.gif" alt=""></p>
+<h2 id="效果GIF："><a href="#效果GIF：" class="headerlink" title="效果GIF："></a>效果GIF：</h2><p><img src="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1fsl70vrkj3g30aw09iq3y.gif?raw=true" alt=""></p>
 <h2 id="demo地址："><a href="#demo地址：" class="headerlink" title="demo地址："></a>demo地址：</h2><p><strong>codepen:</strong><a href="https://codepen.io/OBKoro1/pen/qKKqQe?editors=0010" target="_blank" rel="noopener">仿Vue极简双向绑定</a></p>
 <p><strong>Github:</strong><a href="http://obkoro1.com/simpleDemo/simpleDemo/myVue/index.html" target="_blank" rel="noopener">仿Vue极简双向绑定</a></p>
 <hr>
@@ -489,7 +489,7 @@ for (let key in obj) {
 <li>实现Watch用于连接Observer和Compile，<strong>能够订阅并收到每个属性变动的通知，执行指令绑定的相应回调函数，从而更新视图</strong>。</li>
 <li>mvvm入口函数，整合以上三者。</li>
 </ol>
-<h3 id="流程图："><a href="#流程图：" class="headerlink" title="流程图："></a>流程图：</h3><p><img src="http://ww1.sinaimg.cn/large/005Y4rCogy1fsl7dygfovj30ka0augpd.jpg" alt=""></p>
+<h3 id="流程图："><a href="#流程图：" class="headerlink" title="流程图："></a>流程图：</h3><p><img src="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1fsl7dygfovj30ka0augpd.jpg?raw=true" alt=""></p>
 <p>这部分讲的很清楚，现在有点懵逼也没关系，看完代码，自己copy下来玩一玩之后，回头再看实现思路，相信会有收获的。</p>
 <hr>
 <h2 id="具体代码实现："><a href="#具体代码实现：" class="headerlink" title="具体代码实现："></a>具体代码实现：</h2><h3 id="html结构："><a href="#html结构：" class="headerlink" title="html结构："></a>html结构：</h3><pre><code>&lt;div id=&quot;app&quot;&gt;
@@ -847,15 +847,21 @@ Watcher.prototype.update = function () {
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://segmentfault.com/u/obkoro1/articles" target="_blank" title="segmentfault">
-                  
-                    <i class="fa fa-fw fa-globe"></i>segmentfault</a>
-              </span>
-            
-              <span class="links-of-author-item">
                 <a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" title="掘金">
                   
                     <i class="fa fa-fw fa-globe"></i>掘金</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://obkoro1.com/web_accumulate/" target="_blank" title="前端积累">
+                  
+                    <i class="fa fa-fw fa-globe"></i>前端积累</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://segmentfault.com/u/obkoro1/articles" target="_blank" title="segmentfault">
+                  
+                    <i class="fa fa-fw fa-globe"></i>segmentfault</a>
               </span>
             
           
