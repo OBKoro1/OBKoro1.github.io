@@ -79,12 +79,12 @@
 <meta property="og:site_name" content="OBKoro1&#39;s Blog">
 <meta property="og:description" content="写在前面：做微信的网页基本上都要接入微信的sdk，我在做的时候，也颇费了一番功夫，然后就想记录一下，供自己日后翻阅，以及让有需要的朋友可以做一下参考，如果喜欢的可以点波赞，或者关注一下，希望可以帮到大家。  本文首发于我的个人blog：obkoro1.com  安装sdknpm install weixin-js-sdk --save 开始之前大家可以先读一读微信公众号的 接入文档，vue是单页面">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/16/1605f3933091e9d2?w=535&h=98&f=png&s=18864">
-<meta property="og:updated_time" content="2017-12-16T12:47:24.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1605f3933091e9d2?w=535&h=98&f=png&s=18864?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.638Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue 项目如何引入微信sdk，使用微信分享接口">
 <meta name="twitter:description" content="写在前面：做微信的网页基本上都要接入微信的sdk，我在做的时候，也颇费了一番功夫，然后就想记录一下，供自己日后翻阅，以及让有需要的朋友可以做一下参考，如果喜欢的可以点波赞，或者关注一下，希望可以帮到大家。  本文首发于我的个人blog：obkoro1.com  安装sdknpm install weixin-js-sdk --save 开始之前大家可以先读一读微信公众号的 接入文档，vue是单页面">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/12/16/1605f3933091e9d2?w=535&h=98&f=png&s=18864">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1605f3933091e9d2?w=535&h=98&f=png&s=18864?raw=true">
 
 
 
@@ -489,7 +489,7 @@ wx.ready(function() { //通过ready接口处理成功验证
 <p><strong>注意</strong>： 如果你的vue项目，路由没有开启history 模式,也就是你的url上面包含“#”，这个时候要从后端正确获取签名，就需要<strong>去掉url上#后面的字符</strong>。（url去掉’#’hash部分，可用<code>location.href.split(&#39;#&#39;)[0]</code>）</p>
 <h3 id="封装调用sdk注入："><a href="#封装调用sdk注入：" class="headerlink" title="封装调用sdk注入："></a>封装调用sdk注入：</h3><p>因为要在每个路由页面都注入sdk，这个肯定要复用的，不然那么多代码，看着就头大。</p>
 <h4 id="我是这么做的："><a href="#我是这么做的：" class="headerlink" title="我是这么做的："></a>我是这么做的：</h4><ol>
-<li>因为我把axios<a href="https://juejin.im/post/59fd982c6fb9a045170490df" target="_blank" rel="noopener">包了一层</a>，然后把axios接口，在main.js里面挂载到Vue实例。<br><img src="https://user-gold-cdn.xitu.io/2017/12/16/1605f3933091e9d2?w=535&amp;h=98&amp;f=png&amp;s=18864" alt=""></li>
+<li>因为我把axios<a href="https://juejin.im/post/59fd982c6fb9a045170490df" target="_blank" rel="noopener">包了一层</a>，然后把axios接口，在main.js里面挂载到Vue实例。<br><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1605f3933091e9d2?w=535&amp;h=98&amp;f=png&amp;s=18864?raw=true" alt=""></li>
 <li>然后在<a href="https://juejin.im/post/59eddbfe6fb9a0450908abb4" target="_blank" rel="noopener">全局函数</a>里面调用这个接口，然后在每个路由页面的相应组件里面调用这个函数，把当前页面的url以及其他标题、图片什么的传进去。</li>
 </ol>
 <p>里面的具体步骤就不说了，最重要的是参考上面的那个流程，函数里面的东西也都是基于那个流程的。</p>

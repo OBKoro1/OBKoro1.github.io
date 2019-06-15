@@ -79,16 +79,16 @@
 <meta property="og:site_name" content="OBKoro1&#39;s Blog">
 <meta property="og:description" content="写在前面：这篇文章是在vue-cli里面使用vuex的一个极简demo，附带一些vuex的简单介绍。有需要的朋友可以做一下参考，喜欢的可以点波赞，或者关注一下，希望可以帮到大家。  本文首发于我的个人blog：obkoro1.com  引入步骤我创建了一个新的vue-cli里面什么东西都没有，只引用了vuex，这里是码云地址,可以下载下来，然后npm install、npm run dev试试看，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/9/1603a90a59fc5676?w=363&h=335&f=png&s=16366">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/9/1603ac7ca073cb0e?w=765&h=427&f=png&s=49028">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/9/1603acd24b3c1906?w=773&h=875&f=png&s=97062">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/9/1603ae6d33eae6db?w=554&h=570&f=png&s=153482">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/9/1603ae858f7da6cd?w=789&h=530&f=png&s=148466">
-<meta property="og:updated_time" content="2017-12-09T11:18:01.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1603a90a59fc5676?w=363&h=335&f=png&s=16366?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1603ac7ca073cb0e?w=765&h=427&f=png&s=49028?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1603acd24b3c1906?w=773&h=875&f=png&s=97062?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1603ae6d33eae6db?w=554&h=570&f=png&s=153482?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1603ae858f7da6cd?w=789&h=530&f=png&s=148466?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.658Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手摸手教你在vue-cli里面使用vuex，以及vuex简介">
 <meta name="twitter:description" content="写在前面：这篇文章是在vue-cli里面使用vuex的一个极简demo，附带一些vuex的简单介绍。有需要的朋友可以做一下参考，喜欢的可以点波赞，或者关注一下，希望可以帮到大家。  本文首发于我的个人blog：obkoro1.com  引入步骤我创建了一个新的vue-cli里面什么东西都没有，只引用了vuex，这里是码云地址,可以下载下来，然后npm install、npm run dev试试看，">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/12/9/1603a90a59fc5676?w=363&h=335&f=png&s=16366">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1603a90a59fc5676?w=363&h=335&f=png&s=16366?raw=true">
 
 
 
@@ -438,7 +438,7 @@
 </blockquote>
 <h2 id="引入步骤"><a href="#引入步骤" class="headerlink" title="引入步骤"></a>引入步骤</h2><p>我创建了一个新的vue-cli里面什么东西都没有，只引用了vuex，这里是<a href="https://gitee.com/OBKoro1/blog_vuex" target="_blank" rel="noopener">码云地址</a>,可以下载下来，然后<code>npm install</code>、<code>npm run dev</code>试试看，里面vuex的使用地方也全都注释了一遍。</p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre><code>npm install vuex --save
-</code></pre><h3 id="在src目录下创建文件夹vuex"><a href="#在src目录下创建文件夹vuex" class="headerlink" title="在src目录下创建文件夹vuex"></a>在src目录下创建文件夹vuex</h3><p><img src="https://user-gold-cdn.xitu.io/2017/12/9/1603a90a59fc5676?w=363&amp;h=335&amp;f=png&amp;s=16366" alt="文件夹包含文件"></p>
+</code></pre><h3 id="在src目录下创建文件夹vuex"><a href="#在src目录下创建文件夹vuex" class="headerlink" title="在src目录下创建文件夹vuex"></a>在src目录下创建文件夹vuex</h3><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1603a90a59fc5676?w=363&amp;h=335&amp;f=png&amp;s=16366?raw=true" alt="文件夹包含文件"></p>
 <p>该文件夹包含以上文件，创建好了之后，我们一个一个文件来说里面都有什么东西。</p>
 <h4 id="vuex-index-js"><a href="#vuex-index-js" class="headerlink" title="vuex/index.js"></a>vuex/index.js</h4><pre><code>import Vue from &apos;vue&apos;;
 import Vuex from &apos;vuex&apos;;
@@ -493,17 +493,17 @@ export default {
   }
 };
 </code></pre><p>这两个文件里面有注释，解释的蛮清楚的。当把所有文件创建好了之后，再回过头来看看每个文件之间都有联系,多想想或许就懂点什么东西了 emmm</p>
-<h4 id="vuex文件夹，文件目录以及下载"><a href="#vuex文件夹，文件目录以及下载" class="headerlink" title="vuex文件夹，文件目录以及下载"></a><a href="https://gitee.com/OBKoro1/blog_vuex/tree/master/src/vuex" target="_blank" rel="noopener">vuex文件夹</a>，文件目录以及下载</h4><h3 id="引入main-js"><a href="#引入main-js" class="headerlink" title="引入main.js"></a>引入main.js</h3><p><img src="https://user-gold-cdn.xitu.io/2017/12/9/1603ac7ca073cb0e?w=765&amp;h=427&amp;f=png&amp;s=49028" alt=""></p>
+<h4 id="vuex文件夹，文件目录以及下载"><a href="#vuex文件夹，文件目录以及下载" class="headerlink" title="vuex文件夹，文件目录以及下载"></a><a href="https://gitee.com/OBKoro1/blog_vuex/tree/master/src/vuex" target="_blank" rel="noopener">vuex文件夹</a>，文件目录以及下载</h4><h3 id="引入main-js"><a href="#引入main-js" class="headerlink" title="引入main.js"></a>引入main.js</h3><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1603ac7ca073cb0e?w=765&amp;h=427&amp;f=png&amp;s=49028?raw=true" alt=""></p>
 <p>上面的vuex文件夹只是搭建一个store，但是这样还不够，我们还要在项目里面使用这个。引用到main.js，如图所示。</p>
-<h3 id="组件中如何使用。"><a href="#组件中如何使用。" class="headerlink" title="组件中如何使用。"></a>组件中如何使用。</h3><p><img src="https://user-gold-cdn.xitu.io/2017/12/9/1603acd24b3c1906?w=773&amp;h=875&amp;f=png&amp;s=97062" alt=""></p>
+<h3 id="组件中如何使用。"><a href="#组件中如何使用。" class="headerlink" title="组件中如何使用。"></a>组件中如何使用。</h3><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1603acd24b3c1906?w=773&amp;h=875&amp;f=png&amp;s=97062?raw=true" alt=""></p>
 <p>使用的话就是像上面那么使用，本文只是一个简单的示例，还有更多骚操作，等大家上手之后再慢慢摸索咯。</p>
 <h2 id="git地址"><a href="#git地址" class="headerlink" title="git地址"></a>git地址</h2><p>感觉写的蛮乱的，大家如果看不太懂的话，可以到<a href="https://gitee.com/OBKoro1/blog_vuex" target="_blank" rel="noopener">码云</a>去下载文件，然后自己跑一跑，多看看，试一试就应该没问题了。</p>
 <h2 id="vuex简介"><a href="#vuex简介" class="headerlink" title="vuex简介"></a>vuex简介</h2><p>通常我是希望大家先学会用，然后再了解后面的机制，每次我看博文的时候，一大段原理贴上来，都给我弄懵逼了。。</p>
 <p>vuex主要是用来<strong>复杂项目之间的组件通信功能</strong>，简单的项目不要用这套复杂的事件以及状态管理机制。项目如果不够复杂的话推荐我之前写的：<a href="https://juejin.im/post/59eddbfe6fb9a0450908abb4" target="_blank" rel="noopener">在vue项目中 如何定义全局变量 全局函数</a>，使用全局变量的形式的也可以实现需求。</p>
 <h3 id="vuex实现的作用：数据共享机制"><a href="#vuex实现的作用：数据共享机制" class="headerlink" title="vuex实现的作用：数据共享机制"></a>vuex实现的作用：数据共享机制</h3><p>通过统一的数据中心store维护状态数据，每个组件进行更新的时候，通知数据中心store。再由stroe将共享的状态，触发每一个调用它的组件的更新。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/12/9/1603ae6d33eae6db?w=554&amp;h=570&amp;f=png&amp;s=153482" alt="store触发组件更新"></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1603ae6d33eae6db?w=554&amp;h=570&amp;f=png&amp;s=153482?raw=true" alt="store触发组件更新"></p>
 <h3 id="vuex的工作流程"><a href="#vuex的工作流程" class="headerlink" title="vuex的工作流程"></a>vuex的工作流程</h3><p>大家先仔细看看下面这张图，理解他的工作机制。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/12/9/1603ae858f7da6cd?w=789&amp;h=530&amp;f=png&amp;s=148466" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1603ae858f7da6cd?w=789&amp;h=530&amp;f=png&amp;s=148466?raw=true" alt=""></p>
 <ol>
 <li>在vue组件里面，通过dispatch来触发actions提交修改数据的操作。</li>
 <li>然后再通过actions的commit来触发mutations来修改数据。</li>

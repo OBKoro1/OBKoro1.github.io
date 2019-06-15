@@ -79,13 +79,13 @@
 <meta property="og:site_name" content="OBKoro1&#39;s Blog">
 <meta property="og:description" content="前言最近在使用element-ui框架，用到了Dialog对话框组件，大致实现的效果，跟我之前自己在移动端项目里面弄的一个弹窗组件差不太多。然后就想着把这种弹窗组件的实现方式与大家分享一下，下面本文会带着大家手摸手实现一个弹窗组件。 本文主要内容会涉及到弹窗遮罩的实现，slot插槽的使用方式，props、$emit传参，具体组件代码也传上去了。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/21/162e6f9251c7c18f?w=650&h=1141&f=png&s=374719">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/21/162e7a7af2e0effa?w=402&h=728&f=png&s=140506">
-<meta property="og:updated_time" content="2018-09-02T09:02:43.515Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/162e6f9251c7c18f?w=650&h=1141&f=png&s=374719?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/162e7a7af2e0effa?w=402&h=728&f=png&s=140506?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.679Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="论如何用Vue实现一个弹窗-一个简单的组件实现">
 <meta name="twitter:description" content="前言最近在使用element-ui框架，用到了Dialog对话框组件，大致实现的效果，跟我之前自己在移动端项目里面弄的一个弹窗组件差不太多。然后就想着把这种弹窗组件的实现方式与大家分享一下，下面本文会带着大家手摸手实现一个弹窗组件。 本文主要内容会涉及到弹窗遮罩的实现，slot插槽的使用方式，props、$emit传参，具体组件代码也传上去了。如果喜欢的话可以点波赞/关注，支持一下，希望大家看完本">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/4/21/162e6f9251c7c18f?w=650&h=1141&f=png&s=374719">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/162e6f9251c7c18f?w=650&h=1141&f=png&s=374719?raw=true">
 
 
 
@@ -435,7 +435,7 @@
 <p>个人博客了解一下：<a href="http://obkoro1.com/" target="_blank" rel="noopener">obkoro1.com</a></p>
 </blockquote>
 <hr>
-<h3 id="组件最后实现的效果"><a href="#组件最后实现的效果" class="headerlink" title="组件最后实现的效果"></a>组件最后实现的效果</h3><p><img src="https://user-gold-cdn.xitu.io/2018/4/21/162e6f9251c7c18f?w=650&amp;h=1141&amp;f=png&amp;s=374719" alt=""></p>
+<h3 id="组件最后实现的效果"><a href="#组件最后实现的效果" class="headerlink" title="组件最后实现的效果"></a>组件最后实现的效果</h3><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/162e6f9251c7c18f?w=650&amp;h=1141&amp;f=png&amp;s=374719?raw=true" alt=""></p>
 <h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><ol>
 <li>先搭建组件的html和css样式，遮罩层和内容层。</li>
 <li>定制弹窗内容：弹窗组件通过<code>slot</code>插槽接受从父组件那里传过来弹窗内容。</li>
@@ -605,7 +605,7 @@ methods:{
 }
 </code></pre><hr>
 <p>可以用弹窗组件实现下列这种信息展示，或者事件交互：</p>
-<p> <img src="https://user-gold-cdn.xitu.io/2018/4/21/162e7a7af2e0effa?w=402&amp;h=728&amp;f=png&amp;s=140506" alt=""></p>
+<p> <img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/162e7a7af2e0effa?w=402&amp;h=728&amp;f=png&amp;s=140506?raw=true" alt=""></p>
 <h3 id="弹窗组件代码"><a href="#弹窗组件代码" class="headerlink" title="弹窗组件代码"></a><a href="https://github.com/OBKoro1/web_accumulate/blob/d6b599ca22d8656d3f31f80bffa976fac36d2d75/example/dialogComponent.vue" target="_blank" rel="noopener">弹窗组件代码</a></h3><p>上面是把弹窗的每个步骤拆分开来，一步步解析的，每一步都说的比较清楚了，具体连起来的话，可以看看<a href="https://github.com/OBKoro1/web_accumulate/blob/d6b599ca22d8656d3f31f80bffa976fac36d2d75/example/dialogComponent.vue" target="_blank" rel="noopener">代码</a>，再结合文章就能理的很清楚了。</p>
 <h2 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h2><p>这个弹窗组件，实现起来一点都不难，我这里主要是提供了一个实现方式，当项目中有需要的话，大家也可以自己撸一个出来，以上就是本文的内容了，希望同学们看完能有所收获。</p>
 <h3 id="希望看完的朋友可以点个喜欢，也可以关注一下我，您的支持是对我最大的鼓励。"><a href="#希望看完的朋友可以点个喜欢，也可以关注一下我，您的支持是对我最大的鼓励。" class="headerlink" title="希望看完的朋友可以点个喜欢，也可以关注一下我，您的支持是对我最大的鼓励。"></a>希望看完的朋友可以点个喜欢，也可以关注一下我，您的支持是对我最大的鼓励。</h3><p><strong>最后</strong>：如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！本人写文章本着交流记录的心态，写的不好之处，不撕逼，但是欢迎指点。</p>

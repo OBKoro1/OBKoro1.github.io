@@ -79,13 +79,13 @@
 <meta property="og:site_name" content="OBKoro1&#39;s Blog">
 <meta property="og:description" content="前言本篇是我在使用vue过程中，遇到的几个小问题和之前不了解的东西，记录下来，希望能够帮助各位踩坑。如果喜欢的话可以点波赞，或者关注一下，希望本文可以帮到大家。  本文首发于我的个人blog：obkoro1.com  本篇记录个人遇到的问题如下: 路由变化页面数据不刷新问题 setTimeout/setInterval this指向改变，无法用this访问VUe实例 setInterval路由跳转">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/17/160ffd6c2dcf70e1?w=948&h=716&f=png&s=64938">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/17/160fff0ec0147156?w=1578&h=811&f=png&s=174542">
-<meta property="og:updated_time" content="2018-01-16T18:10:52.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/160ffd6c2dcf70e1?w=948&h=716&f=png&s=64938?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/160fff0ec0147156?w=1578&h=811&f=png&s=174542?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue实践过程中的几个问题">
 <meta name="twitter:description" content="前言本篇是我在使用vue过程中，遇到的几个小问题和之前不了解的东西，记录下来，希望能够帮助各位踩坑。如果喜欢的话可以点波赞，或者关注一下，希望本文可以帮到大家。  本文首发于我的个人blog：obkoro1.com  本篇记录个人遇到的问题如下: 路由变化页面数据不刷新问题 setTimeout/setInterval this指向改变，无法用this访问VUe实例 setInterval路由跳转">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/1/17/160ffd6c2dcf70e1?w=948&h=716&f=png&s=64938">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/160ffd6c2dcf70e1?w=948&h=716&f=png&s=64938?raw=true">
 
 
 
@@ -506,7 +506,7 @@ beforeRouteLeave (to, from, next) {
   }
 </code></pre><p>类似的还有<code>beforeEach</code>、<code>beforeRouteUpdate</code>，也分为全局钩子和组件钩子，见<a href="https://router.vuejs.org/zh-cn/advanced/navigation-guards.html" target="_blank" rel="noopener">路由文档</a>。</p>
 <h2 id="v-once-只渲染元素和组件一次，优化更新渲染性能"><a href="#v-once-只渲染元素和组件一次，优化更新渲染性能" class="headerlink" title="v-once 只渲染元素和组件一次，优化更新渲染性能"></a>v-once 只渲染元素和组件一次，优化更新渲染性能</h2><p>觉得<a href="https://cn.vuejs.org/v2/api/#v-cloak" target="_blank" rel="noopener">v-once</a>这个api蛮6的，应该很多小伙伴都没有注意到这个api。</p>
-<h3 id="文档介绍："><a href="#文档介绍：" class="headerlink" title="文档介绍："></a>文档介绍：</h3><p><img src="https://user-gold-cdn.xitu.io/2018/1/17/160ffd6c2dcf70e1?w=948&amp;h=716&amp;f=png&amp;s=64938" alt="v-once文档介绍"></p>
+<h3 id="文档介绍："><a href="#文档介绍：" class="headerlink" title="文档介绍："></a>文档介绍：</h3><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/160ffd6c2dcf70e1?w=948&amp;h=716&amp;f=png&amp;s=64938?raw=true" alt="v-once文档介绍"></p>
 <p>这个api在我看来主要用于那些一次性渲染，并且不会再有操作更改这些渲染的值，这样就可以优化双向绑定的更新性能。</p>
 <h3 id="文档推荐：对低开销的静态组件使用-v-once"><a href="#文档推荐：对低开销的静态组件使用-v-once" class="headerlink" title="文档推荐：对低开销的静态组件使用 v-once"></a><a href="https://cn.vuejs.org/v2/guide/components.html#对低开销的静态组件使用-v-once" target="_blank" rel="noopener">文档</a>推荐：对低开销的静态组件使用 v-once</h3><p>尽管在 Vue 中渲染 HTML 很快，不过当组件中包含大量静态内容时，可以考虑使用 v-once 将渲染结果缓存起来，就像这样：</p>
 <pre><code>Vue.component(&apos;terms-of-service&apos;, {
@@ -518,7 +518,7 @@ beforeRouteLeave (to, from, next) {
   &apos;
 })
 </code></pre><h2 id="vue风格指南推荐："><a href="#vue风格指南推荐：" class="headerlink" title="vue风格指南推荐："></a>vue风格指南推荐：</h2><p>写到这里想到vue框架还有一个<a href="https://cn.vuejs.org/v2/style-guide/" target="_blank" rel="noopener">风格指南</a>推荐，如下图所示，大家也可以学习一波。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/1/17/160fff0ec0147156?w=1578&amp;h=811&amp;f=png&amp;s=174542" alt="vue风格指南"></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/160fff0ec0147156?w=1578&amp;h=811&amp;f=png&amp;s=174542?raw=true" alt="vue风格指南"></p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>上面就是我分享的几个小问题，希望大家看了能够有所收获！另：明年准备去上海，如果小伙伴的公司有坑，可以联系一下我。</p>
 <p><strong>最后</strong>：如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！本人写文章本着交流记录的心态，写的不好之处，不撕逼，但是欢迎指点。然后就是希望看完的朋友点个<strong>喜欢</strong>，也可以<strong>关注</strong>一下我。<br><strong><a href="http://obkoro1.com/" target="_blank" rel="noopener">个人blog</a></strong> and <strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a></strong>  </p>
 <p>以上2018.1.17</p>

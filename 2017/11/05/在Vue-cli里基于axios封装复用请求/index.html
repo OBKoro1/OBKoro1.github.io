@@ -79,17 +79,17 @@
 <meta property="og:site_name" content="OBKoro1&#39;s Blog">
 <meta property="og:description" content="写在前面：自从Vue2.0推荐大家使用 axios 开始，axios 被越来越多的人所了解。使用axios发起一个请求对大家来说是比较简单的事情，但是axios没有进行封装复用，项目越来越大，引起的代码冗余。就会非常麻烦的一件事。所以本文会详细的跟大家介绍，如何封装请求，并且在项目组件中复用请求。有需要的朋友可以做一下参考，喜欢的可以点波赞，或者关注一下，希望可以帮到大家。  本文首发于我的个人b">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/10/31/3af73c621b7523aa0f3a2fd95d1bd38c">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/4/0eaae692ac8801448a0a7300206d6144">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/5/3cd9e9f1ebe11929f940d567870b4ec9">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/5/f70bfc90db9cb1c40725e179efbd4ab5">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/5/250690aa2ca666b6ef48f69483731ae0">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/5/2ba68f2fad37c0285aeb0ba9e6e86a1e">
-<meta property="og:updated_time" content="2017-11-05T07:56:27.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/3af73c621b7523aa0f3a2fd95d1bd38c?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/0eaae692ac8801448a0a7300206d6144?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/3cd9e9f1ebe11929f940d567870b4ec9?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/f70bfc90db9cb1c40725e179efbd4ab5?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/250690aa2ca666b6ef48f69483731ae0?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/2ba68f2fad37c0285aeb0ba9e6e86a1e?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Vue-cli里基于axios封装复用请求">
 <meta name="twitter:description" content="写在前面：自从Vue2.0推荐大家使用 axios 开始，axios 被越来越多的人所了解。使用axios发起一个请求对大家来说是比较简单的事情，但是axios没有进行封装复用，项目越来越大，引起的代码冗余。就会非常麻烦的一件事。所以本文会详细的跟大家介绍，如何封装请求，并且在项目组件中复用请求。有需要的朋友可以做一下参考，喜欢的可以点波赞，或者关注一下，希望可以帮到大家。  本文首发于我的个人b">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/10/31/3af73c621b7523aa0f3a2fd95d1bd38c">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/3af73c621b7523aa0f3a2fd95d1bd38c?raw=true">
 
 
 
@@ -450,7 +450,7 @@ proxyTable: {
     }
   },
 },
-</code></pre><p><img src="https://user-gold-cdn.xitu.io/2017/10/31/3af73c621b7523aa0f3a2fd95d1bd38c" alt=""></p>
+</code></pre><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/3af73c621b7523aa0f3a2fd95d1bd38c?raw=true" alt=""></p>
 <p>设置好了之后，当你在项目中要调用<code>http://47.95.xxx.246:8080</code>这个服务器里面的接口，可以直接用<code>/api</code>代替服务器地址。</p>
 <h2 id="发起请求"><a href="#发起请求" class="headerlink" title="发起请求"></a>发起请求</h2><h3 id="main-js入口文件中："><a href="#main-js入口文件中：" class="headerlink" title="main.js入口文件中："></a>main.js入口文件中：</h3><pre><code>import axios from &apos;axios&apos;;//引入文件
 Vue.prototype.$http = axios;//将axios挂载到Vue实例中的$ajax上面,在项目中的任何位置通过this.$http使用
@@ -471,15 +471,15 @@ Vue.prototype.$http = axios;//将axios挂载到Vue实例中的$ajax上面,在项
     console.log(err,&apos;请求失败&apos;);
   });
 </code></pre><h2 id="封装请求"><a href="#封装请求" class="headerlink" title="封装请求"></a>封装请求</h2><p>封装的时候，我通常喜欢把请求抽象成三个文件，文件位置放在src中，只要你能引用到，就没问题，如下图所示：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/11/4/0eaae692ac8801448a0a7300206d6144" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/0eaae692ac8801448a0a7300206d6144?raw=true" alt=""></p>
 <p>创建三个.js文件，里面我都很认真的注释了，我就直接贴图片了，在文末我把这三个文件的地址发出来，需要的小伙伴自取。</p>
 <p>fetch.js：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/11/5/3cd9e9f1ebe11929f940d567870b4ec9" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/3cd9e9f1ebe11929f940d567870b4ec9?raw=true" alt=""></p>
 <p>url.js:</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/11/5/f70bfc90db9cb1c40725e179efbd4ab5" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/f70bfc90db9cb1c40725e179efbd4ab5?raw=true" alt=""></p>
 <p>api.js</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/11/5/250690aa2ca666b6ef48f69483731ae0" alt=""></p>
-<h3 id="在组件里面如何使用接口："><a href="#在组件里面如何使用接口：" class="headerlink" title="在组件里面如何使用接口："></a>在组件里面如何使用接口：</h3><p><img src="https://user-gold-cdn.xitu.io/2017/11/5/2ba68f2fad37c0285aeb0ba9e6e86a1e" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/250690aa2ca666b6ef48f69483731ae0?raw=true" alt=""></p>
+<h3 id="在组件里面如何使用接口："><a href="#在组件里面如何使用接口：" class="headerlink" title="在组件里面如何使用接口："></a>在组件里面如何使用接口：</h3><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/2ba68f2fad37c0285aeb0ba9e6e86a1e?raw=true" alt=""></p>
 <h3 id="封装axios文件地址在这里：传送门"><a href="#封装axios文件地址在这里：传送门" class="headerlink" title="封装axios文件地址在这里：传送门"></a>封装axios文件地址在这里：<a href="https://github.com/OBKoro1/article-demo/tree/master/2017/axios" target="_blank" rel="noopener">传送门</a></h3><p>代码注释什么的，已经蛮多了，跟着文章一步一步走，实现封装axios请求，没毛病的。本文并没有把很多功能都完整的列出来，主要是追求一个上手，剩下的东西，各位小伙伴们可以自行研究。</p>
 <p><strong>最后</strong>：如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！本人写文章本着交流记录的心态，写的不好之处，不撕逼，但是欢迎指点。然后就是希望看完的朋友点个<strong>喜欢</strong>，也可以<strong>关注</strong>一下我。<br><a href="http://obkoro1.com/" target="_blank" rel="noopener">blog网站</a>  and <strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a> </strong></p>
 <p>以上2017.11.5</p>

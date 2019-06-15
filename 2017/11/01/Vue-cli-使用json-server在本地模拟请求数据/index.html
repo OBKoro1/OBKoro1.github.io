@@ -79,15 +79,15 @@
 <meta property="og:site_name" content="OBKoro1&#39;s Blog">
 <meta property="og:description" content="写在前面：开发的时候，前后端不论是否分离，接口多半是滞后于页面开发的。所以建立一个REST风格的API接口，给前端页面提供虚拟的数据，是非常有必要的。json server 作为模拟工具，因为设置简单，容易上手。本文是做一个简单的上手介绍，有需要的朋友可以做一下参考，喜欢的可以点波赞，或者关注一下，希望可以帮到大家。  本文首发于我的个人blog：obkoro1.com  json server">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/10/31/1cd6d748943c968c65eb135b322c6f0b">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/10/31/3af73c621b7523aa0f3a2fd95d1bd38c">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/10/31/50baa471e48b88d8dc595e0dc8cd60b7">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/10/31/cd31ad94fb979187133c4d1c8f5d9572">
-<meta property="og:updated_time" content="2017-11-05T07:55:33.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1cd6d748943c968c65eb135b322c6f0b?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/3af73c621b7523aa0f3a2fd95d1bd38c?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/50baa471e48b88d8dc595e0dc8cd60b7?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/cd31ad94fb979187133c4d1c8f5d9572?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue-cli 使用json server在本地模拟请求数据">
 <meta name="twitter:description" content="写在前面：开发的时候，前后端不论是否分离，接口多半是滞后于页面开发的。所以建立一个REST风格的API接口，给前端页面提供虚拟的数据，是非常有必要的。json server 作为模拟工具，因为设置简单，容易上手。本文是做一个简单的上手介绍，有需要的朋友可以做一下参考，喜欢的可以点波赞，或者关注一下，希望可以帮到大家。  本文首发于我的个人blog：obkoro1.com  json server">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/10/31/1cd6d748943c968c65eb135b322c6f0b">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1cd6d748943c968c65eb135b322c6f0b?raw=true">
 
 
 
@@ -451,7 +451,7 @@ apiServer.listen( port + 1,function(){ //json服务器端口:比如你使用8080
   console.log(&apos;JSON Server is running&apos;)  //json server成功运行会在git bash里面打印出&apos;JSON Server is running&apos;
 })
 </code></pre><p>如图所示：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/10/31/1cd6d748943c968c65eb135b322c6f0b" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1cd6d748943c968c65eb135b322c6f0b?raw=true" alt=""></p>
 <h3 id="请求接口代理："><a href="#请求接口代理：" class="headerlink" title="请求接口代理："></a>请求接口代理：</h3><pre><code>proxyTable: {
   &apos;/api&apos;: {
     target: &apos;http://localhost:8081/&apos;,  // 通过本地服务器将你的请求转发到这个地址
@@ -462,11 +462,11 @@ apiServer.listen( port + 1,function(){ //json服务器端口:比如你使用8080
   },
 },
 </code></pre><p>如下图所示：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/10/31/3af73c621b7523aa0f3a2fd95d1bd38c" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/3af73c621b7523aa0f3a2fd95d1bd38c?raw=true" alt=""></p>
 <h3 id="npm-run-dev启动项目可以访问到你的json文件："><a href="#npm-run-dev启动项目可以访问到你的json文件：" class="headerlink" title="npm run dev启动项目可以访问到你的json文件："></a>npm run dev启动项目可以访问到你的json文件：</h3><p>现在服务器已经成功启动，在地址栏输入 localhost:8081，就可以看到的json文件，加上相应后缀即可访问文件里面的数据。下面几张图片出自：<a href="http://blog.csdn.net/biubiubiuzzz/article/details/78066621" target="_blank" rel="noopener">biubiubiuzzz</a></p>
 <p>jsonserver服务器：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/10/31/50baa471e48b88d8dc595e0dc8cd60b7" alt="jsonserver服务器"></p>
-<p>json数据：<br><img src="https://user-gold-cdn.xitu.io/2017/10/31/cd31ad94fb979187133c4d1c8f5d9572" alt="json数据"></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/50baa471e48b88d8dc595e0dc8cd60b7?raw=true" alt="jsonserver服务器"></p>
+<p>json数据：<br><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/cd31ad94fb979187133c4d1c8f5d9572?raw=true" alt="json数据"></p>
 <h2 id="axios请求json数据："><a href="#axios请求json数据：" class="headerlink" title="axios请求json数据："></a>axios请求json数据：</h2><p>光看到这些数据可不行，我们还需要发起请求，请求到这些数据，然后执行各种各样的骚操作。</p>
 <h3 id="main-js文件中："><a href="#main-js文件中：" class="headerlink" title="main.js文件中："></a>main.js文件中：</h3><pre><code>import axios from &apos;axios&apos;;//引入文件
 Vue.prototype.$ajax = axios;//将axios挂载到Vue实例中的$ajax上面,在项目中的任何位置通过this.$ajax使用

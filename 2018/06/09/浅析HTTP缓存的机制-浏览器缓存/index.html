@@ -80,12 +80,12 @@
 <meta property="og:description" content="在浏览器众多缓存中的HTTP缓存可能很多人对这个的概念并没有很清晰，每个人都知道进入一次网页之后再刷新一次页面，加载速度会比首次加载快非常多，每个人都知道这是浏览器缓存的magic，但是对此背后的原因可能不甚了解… 当我们在谈论HTTP缓存时我们在谈论什么:我们实际上是在谈论下面这两种情况:  如上图，浏览器对静态资源的HTTP缓存有两种情况，一种是强缓存(本地缓存)，另一种是弱缓存(协商缓存)">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1fs53vmb7xrj30nc0dhase.jpg?raw=true">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/9/163e32ac608a1146?w=1849&h=301&f=png&s=70428">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/9/163e323d0879019f?w=686&h=382&f=png&s=25723">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/9/163e33ba0484fb14?w=401&h=861&f=png&s=122643">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/9/163e3d5d5e2119a5?w=975&h=583&f=png&s=74354">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/9/163e4019ed29d0ae?w=495&h=175&f=png&s=7693">
-<meta property="og:updated_time" content="2019-05-29T10:38:49.210Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/163e32ac608a1146?w=1849&h=301&f=png&s=70428?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/163e323d0879019f?w=686&h=382&f=png&s=25723?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/163e33ba0484fb14?w=401&h=861&f=png&s=122643?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/163e3d5d5e2119a5?w=975&h=583&f=png&s=74354?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/163e4019ed29d0ae?w=495&h=175&f=png&s=7693?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.661Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析HTTP缓存的机制-浏览器缓存">
 <meta name="twitter:description" content="在浏览器众多缓存中的HTTP缓存可能很多人对这个的概念并没有很清晰，每个人都知道进入一次网页之后再刷新一次页面，加载速度会比首次加载快非常多，每个人都知道这是浏览器缓存的magic，但是对此背后的原因可能不甚了解… 当我们在谈论HTTP缓存时我们在谈论什么:我们实际上是在谈论下面这两种情况:  如上图，浏览器对静态资源的HTTP缓存有两种情况，一种是强缓存(本地缓存)，另一种是弱缓存(协商缓存)">
@@ -436,12 +436,12 @@
         <p><img src="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1fs53vmb7xrj30nc0dhase.jpg?raw=true" alt=""></p>
 <p>在浏览器众多缓存中的HTTP缓存可能很多人对这个的概念并没有很清晰，每个人都知道进入一次网页之后再刷新一次页面，加载速度会比首次加载快非常多，每个人都知道这是浏览器缓存的magic，但是对此背后的原因可能不甚了解…</p>
 <h3 id="当我们在谈论HTTP缓存时我们在谈论什么"><a href="#当我们在谈论HTTP缓存时我们在谈论什么" class="headerlink" title="当我们在谈论HTTP缓存时我们在谈论什么:"></a>当我们在谈论HTTP缓存时我们在谈论什么:</h3><p>我们实际上是在谈论下面这两种情况:</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/6/9/163e32ac608a1146?w=1849&amp;h=301&amp;f=png&amp;s=70428" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/163e32ac608a1146?w=1849&amp;h=301&amp;f=png&amp;s=70428?raw=true" alt=""></p>
 <p>如上图，浏览器对静态资源的HTTP缓存有两种情况，一种是强缓存(本地缓存)，另一种是弱缓存(协商缓存)。</p>
 <hr>
-<h3 id="缓存流程："><a href="#缓存流程：" class="headerlink" title="缓存流程："></a>缓存流程：</h3><h4 id="浏览器第一次请求资源时："><a href="#浏览器第一次请求资源时：" class="headerlink" title="浏览器第一次请求资源时："></a>浏览器第一次请求资源时：</h4><p><img src="https://user-gold-cdn.xitu.io/2018/6/9/163e323d0879019f?w=686&amp;h=382&amp;f=png&amp;s=25723" alt="图片出自网络"></p>
+<h3 id="缓存流程："><a href="#缓存流程：" class="headerlink" title="缓存流程："></a>缓存流程：</h3><h4 id="浏览器第一次请求资源时："><a href="#浏览器第一次请求资源时：" class="headerlink" title="浏览器第一次请求资源时："></a>浏览器第一次请求资源时：</h4><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/163e323d0879019f?w=686&amp;h=382&amp;f=png&amp;s=25723?raw=true" alt="图片出自网络"></p>
 <p>浏览器<strong>第一次请求资源时，必须下载所有的资源，然后根据响应的header内容来决定，如何缓存资源</strong>。可能采用的是强缓存，也可能是弱缓存</p>
-<h4 id="浏览器后续请求资源时的匹配流程："><a href="#浏览器后续请求资源时的匹配流程：" class="headerlink" title="浏览器后续请求资源时的匹配流程："></a>浏览器后续请求资源时的匹配流程：</h4><p><img src="https://user-gold-cdn.xitu.io/2018/6/9/163e33ba0484fb14?w=401&amp;h=861&amp;f=png&amp;s=122643" alt=""></p>
+<h4 id="浏览器后续请求资源时的匹配流程："><a href="#浏览器后续请求资源时的匹配流程：" class="headerlink" title="浏览器后续请求资源时的匹配流程："></a>浏览器后续请求资源时的匹配流程：</h4><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/163e33ba0484fb14?w=401&amp;h=861&amp;f=png&amp;s=122643?raw=true" alt=""></p>
 <p>由上图可以知道当浏览器请求一个静态资源时的HTTP流程：</p>
 <ol>
 <li>强缓存阶段：先在本地查找该资源，如果发现该资源，并且其他限制也没有问题(比如:缓存有效时间)，就命中强缓存，返回200，直接使用强缓存，并且不会发送请求到服务器</li>
@@ -504,7 +504,7 @@
 <li>服务器检查该Last-Modified或ETag，并判断出该资源<strong>页面自上次客户端请求之后还未被修改，返回响应304和一个空的响应体</strong>。</li>
 </ol>
 <h3 id="同时使用两个报文头"><a href="#同时使用两个报文头" class="headerlink" title="同时使用两个报文头:"></a>同时使用两个报文头:</h3><p>同时使用这两个报文头，<strong>两个都匹配才会命中弱缓存</strong>，否则将重新请求资源。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/6/9/163e3d5d5e2119a5?w=975&amp;h=583&amp;f=png&amp;s=74354" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/163e3d5d5e2119a5?w=975&amp;h=583&amp;f=png&amp;s=74354?raw=true" alt=""></p>
 <h3 id="Etag-主要为了解决-Last-Modified-无法解决的一些问题："><a href="#Etag-主要为了解决-Last-Modified-无法解决的一些问题：" class="headerlink" title="Etag 主要为了解决 Last-Modified 无法解决的一些问题："></a>Etag 主要为了解决 Last-Modified 无法解决的一些问题：</h3><ol>
 <li>一些文件也许内容并不改变(仅仅改变的修改时间)，这个时候我们不希望文件重新加载。（Etag值会触发缓存，Last-Modified不会触发）</li>
 <li>If-Modified-Since能检查到的粒度是秒级的，当修改非常频繁时，Last-Modified会触发缓存，而Etag的值不会触发，重新加载。</li>
@@ -513,7 +513,7 @@
 <hr>
 <h3 id="用户操作行为与缓存"><a href="#用户操作行为与缓存" class="headerlink" title="用户操作行为与缓存"></a>用户操作行为与缓存</h3><p>F5刷新导致强缓存失效。</p>
 <p>ctrl+F5强制刷新页面强缓存，弱缓存都会失效。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/6/9/163e4019ed29d0ae?w=495&amp;h=175&amp;f=png&amp;s=7693" alt="图片出自网络"></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/163e4019ed29d0ae?w=495&amp;h=175&amp;f=png&amp;s=7693?raw=true" alt="图片出自网络"></p>
 <h3 id="如何设置？"><a href="#如何设置？" class="headerlink" title="如何设置？"></a>如何设置？</h3><p>一般是服务器端设置这些请求头的，我自己试了用阿里云服务器设置<code>Cache-Control</code>，设置一下很方便的。</p>
 <hr>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>通过网络重复请求资源既缓慢，成本又高，缓存和重用以前获取的资源的能力成为优化性能很关键的一个方面,也是大厂面试时很频繁出现的内容，掌握好这块知识点是非常重要的，希望本文能给你带来些收获。</p>

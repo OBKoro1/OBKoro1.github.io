@@ -80,11 +80,11 @@
 <meta property="og:description" content="前言：同一个项目，保持代码风格的一致，是非常重要的一个规范。但事实上项目小组成员的代码校验规则、格式化工具通常都不一致，为了避免项目到后期出现无法维护的问题，项目成员使用同一套校验规则，同一个格式化方式是相当好的步骤之一。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1fvbhpu4dx8j30r00i0jwg.jpg?raw=true">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/9/16/165e132647eca15f?w=1132&h=559&f=png&s=205082">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/9/16/165e136abe3b1feb?w=479&h=423&f=png&s=95954">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/9/16/165e151df42747c4?w=474&h=335&f=gif&s=22430">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/9/16/165e1561a9b92866?w=694&h=111&f=png&s=33155">
-<meta property="og:updated_time" content="2019-05-29T10:38:49.131Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/165e132647eca15f?w=1132&h=559&f=png&s=205082?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/165e136abe3b1feb?w=479&h=423&f=png&s=95954?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/165e151df42747c4?w=474&h=335&f=gif&s=22430?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/165e1561a9b92866?w=694&h=111&f=png&s=33155?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VsCode读取项目文件的Eslint规则 保存时自动修复格式错误">
 <meta name="twitter:description" content="前言：同一个项目，保持代码风格的一致，是非常重要的一个规范。但事实上项目小组成员的代码校验规则、格式化工具通常都不一致，为了避免项目到后期出现无法维护的问题，项目成员使用同一套校验规则，同一个格式化方式是相当好的步骤之一。">
@@ -446,8 +446,8 @@
 </ul>
 <hr>
 <h2 id="配置："><a href="#配置：" class="headerlink" title="配置："></a>配置：</h2><h3 id="1-安装VsCode的EsLint和vetur插件"><a href="#1-安装VsCode的EsLint和vetur插件" class="headerlink" title="1.安装VsCode的EsLint和vetur插件"></a>1.安装VsCode的<code>EsLint</code>和<code>vetur</code>插件</h3><p>如图安装<code>EsLint</code>插件：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/9/16/165e132647eca15f?w=1132&amp;h=559&amp;f=png&amp;s=205082" alt=""></p>
-<h3 id="2-为项目安装EsLint包："><a href="#2-为项目安装EsLint包：" class="headerlink" title="2.为项目安装EsLint包："></a>2.为项目安装<code>EsLint</code>包：</h3><p><img src="https://user-gold-cdn.xitu.io/2018/9/16/165e136abe3b1feb?w=479&amp;h=423&amp;f=png&amp;s=95954" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/165e132647eca15f?w=1132&amp;h=559&amp;f=png&amp;s=205082?raw=true" alt=""></p>
+<h3 id="2-为项目安装EsLint包："><a href="#2-为项目安装EsLint包：" class="headerlink" title="2.为项目安装EsLint包："></a>2.为项目安装<code>EsLint</code>包：</h3><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/165e136abe3b1feb?w=479&amp;h=423&amp;f=png&amp;s=95954?raw=true" alt=""></p>
 <p>注意要安装在开发环境上，还有就是如果你使用的是脚手架的话，选了Eslint选项，会自带这些包。</p>
 <h3 id="3-在项目的根目录下添加-eslintrc-js"><a href="#3-在项目的根目录下添加-eslintrc-js" class="headerlink" title="3.在项目的根目录下添加.eslintrc.js"></a>3.在项目的根目录下添加<code>.eslintrc.js</code></h3><p>用于校验代码格式，根据项目情况，可自行编写校验规则：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">// Eslint规则</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -466,7 +466,7 @@
  ],
 </code></pre><p>想了解更多的话，推荐看一下VsCode的<a href="https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint" target="_blank" rel="noopener">EsLint</a>插件</p>
 <h3 id="大功告成："><a href="#大功告成：" class="headerlink" title="大功告成："></a>大功告成：</h3><p>点开文件，你可能会看到如下报错，无需一个一个去改，只要保存一下文件，就可以自动修复这些代码格式上的问题了。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/9/16/165e151df42747c4?w=474&amp;h=335&amp;f=gif&amp;s=22430" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/165e151df42747c4?w=474&amp;h=335&amp;f=gif&amp;s=22430?raw=true" alt=""></p>
 <p><strong>注意：</strong></p>
 <p>如果整个文件都飘红的话，不会一次性修改如果的格式问题，会一下改一部分，你可能需要多按几次保存。</p>
 <h3 id="一键修复项目格式问题："><a href="#一键修复项目格式问题：" class="headerlink" title="一键修复项目格式问题："></a>一键修复项目格式问题：</h3><p>遇到下面这两种情况：</p>
@@ -476,7 +476,7 @@
 </ul>
 <p>你可以像下面这样，在<code>package.json</code>里面的<code>scripts</code>里面新增一条如下命令：</p>
 <pre><code>&quot;lint&quot;: &quot;eslint --ext .js,.vue src --fix&quot;
-</code></pre><p><img src="https://user-gold-cdn.xitu.io/2018/9/16/165e1561a9b92866?w=694&amp;h=111&amp;f=png&amp;s=33155" alt=""></p>
+</code></pre><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/165e1561a9b92866?w=694&amp;h=111&amp;f=png&amp;s=33155?raw=true" alt=""></p>
 <p><code>--ext</code>后面跟上的<code>.js</code>、<code>.vue</code>是你要检测文件的后缀，<code>.vue</code>后面的<code>src</code>是要检测的哪个目录下面的文件。</p>
 <p><code>--fix</code>的作用是自动修复根据你配置的规则检测出来的格式问题</p>
 <p><strong>一键修复:</strong></p>
@@ -505,7 +505,7 @@ module.exports = {
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>设置如上，很快就能弄好，赶紧在团队中用起来吧！</p>
 <p>使用自动VsCode+EsLint格式化代码，在团队内部相互去看别人的代码的时候，就可以更容易的看的懂，能够极大的降低团队的沟通成本和提高心情。</p>
 <h3 id="希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。"><a href="#希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。" class="headerlink" title="希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。"></a>希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。</h3><p><strong><a href="http://obkoro1.com/" target="_blank" rel="noopener">个人blog</a></strong> and <strong><a href="http://obkoro1.com/web_accumulate/" target="_blank" rel="noopener">前端积累文档</a></strong>，如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！</p>
-<p>如果喜欢本文的话，欢迎扫描关注我的<a href="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317" target="_blank" rel="noopener">订阅号</a>，最新文章，面试题等都将第一时间发布在订阅号上。</p>
+<p>如果喜欢本文的话，欢迎扫描关注我的<a href="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317?raw=true" target="_blank" rel="noopener">订阅号</a>，最新文章，面试题等都将第一时间发布在订阅号上。</p>
 <p> 以上2018.9.16</p>
 
       

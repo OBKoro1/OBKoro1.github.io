@@ -80,10 +80,10 @@
 <meta property="og:description" content="前言有时候我们经常会碰到这些场景：玩掘金、知乎的时候复制一段文字，总是会在内容后面加上一些版权信息，以及像小说网站等都有禁止选中，禁止复制这种功能，还有点击自动复制账号的功能。 我也经常遇到这些场景，有时候会去想这后面到底是怎么做，周末趁着有空去研究了一下，然后发现这些都跟操作剪贴板有关系，并且都不难，了解一下基本都知道怎么做了，整理分享一波给大家。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1fu2gw0wuhqj30zk0k0q6d.jpg?raw=true">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/8/16518cf40dd44b7c?w=1917&h=363&f=png&s=145894">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/8/16518d4625634931?w=861&h=305&f=png&s=195959">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317">
-<meta property="og:updated_time" content="2019-05-29T10:38:49.185Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/16518cf40dd44b7c?w=1917&h=363&f=png&s=145894?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/16518d4625634931?w=861&h=305&f=png&s=195959?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端er怎样操作剪切复制以及禁止复制+破解等">
 <meta name="twitter:description" content="前言有时候我们经常会碰到这些场景：玩掘金、知乎的时候复制一段文字，总是会在内容后面加上一些版权信息，以及像小说网站等都有禁止选中，禁止复制这种功能，还有点击自动复制账号的功能。 我也经常遇到这些场景，有时候会去想这后面到底是怎么做，周末趁着有空去研究了一下，然后发现这些都跟操作剪贴板有关系，并且都不难，了解一下基本都知道怎么做了，整理分享一波给大家。">
@@ -598,9 +598,9 @@ body {
 <p><strong>破解防复制</strong>：</p>
 <p>上面的防复制方法通过<code>js</code>+<code>css</code>实现的，所以<strong>思路就是</strong>：禁用<code>js</code>+取消<code>user-select</code>样式。</p>
 <p><code>Chrome</code>浏览器的话：打开浏览器控制台，按<code>F1</code>进入<code>Setting</code>，勾选<code>Disable JavaScript</code>(禁止js)。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/8/8/16518cf40dd44b7c?w=1917&amp;h=363&amp;f=png&amp;s=145894" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/16518cf40dd44b7c?w=1917&amp;h=363&amp;f=png&amp;s=145894?raw=true" alt=""></p>
 <p>此时如果还不能复制的话，就要去找<code>user-select</code>样式,取消这个样式就可以了。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/8/8/16518d4625634931?w=861&amp;h=305&amp;f=png&amp;s=195959" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/16518d4625634931?w=861&amp;h=305&amp;f=png&amp;s=195959?raw=true" alt=""></p>
 <p>所以那些盗版小说手打的，我真的不太能理解，Excuse me？？？</p>
 <h3 id="点击复制功能："><a href="#点击复制功能：" class="headerlink" title="点击复制功能："></a>点击复制功能：</h3><p><strong>不能使用clipboardData：</strong></p>
 <p>在IE中可以用<code>window.clipboardData.setData(&#39;text&#39;,&#39;内容&#39;)</code>实现。</p>
@@ -630,7 +630,7 @@ body {
 <p>事实上只要监听了这些事件，我们就可以对要剪切的内容进行各种各样的操作，比如:复制的时候更换文本，粘贴的时候查找有没有图片(上传图片)，或者文本的长度进行剪切等等，唯一限制你的</p>
 <h3 id="希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。"><a href="#希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。" class="headerlink" title="希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。"></a>希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。</h3><p><strong><a href="http://obkoro1.com/" target="_blank" rel="noopener">个人blog</a></strong> and <strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a></strong>，如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！</p>
 <p>如果喜欢本文的话，欢迎关注我的订阅号，漫漫技术路，期待未来共同学习成长。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317?raw=true" alt=""></p>
 <p> 以上2018.8.8</p>
 <p> 参考资料：</p>
 <p>js高程 14.2.2操作剪贴板</p>

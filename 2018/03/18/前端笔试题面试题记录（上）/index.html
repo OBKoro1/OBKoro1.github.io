@@ -79,12 +79,12 @@
 <meta property="og:site_name" content="OBKoro1&#39;s Blog">
 <meta property="og:description" content="前言过完元宵，就到上海找了波工作，现在已经入职好了，本文的题目都是中小公司的笔试面试题，里面大部分是我碰到比较频繁或者印象深刻的，在此做波记录，如果喜欢的话可以点波赞，或者关注一下，希望大家看完本文可以有所收获。  本文首发于我的个人blog：obkoro1.com   Q：什么情况下会碰到跨域问题？有哪些解决方法？ 跨域问题是这是浏览器为了安全实施的同源策略导致的，同源策略限制了来自不同源的do">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/18/1623523c039e18f5?w=478&h=489&f=png&s=30591">
-<meta property="og:updated_time" content="2018-05-09T17:13:08.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1623523c039e18f5?w=478&h=489&f=png&s=30591?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.651Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端笔试题面试题记录（上）">
 <meta name="twitter:description" content="前言过完元宵，就到上海找了波工作，现在已经入职好了，本文的题目都是中小公司的笔试面试题，里面大部分是我碰到比较频繁或者印象深刻的，在此做波记录，如果喜欢的话可以点波赞，或者关注一下，希望大家看完本文可以有所收获。  本文首发于我的个人blog：obkoro1.com   Q：什么情况下会碰到跨域问题？有哪些解决方法？ 跨域问题是这是浏览器为了安全实施的同源策略导致的，同源策略限制了来自不同源的do">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/3/18/1623523c039e18f5?w=478&h=489&f=png&s=30591">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1623523c039e18f5?w=478&h=489&f=png&s=30591?raw=true">
 
 
 
@@ -452,7 +452,7 @@
 <hr>
 <h3 id="Q：定时器的执行顺序或机制。"><a href="#Q：定时器的执行顺序或机制。" class="headerlink" title="Q：定时器的执行顺序或机制。"></a>Q：定时器的执行顺序或机制。</h3><p>这个问题还是挺经常被问到的，有一些会直接问定时器的机制，有一些是通过笔试题的方式问执行顺序然后问我为什么是这样。</p>
 <p>长话短说，我们需要记住的是：<strong>因为js是单线程的，浏览器遇到<code>setTimeout</code>或者<code>setInterval</code>会先执行完当前的代码块，在此之前会把定时器推入浏览器的待执行事件队列里面，等到浏览器执行完当前代码之后会看一下事件队列里面有没有任务，有的话才执行定时器的代码。</strong> 所以即使把定时器的时间设置为0还是会先执行当前的一些代码。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/3/18/1623523c039e18f5?w=478&amp;h=489&amp;f=png&amp;s=30591" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1623523c039e18f5?w=478&amp;h=489&amp;f=png&amp;s=30591?raw=true" alt=""></p>
 <p>上面是我写的一个栗子，如果还不清楚的话，大家可以找一篇关于定时器机制的详解文章来看看。</p>
 <hr>
 <h3 id="Q：html中title属性和alt属性的区别？"><a href="#Q：html中title属性和alt属性的区别？" class="headerlink" title="Q：html中title属性和alt属性的区别？"></a>Q：html中title属性和alt属性的区别？</h3><p>这个问题被问了一次，当时我只记得，alt属性是用于img标签的，当图片失效的时候会出现alt属性里面的内容，title用来标记页面的title，当时面试官问我还有没有其他的区别。我。。。</p>

@@ -80,9 +80,9 @@
 <meta property="og:description" content="前言说到Vue的钩子函数，可能很多人只停留在一些很简单常用的钩子(created,mounted)，而且对于里面的区别，什么时候该用什么钩子，并没有仔细的去研究过，且Vue的生命周期在面试中也算是比较高频的考点，那么该如何回答这类问题，让人有眼前一亮的感觉呢…">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/OBKoro1/articleImg_src/blob/master/weibo_img_move/005Y4rCogy1fthmrmtswmj30dw08t0v6.jpg?raw=true">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/7/21/164bbf610b61f3cd?w=1200&h=2800&f=jpeg&s=946212">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317">
-<meta property="og:updated_time" content="2019-05-29T10:38:49.136Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/164bbf610b61f3cd?w=1200&h=2800&f=jpeg&s=946212?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue的钩子函数[路由导航守卫、keep-alive、生命周期钩子]">
 <meta name="twitter:description" content="前言说到Vue的钩子函数，可能很多人只停留在一些很简单常用的钩子(created,mounted)，而且对于里面的区别，什么时候该用什么钩子，并没有仔细的去研究过，且Vue的生命周期在面试中也算是比较高频的考点，那么该如何回答这类问题，让人有眼前一亮的感觉呢…">
@@ -689,7 +689,7 @@ new Router({
 </code></pre><p><strong>当组件被<code>exclude</code>匹配，该组件将不会被缓存，不会调用<code>activated</code> 和 <code>deactivated</code></strong>。</p>
 <hr>
 <h2 id="组件生命周期钩子："><a href="#组件生命周期钩子：" class="headerlink" title="组件生命周期钩子："></a>组件生命周期钩子：</h2><p>关于组件的生命周期，是时候放出这张图片了：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/7/21/164bbf610b61f3cd?w=1200&amp;h=2800&amp;f=jpeg&amp;s=946212" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/164bbf610b61f3cd?w=1200&amp;h=2800&amp;f=jpeg&amp;s=946212?raw=true" alt=""></p>
 <p>这张图片已经讲得很清楚了，很多人这部分也很清楚了，大部分生命周期并不会用到，这里提一下几点：</p>
 <ol>
 <li><p><strong>ajax请求最好放在<code>created</code>里面</strong>，因为此时已经可以访问<code>this</code>了，请求到数据就可以直接放在<code>data</code>里面。</p>
@@ -731,7 +731,7 @@ new Router({
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Vue提供了很多钩子，但很多钩子我们几乎不会用到，只有清楚这些钩子函数的触发顺序以及背后的一些限制等，这样我们才能够正确的使用这些钩子，希望看了本文的同学，能对这些钩子有更加清晰的认识，使用起来更加得心应手。</p>
 <h3 id="希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。"><a href="#希望看完的朋友可以点个喜欢-关注，您的支持是对我最大的鼓励。" class="headerlink" title="希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。"></a>希望看完的朋友可以点个喜欢/关注，您的支持是对我最大的鼓励。</h3><p><strong><a href="http://obkoro1.com/" target="_blank" rel="noopener">个人blog</a></strong> and <strong><a href="https://juejin.im/user/58714f0eb123db4a2eb95372" target="_blank" rel="noopener">掘金个人主页</a></strong>，如需转载，请放上原文链接并署名。码字不易，<strong>感谢</strong>支持！</p>
 <p>如果喜欢本文的话，欢迎关注我的订阅号，漫漫技术路，期待未来共同学习成长。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317?raw=true" alt=""></p>
 <p> 以上2018.7.21</p>
 <p> 参考资料：</p>
 <p>Vue文档</p>

@@ -79,14 +79,14 @@
 <meta property="og:site_name" content="OBKoro1&#39;s Blog">
 <meta property="og:description" content="写在前面：这是一篇vue-cli的几个小知识点简单介绍，适用于刚接触vue-cli脚手架以及对此方面并不太了解的同学，大佬们绕道。有需要的朋友可以做一下参考，喜欢的可以点波赞，或者关注一下，希望可以帮到大家。 静态资源处理：assets和static文件夹的区别相信有很多人知道vue-cli有两个放置静态资源的地方，分别是src/assets文件夹和static文件夹,这两者的区别很多人可能不太清">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/17/a476773456af2f136aa1e1a45da18f9f">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/18/35d8e67e0a4783aba76fde31412225a4">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/17/7e9d41302f682760c2eb6cccf5137acf">
-<meta property="og:updated_time" content="2017-10-11T15:11:34.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/a476773456af2f136aa1e1a45da18f9f?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/35d8e67e0a4783aba76fde31412225a4?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/7e9d41302f682760c2eb6cccf5137acf?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.637Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue-cli 自定义路径别名 assets和static文件夹的区别 --save-dev和--save的区别">
 <meta name="twitter:description" content="写在前面：这是一篇vue-cli的几个小知识点简单介绍，适用于刚接触vue-cli脚手架以及对此方面并不太了解的同学，大佬们绕道。有需要的朋友可以做一下参考，喜欢的可以点波赞，或者关注一下，希望可以帮到大家。 静态资源处理：assets和static文件夹的区别相信有很多人知道vue-cli有两个放置静态资源的地方，分别是src/assets文件夹和static文件夹,这两者的区别很多人可能不太清">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/9/17/a476773456af2f136aa1e1a45da18f9f">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/a476773456af2f136aa1e1a45da18f9f?raw=true">
 
 
 
@@ -450,7 +450,7 @@ img标签形式：
 或者div背景图形式：
 &lt;div :style=&quot;{backgroundImage: &apos;url(&apos; + img + &apos;)&apos;}&quot;&gt;&lt;/div&gt;
 </code></pre><p>说了图片就正好再提一下vue-cli的一个图片有关的配置，下图这个配置的意思是：在10000b 的图片以下进行base64转换，所以如果项目中有些比较小的icon就不用再进行图片精灵的处理了</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/9/17/a476773456af2f136aa1e1a45da18f9f" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/a476773456af2f136aa1e1a45da18f9f?raw=true" alt=""></p>
 <h2 id="webpack-vue自定义路径别名"><a href="#webpack-vue自定义路径别名" class="headerlink" title="webpack+vue自定义路径别名"></a>webpack+vue自定义路径别名</h2><p>vue-cli 用的是webpack，也可以使用webpack自定义别名这个功能，自定义别名这个功能<strong>当你在多层文件夹嵌套的时候不必一层一层找路径，直接使用自定义别名就可以找到文件的位置。</strong></p>
 <h3 id="设置方法："><a href="#设置方法：" class="headerlink" title="设置方法："></a>设置方法：</h3><p><strong>设置地址：</strong>build文件夹下面的webpack.base.conf.js文件<br><strong>具体设置：</strong></p>
 <pre><code>resolve: {
@@ -465,9 +465,9 @@ img标签形式：
 <p>使用的时候要像下方截图的B处一样前面要加上一个’~’，这里的webstorm虽然提示报错，我们可以不用管，代码运行是正常的。</p>
 <p><strong>解读：</strong></p>
 <p>这里给’static’赋予了一个地址，那么在程序中引入路径的时候’~static’就直接可以代替路径’../static’，亲测，这里就算多层嵌套也可以成功找到路径。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/9/18/35d8e67e0a4783aba76fde31412225a4" alt="示例图片"></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/35d8e67e0a4783aba76fde31412225a4?raw=true" alt="示例图片"></p>
 <h2 id="清理项目中没用的插件"><a href="#清理项目中没用的插件" class="headerlink" title="清理项目中没用的插件"></a>清理项目中没用的插件</h2><p>很多人像我一样，刚开始的会安装很多插件，然后最后在项目中并没有用到。那之前安装的插件太多了，连自己都忘记了安装了哪些插件？</p>
-<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p><img src="https://user-gold-cdn.xitu.io/2017/9/17/7e9d41302f682760c2eb6cccf5137acf" alt=""></p>
+<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/7e9d41302f682760c2eb6cccf5137acf?raw=true" alt=""></p>
 <p>在上图所示位置，我们项目安装的所有的模块依赖都在这个pageage.json文件中，当我们需要整理一波自己的依赖的时候，可以在这个文件里面找有没有现在已经没用的依赖，可以使用命令行<code>npm remove 模块名字</code>来删除没用的模块。</p>
 <h3 id="–save-dev和–save的区别"><a href="#–save-dev和–save的区别" class="headerlink" title="–save-dev和–save的区别"></a>–save-dev和–save的区别</h3><p>上面的这些依赖有些只在开发环境里面使用的模块，有的在项目上线之后还是要继续依赖的模块。他们之间的区别就在于我们平时安装模块依赖时的：<code>--save-dev</code>和 <code>--save</code></p>
 <p>当你使用<code>--save-dev</code>安装依赖的时候就会放在package.json的devDependencies对象下面，相反的，当你使用<code>--save</code>安装依赖的时候就会出现在dependencies对象下面。</p>

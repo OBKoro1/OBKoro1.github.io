@@ -79,14 +79,14 @@
 <meta property="og:site_name" content="OBKoro1&#39;s Blog">
 <meta property="og:description" content="写在前面：传参是前端经常需要用的一个操作，很多场景都会需要用到上个页面的参数，本文将会详细介绍vue router 是如何进行传参的，以及一些小细节问题。有需要的朋友可以做一下参考，喜欢的可以点波赞，或者关注一下，希望可以帮到大家。  本文首发于我的个人blog：obkoro1.com  Vue router如何传参params、query是什么？ params：/router1/:id ，/ro">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/12/5a6149e063affb11b03b105c0b20a76c">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/12/b26ef6ec935a56ee5ab1fe354b888178">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/12/5327acc0b3dcc403b4316ce00c808221">
-<meta property="og:updated_time" content="2017-11-12T10:13:04.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/5a6149e063affb11b03b105c0b20a76c?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/b26ef6ec935a56ee5ab1fe354b888178?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/5327acc0b3dcc403b4316ce00c808221?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.637Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue router 使用params query传参，以及有什么区别">
 <meta name="twitter:description" content="写在前面：传参是前端经常需要用的一个操作，很多场景都会需要用到上个页面的参数，本文将会详细介绍vue router 是如何进行传参的，以及一些小细节问题。有需要的朋友可以做一下参考，喜欢的可以点波赞，或者关注一下，希望可以帮到大家。  本文首发于我的个人blog：obkoro1.com  Vue router如何传参params、query是什么？ params：/router1/:id ，/ro">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/11/12/5a6149e063affb11b03b105c0b20a76c">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/5a6149e063affb11b03b105c0b20a76c?raw=true">
 
 
 
@@ -438,9 +438,9 @@
 <p> query：/router1?id=123 ,/router1?id=456 ,这里的id叫做query。</p>
 <h3 id="路由界面："><a href="#路由界面：" class="headerlink" title="路由界面："></a>路由界面：</h3><p>router.js:</p>
 <p>路由设置这里，<strong>当你使用params方法传参的时候，要在路由后面加参数名，</strong>并且传参的时候，参数名要跟路由后面设置的参数名对应。使用query方法，就没有这种限制，直接在跳转里面用就可以。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/11/12/5a6149e063affb11b03b105c0b20a76c" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/5a6149e063affb11b03b105c0b20a76c?raw=true" alt=""></p>
 <p><strong>注意：</strong>如果路由上面不写参数，也是可以传过去的，但不会在url上面显示出你的参数，并且当你跳到别的页面或者刷新页面的时候<strong>参数会丢失</strong>（如下图所示），那依赖这个参数的http请求或者其他操作就会失败。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/11/12/b26ef6ec935a56ee5ab1fe354b888178" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/b26ef6ec935a56ee5ab1fe354b888178?raw=true" alt=""></p>
 <p>注意看上面的路由参数，id这个参数是我们有设置在路由上面的，id2我没有设置在路由里面，所以刷新之后id2就不见了，在项目中，我们总不可能要求用户不能刷新吧。</p>
 <h3 id="组件1："><a href="#组件1：" class="headerlink" title="组件1："></a>组件1：</h3><pre><code>&lt;template&gt;
   &lt;div class=&quot;app_page&quot;&gt;
@@ -478,7 +478,7 @@ export default {
 &lt;/template&gt;
 </code></pre><p>传参还是比较简单的，按着上面组件的使用方法就可以成功传过去了。</p>
 <p><strong>提示：</strong>获取路由上面的参数，用的是$route，后面没有r。</p>
-<h3 id="params传参和query传参有什么区别："><a href="#params传参和query传参有什么区别：" class="headerlink" title="params传参和query传参有什么区别："></a>params传参和query传参有什么区别：</h3><p><img src="https://user-gold-cdn.xitu.io/2017/11/12/5327acc0b3dcc403b4316ce00c808221" alt=""></p>
+<h3 id="params传参和query传参有什么区别："><a href="#params传参和query传参有什么区别：" class="headerlink" title="params传参和query传参有什么区别："></a>params传参和query传参有什么区别：</h3><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/5327acc0b3dcc403b4316ce00c808221?raw=true" alt=""></p>
 <p>1、params是路由的一部分,必须要有。query是拼接在url后面的参数，没有也没关系。</p>
 <p><strong>params一旦设置在路由，params就是路由的一部分</strong>，如果这个路由有params传参，但是在跳转的时候没有传这个参数，会导致跳转失败或者页面会没有内容。</p>
 <p>比如：跳转/router1/:id</p>

@@ -79,13 +79,13 @@
 <meta property="og:site_name" content="OBKoro1&#39;s Blog">
 <meta property="og:description" content="写在前面：前端开发的时候，在网页刷新的时候，所有数据都会被清空，这时候就要用到本地存储的技术，前端本地存储的方式有三种，分别是cookie，localstorage和sessionStorage ，这是大家都知道的。本文的主要内容就是针对这三者的存放、获取，区别、应用场景。有需要的朋友可以做一下参考，喜欢的可以点波赞，或者关注一下，希望可以帮到大家。  本文首发于我的个人blog：obkoro1.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/25/15ff2d54764e53af?w=861&h=113&f=png&s=9592">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/11/25/15ff2f727028f37b?w=1028&h=378&f=png&s=28065">
-<meta property="og:updated_time" content="2017-11-28T02:24:28.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/15ff2d54764e53af?w=861&h=113&f=png&s=9592?raw=true">
+<meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/15ff2f727028f37b?w=1028&h=378&f=png&s=28065?raw=true">
+<meta property="og:updated_time" content="2019-06-15T06:19:47.624Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cookie、localStorage和sessionStorage 三者之间的区别以及存储、获取、删除等使用方式">
 <meta name="twitter:description" content="写在前面：前端开发的时候，在网页刷新的时候，所有数据都会被清空，这时候就要用到本地存储的技术，前端本地存储的方式有三种，分别是cookie，localstorage和sessionStorage ，这是大家都知道的。本文的主要内容就是针对这三者的存放、获取，区别、应用场景。有需要的朋友可以做一下参考，喜欢的可以点波赞，或者关注一下，希望可以帮到大家。  本文首发于我的个人blog：obkoro1.">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/11/25/15ff2d54764e53af?w=861&h=113&f=png&s=9592">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/15ff2d54764e53af?w=861&h=113&f=png&s=9592?raw=true">
 
 
 
@@ -478,13 +478,13 @@ sessionStorage.removeItem(name); //删除指定键名数据
 <p>storage在存储数据的大小上面秒杀了cookie，现在基本上很少使用cookie了，因为更大总是更好的，哈哈哈你们懂得。</p>
 <p>localStorage和sessionStorage唯一的差别一个是永久保存在浏览器里面，一个是关闭网页就清除了信息。localStorage可以用来夸页面传递参数，sessionStorage用来保存一些临时的数据，防止用户刷新页面之后丢失了一些参数。</p>
 <h2 id="浏览器支持情况："><a href="#浏览器支持情况：" class="headerlink" title="浏览器支持情况："></a>浏览器支持情况：</h2><p>localStorage和sessionStorage是html5才应用的新特性，可能有些浏览器并不支持，这里要注意。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/11/25/15ff2d54764e53af?w=861&amp;h=113&amp;f=png&amp;s=9592" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/15ff2d54764e53af?w=861&amp;h=113&amp;f=png&amp;s=9592?raw=true" alt=""></p>
 <p>cookie的浏览器支持没有找到，可以通过下面这段代码来判断所使用的浏览器是否支持cookie：</p>
 <pre><code>if(navigator.cookieEnabled) {
   alert(&quot;你的浏览器支持cookie功能&quot;);//提示浏览器支持cookie  
 } else {
   alert(&quot;你的浏览器不支持cookie&quot;);//提示浏览器不支持cookie   }
-</code></pre><h3 id="数据存放处："><a href="#数据存放处：" class="headerlink" title="数据存放处："></a>数据存放处：</h3><p><img src="https://user-gold-cdn.xitu.io/2017/11/25/15ff2f727028f37b?w=1028&amp;h=378&amp;f=png&amp;s=28065" alt="Cookie、localStorage、sessionStorage数据存放处"></p>
+</code></pre><h3 id="数据存放处："><a href="#数据存放处：" class="headerlink" title="数据存放处："></a>数据存放处：</h3><p><img src="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/15ff2f727028f37b?w=1028&amp;h=378&amp;f=png&amp;s=28065?raw=true" alt="Cookie、localStorage、sessionStorage数据存放处"></p>
 <h3 id="番外：各浏览器Cookie大小、个数限制。"><a href="#番外：各浏览器Cookie大小、个数限制。" class="headerlink" title="番外：各浏览器Cookie大小、个数限制。"></a>番外：各浏览器Cookie大小、个数限制。</h3><p>cookie 使用起来还是需要小心一点，有兴趣的可以看一下这个<a href="https://www.cnblogs.com/henryhappier/archive/2011/03/03/1969564.html" target="_blank" rel="noopener">链接</a>。</p>
 <h3 id="demo链接"><a href="#demo链接" class="headerlink" title="demo链接"></a>demo链接</h3><p>把上面的demo代码，上传到github上面了，有需要的小伙伴们，可以看一下。<a href="http://obkoro1.com/article-demo/2017/cookieStorage/index.html" target="_blank" rel="noopener">传送门</a></p>
 <h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>最后要说的是：不要把什么数据都放在 Cookie、localStorage 和 sessionStorage中，毕竟前端的安全性这么低。只要打开控制台就可以任意的修改 Cookie、localStorage 和 sessionStorage的数据了。涉及到金钱或者其他比较重要的信息，还是要存在后台比较好。</p>
