@@ -84,7 +84,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/16ace8030a36c8dd?w=326&h=440&f=png&s=50219?raw=true">
 <meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/16ad3f508ab127a9?w=678&h=318&f=png&s=29341?raw=true">
 <meta property="og:image" content="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/16ad3ff354f2dac3?w=2024&h=1240&f=png&s=339262?raw=true">
-<meta property="og:updated_time" content="2019-06-15T06:19:47.630Z">
+<meta property="og:updated_time" content="2019-07-20T06:55:39.068Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js 调用栈机制与ES6尾调用优化介绍">
 <meta name="twitter:description" content="调用栈的英文名叫做Call Stack，大家或多或少是有听过的，但是对于js调用栈的工作方式以及如何在工作中利用这一特性，大部分人可能没有进行过更深入的研究，这块内容可以说对我们前端来说就是所谓的基础知识，咋一看好像用处并没有很大，但掌握好这个知识点，就可以让我们在以后可以走的更远，走的更快！">
@@ -436,7 +436,7 @@
 <p>调用栈的英文名叫做Call Stack，大家或多或少是有听过的，但是对于js调用栈的工作方式以及如何在工作中利用这一特性，大部分人可能没有进行过更深入的研究，这块内容可以说对我们前端来说就是所谓的基础知识，咋一看好像用处并没有很大，但掌握好这个知识点，就可以让我们在以后可以走的更远，走的更快！</p>
 <a id="more"></a>
 <blockquote>
-<p><a href="http://obkoro1.com/" target="_blank" rel="noopener">博客</a>、<a href="http://obkoro1.com/web_accumulate/accumulate/" target="_blank" rel="noopener">前端积累文档</a>、<a href="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317?raw=true" target="_blank" rel="noopener">公众号</a>、<a href="https://github.com/OBKoro1" target="_blank" rel="noopener">GitHub</a></p>
+<p><a href="http://obkoro1.com/" target="_blank" rel="noopener">博客</a>、<a href="http://obkoro1.com/web_accumulate/accumulate/" target="_blank" rel="noopener">前端积累文档</a>、<a href="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1631b6f52f7e7015.jpeg?raw=true" target="_blank" rel="noopener">公众号</a>、<a href="https://github.com/OBKoro1" target="_blank" rel="noopener">GitHub</a></p>
 </blockquote>
 <hr>
 <h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
@@ -518,7 +518,7 @@
 <li>利用调用栈，对第三方库或者不熟悉的项目，可以更快速的定位问题，提高我们debug速度。</li>
 </ol>
 <p>最后：之前写过一篇关于<a href="https://juejin.im/post/5b40581e5188251ac446c716" target="_blank" rel="noopener">垃圾回收机制与内存泄露</a>的文章，感兴趣的同学可以扩展一下。</p>
-<h3 id="如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！"><a href="#如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！" class="headerlink" title="如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！"></a>如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！</h3><p><a href="http://obkoro1.com/" target="_blank" rel="noopener">博客</a>、<a href="http://obkoro1.com/web_accumulate/accumulate/" target="_blank" rel="noopener">前端积累文档</a>、<a href="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1631b6f52f7e7015?w=344&amp;h=344&amp;f=jpeg&amp;s=8317?raw=true" target="_blank" rel="noopener">公众号</a>、<a href="https://github.com/OBKoro1" target="_blank" rel="noopener">GitHub</a></p>
+<h3 id="如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！"><a href="#如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！" class="headerlink" title="如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！"></a>如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！</h3><p><a href="http://obkoro1.com/" target="_blank" rel="noopener">博客</a>、<a href="http://obkoro1.com/web_accumulate/accumulate/" target="_blank" rel="noopener">前端积累文档</a>、<a href="https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/1631b6f52f7e7015.jpeg?raw=true" target="_blank" rel="noopener">公众号</a>、<a href="https://github.com/OBKoro1" target="_blank" rel="noopener">GitHub</a></p>
 <p> 以上2019/5/19</p>
 <p> 参考资料：</p>
 <p> <a href="https://juejin.im/post/5b40581e5188251ac446c716" target="_blank" rel="noopener">JS垃圾回收机制与常见内存泄露的解决方法</a></p>
