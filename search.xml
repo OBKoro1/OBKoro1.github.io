@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[blog图片失效一键下载/替换]]></title>
+    <url>%2F2019%2F07%2F20%2Fblog%E5%9B%BE%E7%89%87%E5%A4%B1%E6%95%88%E4%B8%80%E9%94%AE%E4%B8%8B%E8%BD%BD-%E6%9B%BF%E6%8D%A2%2F</url>
+    <content type="text"><![CDATA[大约一个月前，微博的图片外链失效了，以及掘金因为盗链问题也于2019/06/06决定开启防盗链，造成的影响是：个人博客网站的引用了这些图片外链都不能显示。 目前微博和掘金的屏蔽，在CSDN和segmentfault都是可以正常显示的，只影响个人博客。 比如前段时间我的博客:http://obkoro1.com上引用的微博图片都不能显示了。 因为我写博客比较频繁，被屏蔽的图片不在少数，肯定不能一个个手动的替换，查了一番没有找到现成的解决方案，做了个脚本工具，并且写了文档把它开源出来了。 markdown-img-down-site-change(下载/替换markdown中的图片) 搜索目标文件夹中的markdown文件，找到目标图片，提供下载图片，替换图片链接的功能-通常用于markdown 图片失效。 简介这是一个极为轻量的脚本，引用包，设置好参数，通过API即可轻松上手。 解决什么问题？ 集中下载markdown文件中某个域名下的图片到一个文件夹下。 用新的图片链接替换markdown文件中某个域名的图片链接。 123456// 1. 下载这两个图片// ![](https://user-gold-cdn.xitu.io/2019/5/20/图片名字?w=2024&amp;h=1240&amp;f=png&amp;s=339262)// ![](https://user-gold-cdn.xitu.io/2018/6/16/图片名字)// 2. 替换成：github的链接![](https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/图片名字)// 由于github的参数限制，带了参数就不能正常显示图片 所有这里默认取图片名前部分的：字母或数字或下划线或汉字 安装:1npm i markdown-img-down-site-change 文档：Github API 更新日志 数据安全：刚上手可能不了解脚本的功能，需要调试一番，这时候万一把markdown文件给改坏了，岂不是要哭死？ 脚本有两种形式来防止这种情况发生： 脚本会默认备份你的文件。 默认开启测试模式，等到调试的差不多了，可以关闭测试模式。 建议：再不放心的话，可以先用一两个文件来测试一下脚本 插件使用姿势：我是这样使用的，大家可以做个参考： 新建一个github项目,专门用于存放图片资源 npm init初始化package.json 文件，下载npm包:npm i markdown-img-down-site-change, 新建一个handleImg.js文件，参考:example.js 拷贝你的markdown文件夹到该项目，执行node handleImg.js 将会搜索所有.md文件，下载匹配到的图片到项目的根目录。 默认不修改文件,默认开启备份，匹配规则、过滤某些文件夹等更多配置信息参阅：API文档 比如我的github图床：articleImg_src 使用：20行代码不到在项目中有一个使用栗子，里面加了蛮多注释和空行的，实际代码20行都不到，可以说很简单了，如下： 1234567891011121314151617181920212223242526272829// npm i markdown-img-down-site-change -S const markdownImageDown = require('markdown-img-down-site-change'); // 文件模块// 传参： 这也是脚本的默认参数，根据情况可以自行修改let option = &#123; replace_image_url: 'https://user-gold-cdn.xitu.io/', read_markdown_src: './source', // 要查找markdown文件的文件夹地址 down_img_src: './juejin', // 下载图片到这个文件夹 var_number: 3 // url前半部分的变量数量 比如上面的日期: /2019/5/20/、/2018/6/16/&#125;// 初始化const markdownImage = new markdownImageDown(option)// 下载外链markdownImage.checkDownImg();// 上传下载下来的图片文件夹到云端 用户自己操作// 上传图片之后 // 脚本会把以前的外链替换成云端地址+拼接一个图片名markdownImage.updateOption(&#123; new_image_url: 'https://xxx.com/目录地址/', // 图片上传的地址 add_end: '?raw=true' // github图片地址有后缀 直接进去是仓库&#125;)// 替换外链 // 把replace_image_url的字符串换成new_image_url字符串markdownImage.replaceMarkdown(); 运行：仔细阅读文本，配置好参数之后 在项目根节点新建一个handleImg.js文件，安装一下脚本，然后用node运行该文件： 12npm i markdown-img-down-site-change -Snode handleImg.js 欢迎试用有需要的小伙伴，赶紧来试试吧！文档写的很全，上手非常轻松，项目将会持续维护，有什么问题，欢迎给我提issue~ 如果觉得这个脚本还不错的话，就给项目点个Star吧！ 博客、前端积累文档、公众号、wx:OBkoro1、邮箱：obkoro1@foxmail.com 以上2019.06.04]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>node</tag>
+        <tag>博客外链</tag>
+        <tag>图片失效</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[js 调用栈机制与ES6尾调用优化介绍]]></title>
     <url>%2F2019%2F05%2F20%2Fjs-%E8%B0%83%E7%94%A8%E6%A0%88%E6%9C%BA%E5%88%B6%E4%B8%8EES6%E5%B0%BE%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96%E4%BB%8B%E7%BB%8D%2F</url>
     <content type="text"><![CDATA[调用栈的英文名叫做Call Stack，大家或多或少是有听过的，但是对于js调用栈的工作方式以及如何在工作中利用这一特性，大部分人可能没有进行过更深入的研究，这块内容可以说对我们前端来说就是所谓的基础知识，咋一看好像用处并没有很大，但掌握好这个知识点，就可以让我们在以后可以走的更远，走的更快！ 博客、前端积累文档、公众号、GitHub 目录 数据结构：栈 调用栈是什么？用来做什么？ 调用栈的运行机制 调用栈优化内存 调用栈debug大法 数据结构：栈栈是一种遵从后进先出(LIFO)原则的有序集合，新元素都靠近栈顶，旧元素都接近栈底。 生活中的栗子，帮助一下理解： 餐厅里面堆放的盘子(栈)，一开始放的都在下面(先进)，后面放的都在上面(后进)，洗盘子的时候先从上面开始洗(先出)。 调用栈是什么？用来做什么？ 调用栈是一种栈结构的数据，它是由调用侦组成的。 调用栈记录了函数的执行顺序和函数内部变量等信息。 调用栈的运行机制机制： 程序运行到一个函数，它就会将其添加到调用栈中，当从这个函数返回的时候，就会将这个函数从调用栈中删掉。 看一下例子帮助理解： 12345678910// 调用栈中的执行步骤用数字表示printSquare(5); // 1 添加function printSquare(x) &#123; var s = multiply(x, x); // 2 添加 =&gt; 3 运行完成，内部没有再调用其他函数，删掉 console.log(s); // 4 添加 =&gt; 5 删掉 // 运行完成 删掉printSquare&#125;function multiply(x, y) &#123; return x * y;&#125; 调用栈中的执行步骤如下(删除multiply的步骤被省略了)： 调用侦： 每个进入到调用栈中的函数，都会分配到一个单独的栈空间，称为“调用侦”。 在调用栈中每个“调用侦”都对应一个函数，最上方的调用帧称为“当前帧”，调用栈是由所有的调用侦形成的。 找到一张图片，调用侦： 调用栈优化内存调用栈的内存消耗： 如上图，函数的变量等信息会被调用侦保存起来，所以调用侦中的变量不会被垃圾收集器回收。 当函数嵌套的层级比较深了，调用栈中的调用侦比较多的时候，这些信息对内存消耗是非常大的。 针对这种情况除了我们要尽量避免函数层级嵌套的比较深之外，ES6提供了“尾调用优化”来解决调用侦过多，引起的内存消耗过大的问题。 何谓尾调用： 尾调用指的是：函数的最后一步是调用另一个函数。 1234567function f(x)&#123; return g(x); // 最后一步调用另一个函数并且使用return&#125;function f(x)&#123; g(x); // 没有return 不算尾调用 因为不知道后面还有没有操作 // return undefined; // 隐式的return&#125; 尾调用优化优化了什么？ 尾调用用来删除外层无用的调用侦，只保留内层函数的调用侦，来节省浏览器的内存。 下面这个例子调用栈中的调用侦一直只有一项，如果不使用尾调用的话会出现三个调用侦： 1234567a() // 1 添加a到调用栈function a()&#123; return b(); // 在调用栈中删除a 添加b&#125;function b()&#123; return c() // 删除b 添加c&#125; 防止爆栈： 浏览器对调用栈都有大小限制，在ES6之前递归比较深的话，很容易出现“爆栈”问题(stack overflow)。 现在可以使用“尾调用优化”来写一个“尾递归”，只保存一个调用侦，来防止爆栈问题。 注意： 只有不再用到外层函数的内部变量，内层函数的调用帧才会取代外层函数的调用帧。 如果要使用外层函数的变量，可以通过参数的形式传到内层函数中 12345function a()&#123; var aa = 1; let b = val =&gt; aa + val // 使用了外层函数的参数aa return b(2) // 无法进行尾调用优化&#125; 尾调用优化只在严格模式下开启，非严格模式是无效的。 如果环境不支持“尾调用优化”，代码还可以正常运行，是无害的！ 更多： 关于尾递归以及更多尾调用优化的内容，推荐查阅ES6入门-阮一峰 调用栈debug大法查看调用栈有什么用 查看函数的调用顺序是否跟预期一致，比如不同判断调用不同函数。 快速定位问题/修改三方库的代码。 当接手一个历史项目，或者引用第三方库出现问题的时候，可以先查看对应API的调用栈，找到其中涉及的关键函数，针对性的修复它。 通过查看调用栈的形式，帮助我快速定位问题，修改三方库的源码。 如何查看调用栈 只查看调用栈：console.trace 1234567891011a()function a() &#123; b();&#125;function b() &#123; c()&#125;function c() &#123; let aa = 1; console.trace()&#125; 如图所示,点击右侧还能查看代码位置： bugger打断点形式，这也是我最喜欢的调试方式： 结语本文主要讲了这几个方面的内容： 理解调用栈的运行机制，对代码背后的一些执行机制也可以更加了解，帮助我们在百尺竿头更进一步。 我们应该在日常的code中，有意识的使用ES6的“尾调用优化”，来减少调用栈的长度，节省客户端内存。 利用调用栈，对第三方库或者不熟悉的项目，可以更快速的定位问题，提高我们debug速度。 最后：之前写过一篇关于垃圾回收机制与内存泄露的文章，感兴趣的同学可以扩展一下。 如果这篇文章帮助到了你，欢迎点赞和关注，你的支持是对我最大的鼓励！博客、前端积累文档、公众号、GitHub 以上2019/5/19 参考资料： JS垃圾回收机制与常见内存泄露的解决方法 ES6入门-阮一峰 JavaScript 如何工作：对引擎、运行时、调用堆栈的概述 浅析javascript调用栈]]></content>
@@ -350,8 +364,8 @@
         <category>工具类</category>
       </categories>
       <tags>
-        <tag>Eslint</tag>
         <tag>VsCode</tag>
+        <tag>Eslint</tag>
         <tag>团队协作</tag>
       </tags>
   </entry>
@@ -783,8 +797,8 @@
         <category>Vue</category>
       </categories>
       <tags>
-        <tag>vue-cli配置</tag>
         <tag>Vue</tag>
+        <tag>vue-cli配置</tag>
       </tags>
   </entry>
   <entry>
