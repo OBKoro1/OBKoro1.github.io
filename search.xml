@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[停止更新,新版博客地址]]></title>
+    <url>%2F2019%2F08%2F04%2F%E5%81%9C%E6%AD%A2%E6%9B%B4%E6%96%B0-%E6%96%B0%E7%89%88%E5%8D%9A%E5%AE%A2%E5%9C%B0%E5%9D%80%2F</url>
+    <content type="text"><![CDATA[停止更新：两套博客没有什么必要，下面那个博客写作体验，阅读体验会好很多。 所以该站点不再维护，不再发布博客。 新版博客地址：新版地址：http://obkoro1.com/web_accumulate/]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[blog图片失效一键下载/替换]]></title>
     <url>%2F2019%2F07%2F20%2Fblog%E5%9B%BE%E7%89%87%E5%A4%B1%E6%95%88%E4%B8%80%E9%94%AE%E4%B8%8B%E8%BD%BD-%E6%9B%BF%E6%8D%A2%2F</url>
     <content type="text"><![CDATA[大约一个月前，微博的图片外链失效了，以及掘金因为盗链问题也于2019/06/06决定开启防盗链，造成的影响是：个人博客网站的引用了这些图片外链都不能显示。 目前微博和掘金的屏蔽，在CSDN和segmentfault都是可以正常显示的，只影响个人博客。 比如前段时间我的博客:http://obkoro1.com上引用的微博图片都不能显示了。 因为我写博客比较频繁，被屏蔽的图片不在少数，肯定不能一个个手动的替换，查了一番没有找到现成的解决方案，做了个脚本工具，并且写了文档把它开源出来了。 markdown-img-down-site-change(下载/替换markdown中的图片) 搜索目标文件夹中的markdown文件，找到目标图片，提供下载图片，替换图片链接的功能-通常用于markdown 图片失效。 简介这是一个极为轻量的脚本，引用包，设置好参数，通过API即可轻松上手。 解决什么问题？ 集中下载markdown文件中某个域名下的图片到一个文件夹下。 用新的图片链接替换markdown文件中某个域名的图片链接。 123456// 1. 下载这两个图片// ![](https://user-gold-cdn.xitu.io/2019/5/20/图片名字?w=2024&amp;h=1240&amp;f=png&amp;s=339262)// ![](https://user-gold-cdn.xitu.io/2018/6/16/图片名字)// 2. 替换成：github的链接![](https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/juejin/图片名字)// 由于github的参数限制，带了参数就不能正常显示图片 所有这里默认取图片名前部分的：字母或数字或下划线或汉字 安装:1npm i markdown-img-down-site-change 文档：Github API 更新日志 数据安全：刚上手可能不了解脚本的功能，需要调试一番，这时候万一把markdown文件给改坏了，岂不是要哭死？ 脚本有两种形式来防止这种情况发生： 脚本会默认备份你的文件。 默认开启测试模式，等到调试的差不多了，可以关闭测试模式。 建议：再不放心的话，可以先用一两个文件来测试一下脚本 插件使用姿势：我是这样使用的，大家可以做个参考： 新建一个github项目,专门用于存放图片资源 npm init初始化package.json 文件，下载npm包:npm i markdown-img-down-site-change, 新建一个handleImg.js文件，参考:example.js 拷贝你的markdown文件夹到该项目，执行node handleImg.js 将会搜索所有.md文件，下载匹配到的图片到项目的根目录。 默认不修改文件,默认开启备份，匹配规则、过滤某些文件夹等更多配置信息参阅：API文档 比如我的github图床：articleImg_src 使用：20行代码不到在项目中有一个使用栗子，里面加了蛮多注释和空行的，实际代码20行都不到，可以说很简单了，如下： 1234567891011121314151617181920212223242526272829// npm i markdown-img-down-site-change -S const markdownImageDown = require('markdown-img-down-site-change'); // 文件模块// 传参： 这也是脚本的默认参数，根据情况可以自行修改let option = &#123; replace_image_url: 'https://user-gold-cdn.xitu.io/', read_markdown_src: './source', // 要查找markdown文件的文件夹地址 down_img_src: './juejin', // 下载图片到这个文件夹 var_number: 3 // url前半部分的变量数量 比如上面的日期: /2019/5/20/、/2018/6/16/&#125;// 初始化const markdownImage = new markdownImageDown(option)// 下载外链markdownImage.checkDownImg();// 上传下载下来的图片文件夹到云端 用户自己操作// 上传图片之后 // 脚本会把以前的外链替换成云端地址+拼接一个图片名markdownImage.updateOption(&#123; new_image_url: 'https://xxx.com/目录地址/', // 图片上传的地址 add_end: '?raw=true' // github图片地址有后缀 直接进去是仓库&#125;)// 替换外链 // 把replace_image_url的字符串换成new_image_url字符串markdownImage.replaceMarkdown(); 运行：仔细阅读文本，配置好参数之后 在项目根节点新建一个handleImg.js文件，安装一下脚本，然后用node运行该文件： 12npm i markdown-img-down-site-change -Snode handleImg.js 欢迎试用有需要的小伙伴，赶紧来试试吧！文档写的很全，上手非常轻松，项目将会持续维护，有什么问题，欢迎给我提issue~ 如果觉得这个脚本还不错的话，就给项目点个Star吧！ 博客、前端积累文档、公众号、wx:OBkoro1、邮箱：obkoro1@foxmail.com 以上2019.06.04]]></content>
@@ -797,8 +802,8 @@
         <category>Vue</category>
       </categories>
       <tags>
-        <tag>Vue</tag>
         <tag>vue-cli配置</tag>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
